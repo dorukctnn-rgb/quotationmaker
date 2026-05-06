@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= post.title %> | GetQuotationMaker</title>
+<meta name="description" content="<%= post.desc %>">
+<link rel="canonical" href="<%= siteUrl %>/blog/<%= post.slug %>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "<%= post.title %>",
+  "description": "<%= post.desc %>",
+  "datePublished": "<%= post.date %>",
+  "author": {"@type": "Organization", "name": "GetQuotationMaker"},
+  "publisher": {"@type": "Organization", "name": "GetQuotationMaker", "url": "<%= siteUrl %>"}
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0f4c81;--blue-light:#1a6aad;--blue-pale:#e8f0f8;--green:#0d9f6b;--dark:#0d1117;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--bg:#f7f8fc;--white:#ffffff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+h1,h2,h3,.logo{font-family:'Sora',sans-serif}
+a{color:var(--blue);text-decoration:none}
+nav{background:var(--white);border-bottom:1px solid var(--border);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
+.logo{font-size:17px;font-weight:800;color:var(--dark)}.logo span{color:var(--blue)}
+.nav-r{display:flex;gap:6px;align-items:center}
+.nav-link{color:var(--muted);font-size:13px;padding:6px 12px;border-radius:7px}
+.nav-link:hover{background:var(--blue-pale);color:var(--blue)}
+.btn-pro{background:var(--blue);color:#fff;border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif}
+.breadcrumb{padding:12px 28px;font-size:12px;color:#9ca3af;background:var(--white);border-bottom:1px solid #f3f4f6}
+.breadcrumb a{color:var(--blue)}
+.article{max-width:720px;margin:0 auto;padding:44px 20px}
+.tag{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;font-family:'Sora',sans-serif;margin-bottom:12px}
+.article h1{font-size:clamp(22px,4vw,34px);font-weight:800;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.meta{font-size:12px;color:#9ca3af;margin-bottom:32px;display:flex;gap:16px}
+.content{font-size:15px;line-height:1.8;color:#334155}
+.content h2{font-size:20px;font-weight:800;color:var(--text);margin:32px 0 12px;letter-spacing:-0.3px;font-family:'Sora',sans-serif}
+.content p{margin-bottom:14px}
+.content ul{margin:0 0 16px 20px}
+.content ul li{margin-bottom:7px}
+.content strong{color:var(--text)}
+.cta-box{background:linear-gradient(135deg,#0f4c81,#1a6aad);border-radius:14px;padding:28px;margin:44px 0;text-align:center}
+.cta-box h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:8px;font-family:'Sora',sans-serif}
+.cta-box p{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:18px}
+.cta-box a{display:inline-block;background:#fff;color:var(--blue);padding:11px 26px;border-radius:8px;font-weight:700;font-size:14px;font-family:'Sora',sans-serif}
+.related{margin-top:52px;padding-top:32px;border-top:1px solid var(--border)}
+.related h2{font-size:18px;font-weight:800;margin-bottom:20px;font-family:'Sora',sans-serif}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:600px){.rel-grid{grid-template-columns:1fr}}
+.rel-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;display:block;transition:border-color .15s}
+.rel-card:hover{border-color:var(--blue)}
+.rel-card .tag{margin-bottom:6px}
+.rel-card h3{font-size:13px;font-weight:700;color:var(--text);line-height:1.4}
+footer{background:var(--dark);color:#6b7280;padding:28px 20px;text-align:center;font-size:12px;margin-top:52px}
+footer a{color:#6b7280;margin:0 10px}
+footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/"><div class="logo">Get<span>Quotation</span>Maker</div></a>
+  <div class="nav-r">
+    <a href="/" class="nav-link">Generator</a>
+    <a href="/blog" class="nav-link">Blog</a>
+    <a href="<%= gumroadLink %>" target="_blank"><button class="btn-pro">Get PRO $9</button></a>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <%= post.title %></div>
+
+<div class="article">
+  <div class="tag"><%= post.category %></div>
+  <h1><%= post.title %></h1>
+  <div class="meta"><span><%= post.date %></span><span><%= post.readTime %></span></div>
+  <div class="content"><%- post.content %></div>
+
+  <div class="cta-box">
+    <h3>Create a professional quote right now</h3>
+    <p>Free PDF quote generator. No signup, no watermark on PRO. Ready in 60 seconds.</p>
+    <a href="/">Create Free Quote →</a>
+  </div>
+
+  <div class="related">
+    <h2>Related guides</h2>
+    <div class="rel-grid">
+      <% relatedPosts.forEach(function(p) { %>
+      <a href="/blog/<%= p.slug %>" class="rel-card">
+        <div class="tag"><%= p.category %></div>
+        <h3><%= p.title %></h3>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="/">Quote Generator</a><a href="/blog">Blog</a><a href="/#pricing">Pricing</a><a href="/activate">Activate PRO</a>
+  <p style="margin-top:12px">&#169; 2026 GetQuotationMaker — Free Quote Generator</p>
+</footer>
+</body>
+</html>

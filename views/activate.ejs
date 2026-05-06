@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activate PRO — GetQuotationMaker</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f7f8fc;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+h1,h2,.logo{font-family:'Sora',sans-serif}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:44px;max-width:440px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.logo{font-size:20px;font-weight:800;color:#0d1117;margin-bottom:32px}
+.logo span{color:#0f4c81}
+.icon{font-size:48px;margin-bottom:16px}
+h1{font-size:22px;font-weight:800;margin-bottom:8px;letter-spacing:-0.3px}
+p{color:#6b7280;font-size:14px;line-height:1.6;margin-bottom:24px}
+label{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;text-align:left;margin-bottom:5px;font-family:'Sora',sans-serif}
+input{width:100%;border:1px solid #e5e7eb;border-radius:9px;padding:12px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:16px;transition:border-color .15s}
+input:focus{border-color:#0f4c81;box-shadow:0 0 0 3px rgba(15,76,129,.1)}
+button{width:100%;padding:13px;background:#0f4c81;border:none;border-radius:9px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:background .15s}
+button:hover{background:#1a6aad}
+.msg{margin-top:14px;padding:12px 16px;border-radius:9px;font-size:13px;font-weight:500;display:none}
+.ok{background:#dcfce7;color:#15803d;display:block}
+.err{background:#fee2e2;color:#dc2626;display:block}
+.back{display:inline-block;margin-top:20px;color:#6b7280;font-size:13px}
+.back:hover{color:#0f4c81}
+.pro-badge{background:#eff6ff;border:1px solid #c3d9f0;border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:#1e40af}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Get<span>Quotation</span>Maker</div>
+  <% if (isPro) { %>
+    <div class="icon">✅</div>
+    <h1>PRO is active!</h1>
+    <p>Your PRO plan is already active on this browser. Enjoy unlimited quotes with no watermark.</p>
+    <a href="/"><button>Go to Quote Generator</button></a>
+  <% } else { %>
+    <div class="icon">🔐</div>
+    <h1>Activate PRO</h1>
+    <div class="pro-badge">PRO includes: no watermark · custom logo · quote→invoice · unlimited quotes</div>
+    <p>Enter the email address you used to purchase on Gumroad. Your PRO access will be activated instantly.</p>
+    <label>Purchase email</label>
+    <input type="email" id="em" placeholder="you@email.com">
+    <button onclick="act()">Activate PRO</button>
+    <div class="msg" id="msg"></div>
+    <a href="/" class="back">← Back to quote generator</a>
+  <% } %>
+</div>
+<script>
+async function act() {
+  const em = document.getElementById('em').value.trim();
+  const msg = document.getElementById('msg');
+  if (!em) { msg.className='msg err'; msg.textContent='Please enter your email.'; return; }
+  const r = await fetch('/activate-pro', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: em }) });
+  const data = await r.json();
+  if (data.success) {
+    msg.className='msg ok'; msg.textContent='PRO activated! Redirecting...';
+    setTimeout(() => window.location.href='/', 1500);
+  } else {
+    msg.className='msg err'; msg.textContent = data.message||'Email not found. Check your purchase email.';
+  }
+}
+</script>
+</body>
+</html>

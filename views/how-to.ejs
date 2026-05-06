@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= page.title %> | GetQuotationMaker</title>
+<meta name="description" content="<%= page.desc %>">
+<link rel="canonical" href="<%= siteUrl %>/<%= page.slug %>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "<%= page.title %>",
+  "description": "<%= page.desc %>",
+  "step": [
+    {"@type": "HowToStep", "name": "Open GetQuotationMaker", "text": "Go to getquotationmaker.com — no signup required."},
+    {"@type": "HowToStep", "name": "Fill in your details", "text": "Enter your business details and client information."},
+    {"@type": "HowToStep", "name": "Add your line items", "text": "Add services with quantities, rates and tax."},
+    {"@type": "HowToStep", "name": "Set a validity date", "text": "Add a validity date to protect your price."},
+    {"@type": "HowToStep", "name": "Download PDF", "text": "Click Download and send the PDF to your client."}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0f4c81;--blue-light:#1a6aad;--blue-pale:#e8f0f8;--green:#0d9f6b;--dark:#0d1117;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--bg:#f7f8fc;--white:#ffffff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+h1,h2,h3,.logo{font-family:'Sora',sans-serif}
+a{color:var(--blue);text-decoration:none}
+nav{background:var(--white);border-bottom:1px solid var(--border);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
+.logo{font-size:17px;font-weight:800;color:var(--dark)}.logo span{color:var(--blue)}
+.nav-r{display:flex;gap:6px;align-items:center}
+.nav-link{color:var(--muted);font-size:13px;padding:6px 12px;border-radius:7px}
+.nav-link:hover{background:var(--blue-pale);color:var(--blue)}
+.btn-pro{background:var(--blue);color:#fff;border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif}
+.breadcrumb{padding:12px 28px;font-size:12px;color:#9ca3af;background:var(--white);border-bottom:1px solid #f3f4f6}
+.breadcrumb a{color:var(--blue)}
+.hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 20px 40px;text-align:center}
+.hero h1{font-size:clamp(22px,4vw,36px);font-weight:800;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.hero p{color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 24px}
+.btn-cta{display:inline-block;background:var(--blue);color:#fff;padding:13px 28px;border-radius:9px;font-weight:700;font-size:15px;font-family:'Sora',sans-serif;transition:background .15s}
+.btn-cta:hover{background:var(--blue-light)}
+.main{max-width:760px;margin:0 auto;padding:44px 20px}
+.steps{display:flex;flex-direction:column;gap:16px;margin-bottom:40px}
+.step{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px 24px;display:flex;gap:18px;align-items:flex-start}
+.step-num{width:32px;height:32px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;font-family:'Sora',sans-serif;margin-top:2px}
+.step h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--muted);line-height:1.7}
+.tip-box{background:var(--blue-pale);border:1px solid #c3d9f0;border-radius:12px;padding:20px 24px;margin-bottom:32px}
+.tip-box h3{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:8px;font-family:'Sora',sans-serif}
+.tip-box p{font-size:13px;color:#1e40af;line-height:1.7;margin:0}
+.cta-box{background:linear-gradient(135deg,#0f4c81,#1a6aad);border-radius:14px;padding:28px;margin:32px 0;text-align:center}
+.cta-box h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:8px;font-family:'Sora',sans-serif}
+.cta-box p{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:18px}
+.cta-box a{display:inline-block;background:#fff;color:var(--blue);padding:11px 26px;border-radius:8px;font-weight:700;font-size:14px;font-family:'Sora',sans-serif}
+.templates-sec{margin-top:40px;padding-top:28px;border-top:1px solid var(--border)}
+.templates-sec h2{font-size:16px;font-weight:700;margin-bottom:14px}
+.tgrid{display:flex;flex-wrap:wrap;gap:8px}
+.tlink{background:var(--white);border:1px solid var(--border);padding:6px 16px;border-radius:50px;font-size:12px;color:var(--muted);font-weight:500;transition:all .15s}
+.tlink:hover{background:var(--blue-pale);border-color:var(--blue);color:var(--blue)}
+footer{background:var(--dark);color:#6b7280;padding:28px 20px;text-align:center;font-size:12px;margin-top:52px}
+footer a{color:#6b7280;margin:0 10px}
+footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/"><div class="logo">Get<span>Quotation</span>Maker</div></a>
+  <div class="nav-r">
+    <a href="/" class="nav-link">Generator</a>
+    <a href="/blog" class="nav-link">Blog</a>
+    <a href="<%= gumroadLink %>" target="_blank"><button class="btn-pro">Get PRO $9</button></a>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Guides</a> › <%= page.title %></div>
+
+<section class="hero">
+  <h1><%= page.title %></h1>
+  <p><%= page.desc %></p>
+  <a href="/" class="btn-cta">Create Free Quote Now →</a>
+</section>
+
+<div class="main">
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Open GetQuotationMaker</h3>
+        <p>Go to <a href="/">getquotationmaker.com</a> — no account or signup required. The quote generator loads instantly in your browser on any device.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Fill in your business details</h3>
+        <p>Enter your business name, email address and address. These appear at the top of your quote. The live preview on the right updates as you type.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>Enter your client details</h3>
+        <p>Add your client or customer name, email and address. Include their project address if different from their billing address.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h3>Set your quote number and validity date</h3>
+        <p>Give your quote a unique number for tracking. Set a validity date — the date until which your price is guaranteed. 30 days is standard for most services.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div>
+        <h3>Add your line items</h3>
+        <p>Add each service or product as a line item with a description, quantity and rate. The total calculates automatically. Add as many items as you need.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div>
+        <h3>Apply tax and any discounts</h3>
+        <p>Enter your tax rate (VAT, GST or sales tax) and label. Add a discount if applicable — either a fixed amount or percentage. All calculations update automatically.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">7</div>
+      <div>
+        <h3>Add notes and payment terms</h3>
+        <p>Use the notes section to add payment terms, what is included, what is excluded, warranty information or any other important conditions.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">8</div>
+      <div>
+        <h3>Download your PDF and send to the client</h3>
+        <p>Click "Download Free PDF Quote" and your professional quotation saves instantly. Email the PDF to your client. If they accept, upgrade to PRO to convert it to an invoice in one click.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <h3>&#128161; Pro tip: Always set a validity date</h3>
+    <p>A validity date protects you from being held to old prices if material costs rise. It also creates urgency — clients with a deadline respond faster. 30 days is the standard for most trades and services. For construction where material prices fluctuate, 14 days is safer.</p>
+  </div>
+
+  <div class="cta-box">
+    <h3>Ready to create your quote?</h3>
+    <p>Free, no signup, instant PDF. Professional quotes in under 60 seconds.</p>
+    <a href="/">Create Free Quote →</a>
+  </div>
+
+  <div class="templates-sec">
+    <h2>Free quote templates by profession</h2>
+    <div class="tgrid">
+      <% professions.slice(0,12).forEach(function(p) { %>
+      <a href="/quote-template-<%= p.slug %>" class="tlink"><%= p.label %></a>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="/">Quote Generator</a><a href="/blog">Blog</a><a href="/#pricing">Pricing</a><a href="/activate">Activate PRO</a>
+  <p style="margin-top:12px">&#169; 2026 GetQuotationMaker — Free Quote Generator</p>
+</footer>
+</body>
+</html>

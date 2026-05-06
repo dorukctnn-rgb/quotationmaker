@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= profession.h1 %> — Free PDF | GetQuotationMaker</title>
+<meta name="description" content="<%= profession.desc %>">
+<link rel="canonical" href="<%= siteUrl %>/quote-template-<%= profession.slug %>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"<%= profession.h1 %>","url":"<%= siteUrl %>/quote-template-<%= profession.slug %>","description":"<%= profession.desc %>","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0f4c81;--blue-light:#1a6aad;--blue-pale:#e8f0f8;--green:#0d9f6b;--dark:#0d1117;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--bg:#f7f8fc;--white:#ffffff;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+h1,h2,h3,.logo{font-family:'Sora',sans-serif}
+a{color:var(--blue);text-decoration:none}
+nav{background:var(--white);border-bottom:1px solid var(--border);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
+.logo{font-size:17px;font-weight:800;color:var(--dark)}.logo span{color:var(--blue)}
+.nav-r{display:flex;gap:6px;align-items:center}
+.nav-link{color:var(--muted);font-size:13px;font-weight:500;padding:6px 12px;border-radius:7px}
+.nav-link:hover{background:var(--blue-pale);color:var(--blue)}
+.btn-pro{background:var(--blue);color:#fff;border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif}
+.btn-pro:hover{background:var(--blue-light)}
+.breadcrumb{padding:11px 28px;font-size:12px;color:#9ca3af;background:var(--white);border-bottom:1px solid #f3f4f6}
+.breadcrumb a{color:var(--blue)}
+.hero{background:var(--white);border-bottom:1px solid var(--border);padding:44px 20px 36px;text-align:center}
+.badge{display:inline-block;background:var(--blue-pale);color:var(--blue);border:1px solid #c3d9f0;padding:4px 14px;border-radius:50px;font-size:12px;font-weight:600;font-family:'Sora',sans-serif;margin-bottom:16px}
+.hero h1{font-size:clamp(24px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:12px;letter-spacing:-0.5px}
+.hero p{color:var(--muted);font-size:15px;line-height:1.7;max-width:540px;margin:0 auto 24px}
+.trust{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.main{max-width:1160px;margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:1fr 390px;gap:24px;align-items:start}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px}
+.stitle{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid #f3f4f6;font-family:'Sora',sans-serif}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
+.frow.one{grid-template-columns:1fr}
+.frow.three{grid-template-columns:1fr 1fr 1fr}
+.fg{display:flex;flex-direction:column;gap:3px}
+.fg label{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;font-family:'Sora',sans-serif}
+input,select,textarea{border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;background:var(--white);width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(15,76,129,.1)}
+textarea{resize:vertical;min-height:64px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.ih{display:grid;grid-template-columns:1fr 55px 85px 85px 28px;gap:5px;margin-bottom:4px}
+.ih span{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.4px;font-family:'Sora',sans-serif}
+.ir{display:grid;grid-template-columns:1fr 55px 85px 85px 28px;gap:5px;margin-bottom:5px;align-items:center}
+.lt{font-size:13px;font-weight:700;text-align:right;padding:8px 0}
+.del{background:none;border:none;color:#d1d5db;cursor:pointer;font-size:17px;padding:3px;border-radius:4px}
+.del:hover{color:#dc2626}
+.add-btn{background:none;border:1px dashed #d1d5db;border-radius:7px;padding:8px;width:100%;color:var(--muted);font-size:12px;cursor:pointer;margin-bottom:12px;font-family:'DM Sans',sans-serif}
+.add-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-pale)}
+.totals{border-top:1px solid #f3f4f6;padding-top:9px}
+.trow{display:flex;justify-content:space-between;padding:3px 0;font-size:13px;color:var(--muted)}
+.trow.grand{font-size:16px;font-weight:800;color:var(--text);padding-top:8px;border-top:2px solid var(--blue);margin-top:4px;font-family:'Sora',sans-serif}
+.colors{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 12px}
+.cdot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:3px solid transparent}
+.cdot.on{border-color:var(--dark)}
+.pdf-btn{width:100%;padding:13px;background:var(--blue);border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;font-family:'Sora',sans-serif}
+.pdf-btn:hover{background:var(--blue-light)}
+.pdf-btn:disabled{background:#93c5fd;cursor:default}
+.preview-panel{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;position:sticky;top:78px}
+.ph{padding:11px 16px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center}
+.ph span{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-family:'Sora',sans-serif}
+#pframe{width:100%;height:560px;border:none;background:var(--bg)}
+.pro-bar{padding:12px 16px;background:#fffbeb;border-top:1px solid #fde68a;display:flex;align-items:center;gap:10px}
+.pro-bar p{font-size:12px;color:#92400e;flex:1}
+.content-sec{max-width:760px;margin:0 auto;padding:44px 20px}
+.content-sec h2{font-size:20px;font-weight:800;margin-bottom:12px;letter-spacing:-0.3px}
+.content-sec p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.content-sec ul{margin:0 0 16px 20px}
+.content-sec ul li{font-size:14px;color:var(--muted);line-height:1.8}
+.other{padding:36px 20px;border-top:1px solid var(--border);background:var(--white)}
+.other h2{text-align:center;font-size:15px;font-weight:500;color:var(--muted);margin-bottom:14px}
+.sgrid{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:880px;margin:0 auto}
+.sl{background:var(--bg);border:1px solid var(--border);padding:5px 13px;border-radius:50px;color:var(--muted);font-size:12px}
+.sl:hover{background:var(--blue-pale);border-color:var(--blue);color:var(--blue)}
+footer{background:var(--dark);color:#6b7280;padding:28px 20px;text-align:center;font-size:12px}
+footer a{color:#6b7280;margin:0 10px}
+footer a:hover{color:#fff}
+.disc-row{display:grid;grid-template-columns:1fr 110px;gap:8px;margin-bottom:9px;align-items:end}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/"><div class="logo">Get<span>Quotation</span>Maker</div></a>
+  <div class="nav-r">
+    <a href="/" class="nav-link">Generator</a>
+    <a href="/activate" class="nav-link">Activate PRO</a>
+    <a href="<%= gumroadLink %>" target="_blank"><button class="btn-pro">Get PRO $9</button></a>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="/">Home</a> › <a href="/#templates">Templates</a> › <%= profession.label %></div>
+
+<section class="hero">
+  <div class="badge">Free — No signup required</div>
+  <h1><%= profession.h1 %></h1>
+  <p><%= profession.intro %></p>
+  <div class="trust">
+    <span class="trust-item"><span class="tdot"></span>Free PDF download</span>
+    <span class="trust-item"><span class="tdot"></span>No signup needed</span>
+    <span class="trust-item"><span class="tdot"></span>Validity dates</span>
+    <span class="trust-item"><span class="tdot"></span>Discount support</span>
+  </div>
+</section>
+
+<div class="main">
+  <div>
+    <div class="card">
+      <div class="stitle">Your details</div>
+      <div class="frow">
+        <div class="fg"><label>Name / company</label><input type="text" id="fromName" placeholder="Your Business" oninput="up()"></div>
+        <div class="fg"><label>Email</label><input type="email" id="fromEmail" placeholder="you@email.com" oninput="up()"></div>
+      </div>
+      <div class="frow one"><div class="fg"><label>Address</label><textarea id="fromAddress" rows="2" placeholder="Your address" oninput="up()"></textarea></div></div>
+
+      <div class="stitle" style="margin-top:16px">Client details</div>
+      <div class="frow">
+        <div class="fg"><label>Client name</label><input type="text" id="toName" placeholder="Client Name" oninput="up()"></div>
+        <div class="fg"><label>Client email</label><input type="email" id="toEmail" placeholder="client@email.com" oninput="up()"></div>
+      </div>
+      <div class="frow one"><div class="fg"><label>Client address</label><textarea id="toAddress" rows="2" placeholder="Client address" oninput="up()"></textarea></div></div>
+
+      <div class="stitle" style="margin-top:16px">Quote details</div>
+      <div class="frow three">
+        <div class="fg"><label>Quote number</label><input type="text" id="quoteNumber" value="Q-001" oninput="up()"></div>
+        <div class="fg"><label>Quote date</label><input type="date" id="quoteDate" oninput="up()"></div>
+        <div class="fg"><label>Valid until</label><input type="date" id="validUntil" oninput="up()"></div>
+      </div>
+      <div class="frow one"><div class="fg"><label>Currency</label>
+        <select id="currency" onchange="up()">
+          <option value="USD|$">USD — $</option><option value="GBP|£">GBP — £</option><option value="EUR|€">EUR — €</option>
+          <option value="CAD|CA$">CAD — CA$</option><option value="AUD|AU$">AUD — AU$</option><option value="INR|₹">INR — ₹</option>
+          <option value="AED|AED">AED</option><option value="SGD|S$">SGD — S$</option><option value="TRY|₺">TRY — ₺</option>
+        </select>
+      </div></div>
+
+      <div class="stitle" style="margin-top:16px">Line items</div>
+      <div class="ih"><span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span><span></span></div>
+      <div id="items">
+        <div class="ir">
+          <input type="text" placeholder="Service description" oninput="up()">
+          <input type="number" value="1" min="0" step="any" oninput="up()">
+          <input type="number" value="500" min="0" step="any" oninput="up()">
+          <div class="lt">$500.00</div>
+          <button class="del" onclick="delItem(this)">&#215;</button>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addItem()">+ Add line item</button>
+
+      <div class="frow">
+        <div class="fg"><label>Tax rate (%)</label><input type="number" id="taxRate" placeholder="0" min="0" max="100" step="any" oninput="up()"></div>
+        <div class="fg"><label>Tax label</label><input type="text" id="taxLabel" value="Tax" oninput="up()"></div>
+      </div>
+      <div class="disc-row">
+        <div class="fg"><label>Discount</label><input type="number" id="discount" placeholder="0" min="0" step="any" oninput="up()"></div>
+        <div class="fg"><label>Type</label><select id="discountType" onchange="up()"><option value="fixed">Fixed</option><option value="percent">%</option></select></div>
+      </div>
+
+      <div class="totals">
+        <div class="trow"><span>Subtotal</span><span id="sub">$0.00</span></div>
+        <div class="trow" id="discrow" style="display:none;color:#dc2626"><span id="discLabel">Discount</span><span id="discDisplay">-$0.00</span></div>
+        <div class="trow" id="taxrow" style="display:none"><span id="tlabel">Tax</span><span id="taxamt">$0.00</span></div>
+        <div class="trow grand"><span>Total</span><span id="tot" style="color:var(--blue)">$0.00</span></div>
+      </div>
+
+      <div class="stitle" style="margin-top:16px">Notes & terms</div>
+      <textarea id="notes" rows="3" placeholder="Payment terms, scope of work..." oninput="up()"></textarea>
+
+      <div class="stitle" style="margin-top:16px">Color</div>
+      <div class="colors">
+        <div class="cdot on" style="background:#0f4c81" data-c="#0f4c81" onclick="setColor(this)"></div>
+        <div class="cdot" style="background:#7c3aed" data-c="#7c3aed" onclick="setColor(this)"></div>
+        <div class="cdot" style="background:#059669" data-c="#059669" onclick="setColor(this)"></div>
+        <div class="cdot" style="background:#dc2626" data-c="#dc2626" onclick="setColor(this)"></div>
+        <div class="cdot" style="background:#d97706" data-c="#d97706" onclick="setColor(this)"></div>
+        <div class="cdot" style="background:#1a1a2e" data-c="#1a1a2e" onclick="setColor(this)"></div>
+      </div>
+      <button class="pdf-btn" id="pbtn" onclick="dlPDF()">&#8595; Download Free PDF Quote</button>
+    </div>
+  </div>
+
+  <div class="preview-panel">
+    <div class="ph"><span>Live Preview</span><span style="font-size:10px;color:#9ca3af">Updates as you type</span></div>
+    <iframe id="pframe" title="Quote preview"></iframe>
+    <div class="pro-bar">
+      <p>PRO: No watermark &bull; Custom logo &bull; Quote→Invoice</p>
+      <a href="<%= gumroadLink %>" target="_blank"><button class="btn-pro" style="font-size:12px;padding:6px 12px;white-space:nowrap">Get PRO</button></a>
+    </div>
+  </div>
+</div>
+
+<div class="content-sec">
+  <h2>What to include in a <%= profession.label.toLowerCase() %> quote</h2>
+  <p><%= profession.intro %> A professional quotation should include all costs clearly so your client knows exactly what they are paying for before approving the work.</p>
+  <ul>
+    <li>Your business name, address and contact details</li>
+    <li>Client name and project address</li>
+    <li>A unique quote number for reference</li>
+    <li>The date the quote was prepared</li>
+    <li>A validity date so clients know when the price expires</li>
+    <li>Itemised list of all work, parts and labour</li>
+    <li>Applicable tax (VAT, GST or sales tax)</li>
+    <li>Any discounts applied</li>
+    <li>Total amount and payment terms</li>
+  </ul>
+  <h2>How to use this free <%= profession.label.toLowerCase() %> quote template</h2>
+  <p>Fill in your details in the form above. The live preview updates instantly. When you are happy with your quote, click "Download Free PDF Quote" to save it. Send the PDF to your client by email. If they approve it, upgrade to PRO to convert it to an invoice in one click.</p>
+</div>
+
+<section class="other">
+  <h2>Other free quote templates</h2>
+  <div class="sgrid">
+    <% professions.filter(function(p){ return p.slug !== profession.slug; }).forEach(function(p){ %>
+    <a href="/quote-template-<%= p.slug %>" class="sl"><%= p.label %></a>
+    <% }) %>
+  </div>
+</section>
+
+<footer>
+  <a href="/">Home</a><a href="/#pricing">Pricing</a><a href="/#templates">Templates</a><a href="/activate">Activate PRO</a>
+  <p style="margin-top:12px">&#169; 2026 GetQuotationMaker — Free Quote Generator</p>
+</footer>
+
+<script>
+let color='#0f4c81';
+function setColor(el){document.querySelectorAll('.cdot').forEach(d=>d.classList.remove('on'));el.classList.add('on');color=el.dataset.c;up();}
+function sym(){return document.getElementById('currency').value.split('|')[1]||'$';}
+function getItems(){const rows=document.querySelectorAll('.ir');const r=[];rows.forEach(row=>{const ins=row.querySelectorAll('input');if(ins.length>=3){const desc=ins[0].value,qty=parseFloat(ins[1].value)||0,rate=parseFloat(ins[2].value)||0;row.querySelector('.lt').textContent=sym()+(qty*rate).toFixed(2);r.push({desc,qty,rate});}});return r;}
+function calcs(items){const s=sym();const sub=items.reduce((a,i)=>a+i.qty*i.rate,0);const tr=parseFloat(document.getElementById('taxRate').value)||0;const tl=document.getElementById('taxLabel').value||'Tax';const disc=parseFloat(document.getElementById('discount').value)||0;const discType=document.getElementById('discountType').value;const discAmt=discType==='percent'?sub*(disc/100):disc;const afterDisc=sub-discAmt;const ta=afterDisc*(tr/100);const tot=afterDisc+ta;document.getElementById('sub').textContent=s+sub.toFixed(2);document.getElementById('tot').textContent=s+tot.toFixed(2);const discrow=document.getElementById('discrow');if(discAmt>0){discrow.style.display='flex';document.getElementById('discLabel').textContent='Discount'+(discType==='percent'?' ('+disc+'%)':'');document.getElementById('discDisplay').textContent='-'+s+discAmt.toFixed(2);}else discrow.style.display='none';const taxrow=document.getElementById('taxrow');if(tr>0){taxrow.style.display='flex';document.getElementById('tlabel').textContent=tl+' ('+tr+'%)';document.getElementById('taxamt').textContent=s+ta.toFixed(2);}else taxrow.style.display='none';return{sub,ta,tot,tr,tl,discAmt,discType,disc};}
+function buildPreview(d){const s=d.symbol||'$';const c=d.color||'#0f4c81';const rows=(d.items||[]).map(i=>'<tr><td style="padding:7px 0;border-bottom:1px solid #f0f0f0;font-size:12px">'+(i.desc||'')+'</td><td style="padding:7px 6px;border-bottom:1px solid #f0f0f0;text-align:center;font-size:12px;color:#666">'+i.qty+'</td><td style="padding:7px 6px;border-bottom:1px solid #f0f0f0;text-align:right;font-size:12px;color:#666">'+s+parseFloat(i.rate).toFixed(2)+'</td><td style="padding:7px 0 7px 6px;border-bottom:1px solid #f0f0f0;text-align:right;font-size:12px;font-weight:700">'+s+(i.qty*i.rate).toFixed(2)+'</td></tr>').join('');const discRow=d.discAmt>0?'<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:11px;color:#dc2626;border-top:1px solid #f0f0f0"><span>Discount'+(d.discType==='percent'?' ('+d.disc+'%)':'')+'</span><span>-'+s+d.discAmt.toFixed(2)+'</span></div>':'';const taxRow=d.tr>0?'<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:11px;color:#666;border-top:1px solid #f0f0f0"><span>'+(d.tl||'Tax')+' ('+d.tr+'%)</span><span>'+s+d.ta.toFixed(2)+'</span></div>':'';return'<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;color:#1a1a1a;margin:0;padding:20px;font-size:12px}*{box-sizing:border-box}</style></head><body><div style="display:flex;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:3px solid '+c+'"><div><div style="font-size:20px;font-weight:800;color:'+c+'">QUOTATION</div><div style="color:#999;font-size:10px">#'+(d.quoteNumber||'Q-001')+'</div></div><div style="text-align:right"><div style="font-weight:700;font-size:13px">'+(d.fromName||'')+'</div><div style="color:#666;font-size:10px">'+(d.fromEmail||'')+'</div></div></div><div style="display:flex;justify-content:space-between;margin-bottom:14px"><div><div style="font-size:9px;font-weight:700;color:#999;text-transform:uppercase;margin-bottom:3px">Prepared For</div><div style="font-weight:700;font-size:12px">'+(d.toName||'')+'</div><div style="color:#666;font-size:10px">'+(d.toEmail||'')+'</div></div><div style="text-align:right"><div style="font-size:9px;font-weight:700;color:#999;text-transform:uppercase">Quote Date</div><div style="font-weight:700;font-size:11px">'+(d.quoteDate||'')+'</div>'+(d.validUntil?'<div style="font-size:9px;font-weight:700;color:#999;text-transform:uppercase;margin-top:5px">Valid Until</div><div style="font-weight:700;font-size:11px;color:#dc2626">'+d.validUntil+'</div>':'')+'</div></div><table style="width:100%;border-collapse:collapse;margin-bottom:12px"><thead><tr style="background:'+c+'"><th style="padding:7px 0;text-align:left;font-size:9px;font-weight:700;color:#fff">DESCRIPTION</th><th style="padding:7px 6px;text-align:center;font-size:9px;font-weight:700;color:#fff">QTY</th><th style="padding:7px 6px;text-align:right;font-size:9px;font-weight:700;color:#fff">RATE</th><th style="padding:7px 0 7px 6px;text-align:right;font-size:9px;font-weight:700;color:#fff">AMOUNT</th></tr></thead><tbody>'+rows+'</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><div style="min-width:180px"><div style="display:flex;justify-content:space-between;padding:3px 0;font-size:11px;color:#666"><span>Subtotal</span><span>'+s+(d.sub||0).toFixed(2)+'</span></div>'+discRow+taxRow+'<div style="display:flex;justify-content:space-between;padding:7px 0 3px;font-size:15px;font-weight:800;border-top:2px solid '+c+';margin-top:3px"><span>Total</span><span style="color:'+c+'">'+s+(d.tot||0).toFixed(2)+'</span></div></div></div>'+(d.notes?'<div style="background:#f8f9fa;border-left:3px solid '+c+';padding:8px 12px;font-size:11px;color:#555">'+d.notes+'</div>':'')+'<div style="text-align:center;margin-top:18px;padding-top:10px;border-top:1px solid #eee"><p style="font-size:9px;color:#bbb;margin:0">GetQuotationMaker.com — Free Plan</p></div></body></html>';}
+function up(){const items=getItems();const{sub,ta,tot,tr,tl,discAmt,discType,disc}=calcs(items);const s=sym();const d={fromName:document.getElementById('fromName').value,fromEmail:document.getElementById('fromEmail').value,fromAddress:document.getElementById('fromAddress').value,toName:document.getElementById('toName').value,toEmail:document.getElementById('toEmail').value,toAddress:document.getElementById('toAddress').value,quoteNumber:document.getElementById('quoteNumber').value,quoteDate:document.getElementById('quoteDate').value,validUntil:document.getElementById('validUntil').value,notes:document.getElementById('notes').value,tr,tl,ta,sub,tot,discAmt,discType,disc,items,color,symbol:s};document.getElementById('pframe').srcdoc=buildPreview(d);}
+function addItem(){const c=document.getElementById('items');const div=document.createElement('div');div.className='ir';div.innerHTML='<input type="text" placeholder="Service" oninput="up()"><input type="number" value="1" min="0" step="any" oninput="up()"><input type="number" value="0" min="0" step="any" oninput="up()"><div class="lt">$0.00</div><button class="del" onclick="delItem(this)">&#215;</button>';c.appendChild(div);up();}
+function delItem(btn){if(document.querySelectorAll('.ir').length>1){btn.parentElement.remove();up();}}
+async function dlPDF(){const btn=document.getElementById('pbtn');btn.textContent='Generating...';btn.disabled=true;const items=getItems();const{sub,ta,tot,tr,tl,discAmt,discType,disc}=calcs(items);const s=sym();const d={fromName:document.getElementById('fromName').value,fromEmail:document.getElementById('fromEmail').value,fromAddress:document.getElementById('fromAddress').value,toName:document.getElementById('toName').value,toEmail:document.getElementById('toEmail').value,toAddress:document.getElementById('toAddress').value,quoteNumber:document.getElementById('quoteNumber').value,quoteDate:document.getElementById('quoteDate').value,validUntil:document.getElementById('validUntil').value,notes:document.getElementById('notes').value,taxRate:tr,taxLabel:tl,taxAmt:ta,subtotal:sub,total:tot,discount:disc,discountType:discType,items,color,symbol:s};try{const res=await fetch('/generate-pdf',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quoteData:JSON.stringify(d)})});if(!res.ok)throw new Error();const blob=await res.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='quote-'+(d.quoteNumber||'Q-001')+'.pdf';a.click();URL.revokeObjectURL(url);btn.innerHTML='&#8595; Download Free PDF Quote';btn.disabled=false;}catch(e){btn.textContent='Error — try again';btn.disabled=false;}}
+const today=new Date().toISOString().split('T')[0];const plus30=new Date(Date.now()+30*864e5).toISOString().split('T')[0];
+document.getElementById('quoteDate').value=today;document.getElementById('validUntil').value=plus30;up();
+</script>
+</body>
+</html>
