@@ -350,11 +350,14 @@ app.post('/generate-pdf', async (req, res) => {
   try {
     const chromium = require('@sparticuz/chromium');
     const puppeteer = require('puppeteer-core');
+    const execPath = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+      ? await chromium.executablePath()
+      : undefined;
     const browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
+      executablePath: execPath || await chromium.executablePath(),
+      headless: true,
     });
     const data = JSON.parse(quoteData);
     const html = buildQuoteHTML(data, isPro);
