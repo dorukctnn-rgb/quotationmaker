@@ -13,7 +13,7 @@ app.use(bodyParser.json({ limit: '2mb' }));
 app.use(cookieParser());
 
 const SITE_URL = process.env.SITE_URL || 'https://getquotationmaker.com';
-const GUMROAD_LINK = process.env.GUMROAD_LINK || 'https://dorukctn.gumroad.com/l/quotepro';
+const GUMROAD_LINK = process.env.GUMROAD_LINK || 'https://dorukctn.gumroad.com/l/cjogv';
 const users = {};
 
 const PROFESSIONS = [
@@ -306,4 +306,5 @@ app.get('/robots.txt', (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log('QuotationMaker running on ' + PORT));
+
 
