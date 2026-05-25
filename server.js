@@ -260,8 +260,14 @@ app.post('/generate-pdf', (req, res) => {
 
     // Watermark
     if (!isPro) {
-      doc.fontSize(8).fillColor('#bbb').font('Helvetica')
-        .text('Created free at GetQuotationMaker.com â€” Upgrade to PRO to remove this', 50, 790, { width: 500, align: 'center' });
+      doc.save();
+      doc.translate(297, 420);
+      doc.rotate(-45);
+      doc.fontSize(80).fillColor('#cccccc').font('Helvetica-Bold')
+        .text('FREE VERSION', -250, -40, { width: 500, align: 'center' });
+      doc.restore();
+      doc.fontSize(9).fillColor('#aaaaaa').font('Helvetica')
+        .text('Remove watermark: GetQuotationMaker.com/pricing', 50, 790, { width: 500, align: 'center' });
     }
 
     doc.end();
