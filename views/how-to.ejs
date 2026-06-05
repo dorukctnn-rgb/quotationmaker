@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head><link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta charset="UTF-8">
@@ -13,7 +13,7 @@
   "name": "<%= page.title %>",
   "description": "<%= page.desc %>",
   "step": [
-    {"@type": "HowToStep", "name": "Open GetQuotationMaker", "text": "Go to getquotationmaker.com "” no signup required."},
+    {"@type": "HowToStep", "name": "Open GetQuotationMaker", "text": "Go to getquotationmaker.com - no signup required."},
     {"@type": "HowToStep", "name": "Fill in your details", "text": "Enter your business details and client information."},
     {"@type": "HowToStep", "name": "Add your line items", "text": "Add services with quantities, rates and tax."},
     {"@type": "HowToStep", "name": "Set a validity date", "text": "Add a validity date to protect your price."},
@@ -62,6 +62,13 @@ nav{background:var(--white);border-bottom:1px solid var(--border);height:62px;di
 footer{background:var(--dark);color:#6b7280;padding:28px 20px;text-align:center;font-size:12px;margin-top:52px}
 footer a{color:#6b7280;margin:0 10px}
 footer a:hover{color:#fff}
+.article-body{font-size:15px;line-height:1.8;color:#334155;margin-bottom:8px}
+.article-body h2{font-size:20px;font-weight:800;color:var(--text);margin:30px 0 12px;letter-spacing:-0.3px;font-family:'Sora',sans-serif}
+.article-body h3{font-size:16px;font-weight:700;color:var(--text);margin:22px 0 8px;font-family:'Sora',sans-serif}
+.article-body p{margin-bottom:14px}
+.article-body ul{margin:0 0 16px 20px}
+.article-body ul li{margin-bottom:7px}
+.article-body strong{color:var(--text)}
 </style>
 </head>
 <body>
@@ -73,21 +80,24 @@ footer a:hover{color:#fff}
     <a href="<%= gumroadLink %>" target="_blank"><button class="btn-pro">Get PRO $9</button></a>
   </div>
 </nav>
-<div class="breadcrumb"><a href="/">Home</a> "º <a href="/blog">Guides</a> "º <%= page.title %></div>
+<div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/blog">Guides</a> &rsaquo; <%= page.title %></div>
 
 <section class="hero">
   <h1><%= page.title %></h1>
   <p><%= page.desc %></p>
-  <a href="/" class="btn-cta">Create Free Quote Now â†’</a>
+  <a href="/" class="btn-cta">Create Free Quote Now &rarr;</a>
 </section>
 
 <div class="main">
+  <% if (page.content) { %>
+  <article class="article-body"><%- page.content %></article>
+  <% } %>
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
       <div>
         <h3>Open GetQuotationMaker</h3>
-        <p>Go to <a href="/">getquotationmaker.com</a> "” no account or signup required. The quote generator loads instantly in your browser on any device.</p>
+        <p>Go to <a href="/">getquotationmaker.com</a> - no account or signup required. The quote generator loads instantly in your browser on any device.</p>
       </div>
     </div>
     <div class="step">
@@ -108,7 +118,7 @@ footer a:hover{color:#fff}
       <div class="step-num">4</div>
       <div>
         <h3>Set your quote number and validity date</h3>
-        <p>Give your quote a unique number for tracking. Set a validity date "” the date until which your price is guaranteed. 30 days is standard for most services.</p>
+        <p>Give your quote a unique number for tracking. Set a validity date - the date until which your price is guaranteed. 30 days is standard for most services.</p>
       </div>
     </div>
     <div class="step">
@@ -122,7 +132,7 @@ footer a:hover{color:#fff}
       <div class="step-num">6</div>
       <div>
         <h3>Apply tax and any discounts</h3>
-        <p>Enter your tax rate (VAT, GST or sales tax) and label. Add a discount if applicable "” either a fixed amount or percentage. All calculations update automatically.</p>
+        <p>Enter your tax rate (VAT, GST or sales tax) and label. Add a discount if applicable - either a fixed amount or percentage. All calculations update automatically.</p>
       </div>
     </div>
     <div class="step">
@@ -143,13 +153,13 @@ footer a:hover{color:#fff}
 
   <div class="tip-box">
     <h3>&#128161; Pro tip: Always set a validity date</h3>
-    <p>A validity date protects you from being held to old prices if material costs rise. It also creates urgency "” clients with a deadline respond faster. 30 days is the standard for most trades and services. For construction where material prices fluctuate, 14 days is safer.</p>
+    <p>A validity date protects you from being held to old prices if material costs rise. It also creates urgency - clients with a deadline respond faster. 30 days is the standard for most trades and services. For construction where material prices fluctuate, 14 days is safer.</p>
   </div>
 
   <div class="cta-box">
     <h3>Ready to create your quote?</h3>
     <p>Free, no signup, instant PDF. Professional quotes in under 60 seconds.</p>
-    <a href="/">Create Free Quote â†’</a>
+    <a href="/">Create Free Quote &rarr;</a>
   </div>
 
   <div class="templates-sec">
@@ -164,7 +174,7 @@ footer a:hover{color:#fff}
 
 <footer>
   <a href="/">Quote Generator</a><a href="/blog">Blog</a><a href="/#pricing">Pricing</a><a href="/activate">Activate PRO</a>
-  <p style="margin-top:12px">&#169; 2026 GetQuotationMaker "” Free Quote Generator</p>
+  <p style="margin-top:12px">&#169; 2026 GetQuotationMaker - Free Quote Generator</p>
 </footer>
 </body>
 </html>
