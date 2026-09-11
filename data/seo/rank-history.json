@@ -1,0 +1,344 @@
+[
+  {
+    "measuredAt": "2026-09-11",
+    "source": "gsc",
+    "windowDays": 28,
+    "dateRange": {
+      "start": "2026-08-12",
+      "end": "2026-09-08"
+    },
+    "siteUrl": "https://www.getquotationmaker.com/",
+    "results": [
+      {
+        "keyword": "sending a quote to a client",
+        "targetPath": "/how-to-send-a-quote-to-a-client",
+        "priority": "high",
+        "rank": 10,
+        "impressions": 1,
+        "clicks": 0,
+        "actualPage": "/how-to-send-a-quote-to-a-client",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "acceptance of quotation",
+        "targetPath": "/blog/quote-acceptance-rate-tips",
+        "priority": "medium",
+        "rank": 18.33,
+        "impressions": 3,
+        "clicks": 0,
+        "actualPage": "/blog/quote-acceptance-rate-tips",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "acceptance of quote",
+        "targetPath": "/blog/quote-acceptance-rate-tips",
+        "priority": "low",
+        "rank": 22.33,
+        "impressions": 3,
+        "clicks": 0,
+        "actualPage": "/blog/quote-acceptance-rate-tips",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "quotation acceptance",
+        "targetPath": "/blog/quote-acceptance-rate-tips",
+        "priority": "low",
+        "rank": 26.17,
+        "impressions": 6,
+        "clicks": 0,
+        "actualPage": "/blog/quote-acceptance-rate-tips",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "labour contractor quotation format",
+        "targetPath": "/quote-template-contractor",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "consultant quote template",
+        "targetPath": "/quote-template-consultant",
+        "priority": "low",
+        "rank": 29,
+        "impressions": 2,
+        "clicks": 0,
+        "actualPage": "/quote-template-consultant",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "quotation maker online",
+        "targetPath": "/",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "quotation maker online free",
+        "targetPath": "/",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "quote number",
+        "targetPath": "/free-quote-generator-netherlands",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "consulting quote",
+        "targetPath": "/quote-template-consultant",
+        "priority": "low",
+        "rank": 30.63,
+        "impressions": 8,
+        "clicks": 0,
+        "actualPage": "/quote-template-consultant",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "online quotation maker",
+        "targetPath": "/",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "accepting quotation",
+        "targetPath": "/blog/quote-acceptance-rate-tips",
+        "priority": "low",
+        "rank": 40,
+        "impressions": 7,
+        "clicks": 0,
+        "actualPage": "/blog/quote-acceptance-rate-tips",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "painting quotation format pdf",
+        "targetPath": "/quote-template-painter",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "contractor quotation",
+        "targetPath": "/quote-template-contractor",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "electronic quotation",
+        "targetPath": "/free-quote-generator-netherlands",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "consulting quote template",
+        "targetPath": "/quote-template-consultant",
+        "priority": "low",
+        "rank": 32.4,
+        "impressions": 5,
+        "clicks": 0,
+        "actualPage": "/quote-template-consultant",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "mechanic quote template",
+        "targetPath": "/quote-template-mechanic",
+        "priority": "low",
+        "rank": 38,
+        "impressions": 3,
+        "clicks": 0,
+        "actualPage": "/quote-template-mechanic",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "automotive quote template",
+        "targetPath": "/quote-template-mechanic",
+        "priority": "low",
+        "rank": 39,
+        "impressions": 1,
+        "clicks": 0,
+        "actualPage": "/quote-template-mechanic",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "accept a quote",
+        "targetPath": "/blog/quote-acceptance-rate-tips",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "how to send quotation to client",
+        "targetPath": "/how-to-send-a-quote-to-a-client",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "panel beating quotation template",
+        "targetPath": "/quote-template-mechanic",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "free online quotation maker",
+        "targetPath": "/",
+        "priority": "low",
+        "rank": 35.43,
+        "impressions": 7,
+        "clicks": 0,
+        "actualPage": "/",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "get my quotation",
+        "targetPath": "/",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "auto mechanic quotes",
+        "targetPath": "/quote-template-mechanic",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "auto repair quotes",
+        "targetPath": "/quote-template-mechanic",
+        "priority": "low",
+        "rank": 41.75,
+        "impressions": 12,
+        "clicks": 0,
+        "actualPage": "/quote-template-mechanic",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "sending a quote email",
+        "targetPath": "/how-to-send-a-quote-to-a-client",
+        "priority": "low",
+        "rank": 42.11,
+        "impressions": 9,
+        "clicks": 0,
+        "actualPage": "/how-to-send-a-quote-to-a-client",
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "price quotation maker",
+        "targetPath": "/",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "quote for consulting services template",
+        "targetPath": "/quote-template-consultant",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "sample quotation for consultancy services",
+        "targetPath": "/quote-template-consultant",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      },
+      {
+        "keyword": "how to send a quotation to a client",
+        "targetPath": "/how-to-send-a-quote-to-a-client",
+        "priority": "low",
+        "rank": null,
+        "impressions": 0,
+        "clicks": 0,
+        "actualPage": null,
+        "previousRank": null,
+        "change": null
+      }
+    ]
+  }
+]
