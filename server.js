@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const PDFDocument = require('pdfkit');
 const path = require('path');
+const { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS } = require('./content');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -73,14 +74,28 @@ const HOW_TO_PAGES = [
   { slug: 'how-to-write-a-quote-for-plumbing', title: 'How to Write a Quote for Plumbing Work', desc: 'Step-by-step guide to writing professional plumbing quotes. What to include, how to price call-out fees, parts and labour.' },
   { slug: 'how-to-quote-for-cleaning-services', title: 'How to Quote for Cleaning Services', desc: 'How to write a professional cleaning service quote. Hourly rates, flat fees, recurring schedules and what to include.' },
   { slug: 'how-to-write-a-quote-for-construction', title: 'How to Write a Quote for Construction', desc: 'Construction quote guide for builders and contractors. What to include, stage payments and how to handle variations.' },
-  { slug: 'how-to-send-a-quote-to-a-client', title: 'How to Send a Quote to a Client', desc: 'The best way to send quotes to clients. Email templates, PDF best practices and follow-up strategies.', content: '<h2>The best way to send a quote to a client</h2><p>Send your quote as a PDF attached to a short, professional email. A PDF looks consistent on every device, cannot be edited by accident, and reads as more professional than a price typed into the body of a message.</p><h2>What to write in the email</h2><p>Keep it short and clear. A good quote email has four parts: a subject line with the quote number, a one-line thank you, a sentence pointing to the attached quote and its total, and a clear next step.</p><ul><li><strong>Subject:</strong> Quote Q-001 for the work, from your business</li><li><strong>Opening:</strong> thank them for the opportunity to quote</li><li><strong>Body:</strong> note the attached PDF, the total and the validity date</li><li><strong>Next step:</strong> tell them exactly how to accept, for example simply reply to confirm</li></ul><h2>When to send it</h2><p>Send the quote within twenty four hours of the enquiry where you can. The first professional quote to arrive often wins the job, even when it is not the cheapest.</p><h2>How to follow up</h2><p>If you do not hear back, follow up politely three to five days after sending. A short message referencing the quote number and validity date is enough. Following up at least once can lift your acceptance rate significantly, because most silence is busyness rather than rejection.</p><h2>Make it easy to accept</h2><p>Reduce friction. Tell the client the single action that accepts the quote, attach the PDF rather than asking them to log in somewhere, and make sure your contact details are on the document. The easier it is to say yes, the more jobs you win.</p>' },
+  { slug: 'how-to-send-a-quote-to-a-client', title: 'How to Send a Quote to a Client (With an Email Template)', desc: 'The best way to send quotes to clients. Email templates, PDF best practices and follow-up strategies.', content: '<h2>The best way to send a quote to a client</h2><p>Send your quote as a PDF attached to a short, professional email. A PDF looks consistent on every device, cannot be edited by accident, and reads as more professional than a price typed into the body of a message.</p><h2>What to write in the email</h2><p>Keep it short and clear. A good quote email has four parts: a subject line with the quote number, a one-line thank you, a sentence pointing to the attached quote and its total, and a clear next step.</p><ul><li><strong>Subject:</strong> Quote Q-001 for the work, from your business</li><li><strong>Opening:</strong> thank them for the opportunity to quote</li><li><strong>Body:</strong> note the attached PDF, the total and the validity date</li><li><strong>Next step:</strong> tell them exactly how to accept, for example simply reply to confirm</li></ul><h2>When to send it</h2><p>Send the quote within twenty four hours of the enquiry where you can. The first professional quote to arrive often wins the job, even when it is not the cheapest.</p><h2>How to follow up</h2><p>If you do not hear back, follow up politely three to five days after sending. A short message referencing the quote number and validity date is enough. Following up at least once can lift your acceptance rate significantly, because most silence is busyness rather than rejection.</p><h2>Make it easy to accept</h2><p>Reduce friction. Tell the client the single action that accepts the quote, attach the PDF rather than asking them to log in somewhere, and make sure your contact details are on the document. The easier it is to say yes, the more jobs you win.</p>' },
   { slug: 'how-to-convert-a-quote-to-an-invoice', title: 'How to Convert a Quote to an Invoice', desc: 'Step-by-step guide to converting an accepted quote into an invoice without re-entering data.' },
   { slug: 'how-to-quote-for-web-design', title: 'How to Quote for Web Design Projects', desc: 'Web design quoting guide. How to scope projects, price your services and include the right terms.' },
   { slug: 'how-to-write-a-roofing-quote', title: 'How to Write a Roofing Quote', desc: 'Roofing quote guide. Materials, labour, scaffolding, waste disposal and what to exclude.', content: '<h2>What to include in a roofing quote</h2><p>A clear roofing quote protects you and reassures the homeowner. Set out exactly what work you will carry out, the materials you will use, and what is and is not included, so there are no surprises once you are on the roof.</p><ul><li>The roof area in square metres, or the number of squares, and the pitch</li><li>Tear-off and disposal of the existing covering</li><li>New materials: membrane or felt, battens, tiles or slates, ridge, flashing and fixings</li><li>Labour, broken down by stage where helpful</li><li>Scaffolding or access equipment and how long it is needed</li><li>Skip hire and waste removal</li><li>Any repairs to timbers, fascias or guttering</li><li>VAT or applicable tax shown as a separate line</li><li>A validity date, since material prices move</li></ul><h2>How to price a roofing quote</h2><p>Measure the roof accurately and add ten to fifteen percent to material quantities for waste and cuts. Price labour at your true day rate, including insurance, vehicle and tools. Add scaffolding and skip costs as their own lines so the homeowner can see them. Finish with a contingency of ten to twenty percent for hidden problems such as rotten battens or felt, which are common once the old covering is off.</p><h2>What to exclude and flag</h2><p>State clearly that hidden defects found after strip-off, such as rotten rafters or damaged chimney work, are not included and will be quoted separately before any extra work begins. This single line prevents most disputes.</p><h2>Roofing quote validity</h2><p>Because tile, slate and timber prices change, keep your roofing quote valid for fourteen to thirty days. Add the date to the quote and mention it when you follow up.</p>' },
   { slug: 'how-to-quote-for-landscaping', title: 'How to Quote for Landscaping Work', desc: 'Landscaping quote guide. How to price design, planting, materials and ongoing maintenance.' }
 ];
 
+const CONTENT_UPDATED = '2026-09-24';
+PROFESSIONS.forEach(p => { if (PROFESSION_GUIDES[p.slug]) p.guide = PROFESSION_GUIDES[p.slug]; });
+const redirectedSlugs = new Set(Object.keys(REDIRECTS).map(u => u.replace(/^\/(blog\/)?/, '')));
+for (let i = BLOG_POSTS.length - 1; i >= 0; i--) if (redirectedSlugs.has(BLOG_POSTS[i].slug)) BLOG_POSTS.splice(i, 1);
+for (let i = HOW_TO_PAGES.length - 1; i >= 0; i--) if (redirectedSlugs.has(HOW_TO_PAGES[i].slug)) HOW_TO_PAGES.splice(i, 1);
+BLOG_POSTS.forEach(p => {
+  if (BLOG_CONTENT[p.slug]) p.content = BLOG_CONTENT[p.slug];
+  const words = (p.content || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  p.readTime = Math.max(2, Math.round(words / 220)) + ' min read';
+  p.updated = CONTENT_UPDATED;
+});
+HOW_TO_PAGES.forEach(p => { if (HOWTO_CONTENT[p.slug]) p.content = HOWTO_CONTENT[p.slug]; p.updated = CONTENT_UPDATED; });
+
 // -- ROUTES --------------------------------------------------
+Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
 
 app.get('/', (req, res) => {
   res.render('index', { isPro: req.cookies.pro === 'true', professions: PROFESSIONS, countries: COUNTRIES, page: null, profession: null, country: null, siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
@@ -154,9 +169,16 @@ app.post('/generate-pdf', (req, res) => {
     // Header bar
     doc.rect(50, 45, 500, 3).fill(color);
 
+    // Pro users can place their logo above the title; the rest of the page shifts down.
+    let off = 0;
+    const logoMatch = isPro && typeof d.logo === 'string' && d.logo.match(/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=]+)$/);
+    if (logoMatch) {
+      try { doc.image(Buffer.from(logoMatch[2], 'base64'), 50, 56, { fit: [140, 40] }); off = 48; } catch (e) { console.error('Logo error:', e.message); }
+    }
+
     // Title
-    doc.fontSize(26).fillColor(color).font('Helvetica-Bold').text('QUOTATION', 50, 58);
-    doc.fontSize(10).fillColor('#888').font('Helvetica').text('#' + (d.quoteNumber || 'Q-001'), 50, 90);
+    doc.fontSize(26).fillColor(color).font('Helvetica-Bold').text('QUOTATION', 50, 58 + off);
+    doc.fontSize(10).fillColor('#888').font('Helvetica').text('#' + (d.quoteNumber || 'Q-001'), 50, 90 + off);
 
     // From (right side)
     doc.fontSize(12).fillColor('#111').font('Helvetica-Bold').text(d.fromName || '', 300, 58, { width: 250, align: 'right' });
@@ -165,7 +187,7 @@ app.post('/generate-pdf', (req, res) => {
       .text((d.fromAddress || '').replace(/\n/g, ', '), 300, 88, { width: 250, align: 'right' });
 
     // Bill To / Dates
-    let y = 130;
+    let y = 130 + off;
     doc.rect(50, y, 500, 1).fill('#e5e7eb');
     y += 15;
 
@@ -289,15 +311,14 @@ app.post('/activate-pro', (req, res) => {
 app.get('/sitemap.xml', (req, res) => {
   const urls = [
     { loc: '', priority: '1.0', freq: 'daily' },
-    { loc: '/blog', priority: '0.9', freq: 'weekly' },
-    { loc: '/activate', priority: '0.3', freq: 'monthly' }
+    { loc: '/blog', priority: '0.9', freq: 'weekly' }
   ];
   PROFESSIONS.forEach(p => urls.push({ loc: '/quote-template-' + p.slug, priority: '0.9', freq: 'weekly' }));
   COUNTRIES.forEach(c => urls.push({ loc: '/free-quote-generator-' + c.slug, priority: '0.9', freq: 'weekly' }));
   BLOG_POSTS.forEach(p => urls.push({ loc: '/blog/' + p.slug, priority: '0.8', freq: 'monthly' }));
   HOW_TO_PAGES.forEach(p => urls.push({ loc: '/' + p.slug, priority: '0.8', freq: 'monthly' }));
   const xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
-    urls.map(u => '<url><loc>' + SITE_URL + u.loc + '</loc><changefreq>' + u.freq + '</changefreq><priority>' + u.priority + '</priority></url>').join('') + '</urlset>';
+    urls.map(u => '<url><loc>' + SITE_URL + u.loc + '</loc><lastmod>' + CONTENT_UPDATED + '</lastmod><changefreq>' + u.freq + '</changefreq><priority>' + u.priority + '</priority></url>').join('') + '</urlset>';
   res.set('Content-Type', 'application/xml').send(xml);
 });
 

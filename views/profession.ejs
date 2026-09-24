@@ -76,6 +76,13 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .content-sec p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:16px}
 .content-sec ul{margin:0 0 16px 20px}
 .content-sec ul li{font-size:14px;color:var(--muted);line-height:1.8}
+.guide h2{margin-top:30px}
+.guide ol{margin:0 0 16px 20px}
+.guide ol li{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:4px}
+.guide strong{color:var(--text)}
+.guide table{width:100%;border-collapse:collapse;margin:6px 0 18px;font-size:13.5px;background:var(--white)}
+.guide th,.guide td{border:1px solid var(--border);padding:8px 10px;text-align:left}
+.guide th{background:#f8fafc;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
 .other{padding:36px 20px;border-top:1px solid var(--border);background:var(--white)}
 .other h2{text-align:center;font-size:15px;font-weight:500;color:var(--muted);margin-bottom:14px}
 .sgrid{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:880px;margin:0 auto}
@@ -86,6 +93,7 @@ footer a{color:#6b7280;margin:0 10px}
 footer a:hover{color:#fff}
 .disc-row{display:grid;grid-template-columns:1fr 110px;gap:8px;margin-bottom:9px;align-items:end}
 </style>
+<%- include('partials/head') %>
 </head>
 <body>
 <nav>
@@ -216,6 +224,7 @@ footer a:hover{color:#fff}
     <li>Any discounts applied</li>
     <li>Total amount and payment terms</li>
   </ul>
+  <% if (profession.guide) { %><div class="guide"><%- profession.guide %></div><% } %>
   <h2>How to use this free <%= profession.label.toLowerCase() %> quote template</h2>
   <p>Fill in your details in the form above. The live preview updates instantly. When you are happy with your quote, click "Download Free PDF Quote" to save it. Send the PDF to your client by email. If they approve it, upgrade to PRO to convert it to an invoice in one click.</p>
   <h3 style="font-size:15px;font-weight:700;margin:6px 0 10px;font-family:'Sora',sans-serif">Related guides</h3>
