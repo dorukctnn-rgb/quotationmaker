@@ -7,19 +7,17 @@
 <meta name="description" content="<%= page.desc %>">
 <link rel="canonical" href="<%= siteUrl %>/<%= page.slug %>">
 <script type="application/ld+json">
-{
+<%- JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "<%= page.title %>",
-  "description": "<%= page.desc %>",
-  "step": [
-    {"@type": "HowToStep", "name": "Open GetQuotationMaker", "text": "Go to getquotationmaker.com - no signup required."},
-    {"@type": "HowToStep", "name": "Fill in your details", "text": "Enter your business details and client information."},
-    {"@type": "HowToStep", "name": "Add your line items", "text": "Add services with quantities, rates and tax."},
-    {"@type": "HowToStep", "name": "Set a validity date", "text": "Add a validity date to protect your price."},
-    {"@type": "HowToStep", "name": "Download PDF", "text": "Click Download and send the PDF to your client."}
+  "@graph": [
+    { "@type": "Article", "headline": page.title, "description": page.desc, "dateModified": page.updated || "2026-09-24", "mainEntityOfPage": siteUrl + "/" + page.slug,
+      "author": { "@type": "Organization", "name": "GetQuotationMaker", "url": siteUrl }, "publisher": { "@type": "Organization", "name": "GetQuotationMaker", "url": siteUrl } },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + "/" },
+      { "@type": "ListItem", "position": 2, "name": "Guides", "item": siteUrl + "/blog" },
+      { "@type": "ListItem", "position": 3, "name": page.title, "item": siteUrl + "/" + page.slug } ] }
   ]
-}
+}) %>
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -70,6 +68,7 @@ footer a:hover{color:#fff}
 .article-body ul li{margin-bottom:7px}
 .article-body strong{color:var(--text)}
 </style>
+<%- include('partials/head') %>
 </head>
 <body>
 <nav>
