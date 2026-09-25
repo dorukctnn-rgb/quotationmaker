@@ -33,6 +33,15 @@
   .ir{grid-template-columns:1fr 1fr 1fr 28px !important;row-gap:6px;padding-bottom:8px;border-bottom:1px solid #f1f5f9}
   .ir > input:first-child{grid-column:1/-1}
 }
+@media (max-width:360px){
+  nav .logo{font-size:16px !important;letter-spacing:-.3px}
+  nav:not(.nav-open) .nav-r > a:last-child{display:none}
+  .nav-toggle{margin-right:4px;padding:6px 8px}
+}
+/* Content tables: on phones, scroll inside their own box instead of widening the page. */
+@media (max-width:600px){
+  .guide table,article table,.content-sec table{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
