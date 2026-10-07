@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "keyword": "sending quote to client email",
+    "targetPath": "/how-to-send-a-quote-to-a-client",
+    "status": "observing",
+    "nextReviewDate": "2026-10-21",
+    "actions": [
+      {
+        "date": "2026-10-07",
+        "rankAtAction": 46.4,
+        "needs": "Ready-to-send quote email wording: subject lines, emails per situation, follow-ups",
+        "done": "Rewrote as a template page: 9 copyable quote emails, subject lines, 4 follow-ups, acceptance confirmation, checklist, FAQ + FAQPage schema"
+      }
+    ]
+  },
+  {
+    "keyword": "tradesman quote template",
+    "targetPath": "/quote-template-contractor",
+    "status": "observing",
+    "nextReviewDate": "2026-10-21",
+    "actions": [
+      {
+        "date": "2026-10-07",
+        "rankAtAction": 68.5,
+        "needs": "A free tradesman/contractor template to download or fill in (UK VAT, payment terms, validity)",
+        "done": "Added Word/Excel/PDF downloads (UK tradesman + contractor), one-click prefilled tool presets, UK VAT/consumer-pricing facts with GOV.UK sources, payment and validity wording; merged /blog/tradesman-quote-template and /quote-template-carpenter (301)"
+      }
+    ]
+  },
+  {
+    "keyword": "acceptance of quote wording",
+    "targetPath": "/quote-acceptance-template",
+    "status": "observing",
+    "nextReviewDate": "2026-10-21",
+    "actions": [
+      {
+        "date": "2026-10-07",
+        "rankAtAction": 6.9,
+        "needs": "The client wording to accept/confirm a quotation",
+        "done": "New dedicated page with 9 client templates + 2 seller templates, binding/acceptance facts with sources; blog post refocused on acceptance rate and cross-linked"
+      }
+    ]
+  },
+  {
+    "keyword": "painting quotation template",
+    "targetPath": "/quote-template-painter",
+    "status": "observing",
+    "nextReviewDate": "2026-10-21",
+    "actions": [
+      {
+        "date": "2026-10-07",
+        "rankAtAction": 41.6,
+        "needs": "Downloadable painting & decorating quote template and example",
+        "done": "Word/Excel/PDF downloads, example quotation, pricing methods and paint calc, UK notes, copyable wording, 3 presets"
+      }
+    ]
+  },
+  {
+    "keyword": "auto repair quotes",
+    "targetPath": "/quote-template-mechanic",
+    "status": "observing",
+    "nextReviewDate": "2026-10-21",
+    "actions": [
+      {
+        "date": "2026-10-07",
+        "rankAtAction": 39.5,
+        "needs": "Car repair quotation template/sample",
+        "done": "Word/Excel/PDF downloads, sample brake quote, panel beating example, California/UK authorization rules with sources, 3 presets"
+      }
+    ]
+  },
+  {
+    "keyword": "free online quotation maker",
+    "targetPath": "/",
+    "status": "observing",
+    "nextReviewDate": "2026-10-21",
+    "actions": [
+      {
+        "date": "2026-10-07",
+        "rankAtAction": 40.4,
+        "needs": "Homepage matching quotation maker wording; flawless mobile tool",
+        "done": "Title/H1 now \"Free online quotation maker\", removed unverifiable competitor table, honest $9 one-time Pro, tool rebuilt (mobile layout, escaping, presets, Unicode PDF)"
+      }
+    ]
+  }
+]

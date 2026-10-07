@@ -1,3 +1,5 @@
 ﻿node_modules
 
 .gsc-credentials.json
+.vercel
+.env*

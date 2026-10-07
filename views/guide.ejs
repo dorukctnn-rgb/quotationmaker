@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head', { meta: {
+  title: page.title, desc: page.desc, path: '/' + page.slug, type: 'article',
+  jsonld: [
+    { '@context': 'https://schema.org', '@type': 'Article', headline: page.h1, description: page.desc, datePublished: page.published || page.updated, dateModified: page.updated,
+      mainEntityOfPage: siteUrl + '/' + page.slug, image: siteUrl + '/og-image.png',
+      author: { '@type': 'Organization', name: 'GetQuotationMaker', url: siteUrl + '/' },
+      publisher: { '@type': 'Organization', name: 'GetQuotationMaker', url: siteUrl + '/', logo: { '@type': 'ImageObject', url: siteUrl + '/favicon.svg' } } },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Guides', item: siteUrl + '/blog' },
+      { '@type': 'ListItem', position: 3, name: page.breadcrumb, item: siteUrl + '/' + page.slug } ] },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: page.faq.map(function (f) { return { '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }; }) }
+  ] } }) %>
+</head>
+<body>
+<%- include('partials/nav') %>
+<div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/blog">Guides</a> &rsaquo; <%= page.breadcrumb %></div>
+
+<header class="hero">
+  <h1><%= page.h1 %></h1>
+  <p class="lead"><%= page.lead %></p>
+  <div class="btn-row">
+    <a class="btn" href="#<%= page.jump %>">Jump to the templates</a>
+    <a class="btn ghost" href="<%= page.cta.href %>"><%= page.cta.label %></a>
+  </div>
+  <p class="meta">Updated <%= new Date(page.updated + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) %> &middot; Free to copy and use</p>
+</header>
+
+<main class="article">
+  <div class="answer prose"><%- page.answer %></div>
+  <nav class="toc" aria-label="On this page"><strong>On this page</strong>
+    <ol><% page.toc.forEach(function (t) { %><li><a href="#<%= t[0] %>"><%= t[1] %></a></li><% }) %></ol>
+  </nav>
+  <div class="prose"><%- page.content %></div>
+  <div class="cta-box">
+    <h2>Make the quote PDF in a minute</h2>
+    <p>Free quotation maker: line items, tax, discount, validity date and your terms. No signup.</p>
+    <a href="<%= page.cta.href %>"><%= page.cta.label %> &rarr;</a>
+  </div>
+</main>
+
+<section class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Frequently asked questions</h2>
+  <% page.faq.forEach(function (f) { %>
+  <details><summary><%= f.q %></summary><p><%= f.a %></p></details>
+  <% }) %>
+</section>
+
+<section class="links-sec">
+  <h2>Related guides</h2>
+  <div class="sgrid"><% page.related.forEach(function (r) { %><a class="sl" href="<%= r[0] %>"><%= r[1] %></a><% }) %></div>
+  <h2>Free quote templates</h2>
+  <div class="sgrid">
+    <a class="sl" href="/quote-template-contractor">Contractor &amp; tradesman</a>
+    <a class="sl" href="/quote-template-painter">Painting &amp; decorating</a>
+    <a class="sl" href="/quote-template-mechanic">Auto repair</a>
+    <a class="sl" href="/quote-template-builder">Builder</a>
+    <a class="sl" href="/quote-template-consultant">Consulting</a>
+    <a class="sl" href="/">All templates &amp; quote maker</a>
+  </div>
+</section>
+<%- include('partials/footer') %>
+<script src="/tool.js?v=<%= assetVersion %>" defer></script>
+</body>
+</html>

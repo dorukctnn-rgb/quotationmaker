@@ -25,50 +25,6 @@ const PROFESSION_GUIDES = {
 <h2>Fixed fee, day rate or retainer?</h2>
 <p>Use a <strong>fixed fee</strong> when the deliverable is well defined; clients like the certainty and you're paid for efficiency. Use a <strong>day rate</strong> when the scope is uncertain, and state an estimate plus a cap that needs sign-off to exceed. Use a <strong>retainer</strong> for ongoing advisory work, listing the hours or response times included each month.</p>`,
 
-  mechanic: `
-<h2>What goes on an auto repair quote</h2>
-<p>A clear repair estimate protects the shop and the customer. Many places, including several US states, require a written estimate before paid repair work starts, so it's good practice everywhere. List:</p>
-<ul>
-<li><strong>Vehicle details:</strong> make, model, year, registration or VIN, and mileage.</li>
-<li><strong>Reported problem and diagnosis:</strong> what the customer described and what you found.</li>
-<li><strong>Parts:</strong> each part with part number or description, OEM or aftermarket, quantity and price.</li>
-<li><strong>Labour:</strong> hours per job multiplied by your hourly rate. Book time from a labour guide keeps quotes consistent.</li>
-<li><strong>Diagnostics, shop supplies and disposal fees:</strong> shown as separate lines rather than hidden in labour.</li>
-<li><strong>Tax, total and validity:</strong> parts prices move, so a short validity such as 7 or 14 days is common.</li>
-<li><strong>Authorisation:</strong> a line for the customer to approve the work, and a note that anything extra found during the repair will be quoted before it's done.</li>
-</ul>
-<h2>Example: brake repair quote</h2>
-<table><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>
-<tr><td>Front brake pads (ceramic)</td><td>1 set</td><td>$68.00</td><td>$68.00</td></tr>
-<tr><td>Front brake discs</td><td>2</td><td>$54.00</td><td>$108.00</td></tr>
-<tr><td>Labour: replace pads and discs</td><td>1.6 h</td><td>$110.00</td><td>$176.00</td></tr>
-<tr><td>Brake fluid top-up and disposal</td><td>1</td><td>$15.00</td><td>$15.00</td></tr>
-<tr><td colspan="3"><strong>Subtotal</strong></td><td><strong>$367.00</strong></td></tr>
-</tbody></table>
-<p>Add your local sales tax or VAT on top. If you quote customers in the UK, show the total including VAT. The quote tool above lets you set the tax rate and a validity date.</p>`,
-
-  contractor: `
-<h2>Contractor quotation format</h2>
-<p>A contractor quotation should let the client compare your price line by line against other bids. The format that works best splits the job into stages, with labour and materials shown separately:</p>
-<ol>
-<li><strong>Project and site details:</strong> address, a short description of the work, and the date of your site visit.</li>
-<li><strong>Itemised work:</strong> each stage or task with quantity, unit (m&sup2;, linear metre, day), rate and amount.</li>
-<li><strong>Materials:</strong> either itemised or as an allowance, with who supplies what.</li>
-<li><strong>Exclusions:</strong> for example permits, skip hire, making good after other trades, or unforeseen structural work.</li>
-<li><strong>Stage payments:</strong> for example 20% deposit, 40% at first fix, 40% on completion.</li>
-<li><strong>Variations:</strong> how changes requested during the job are priced and approved (in writing, before the work).</li>
-<li><strong>Validity, start date and duration.</strong></li>
-</ol>
-<h2>Labour contractor quotation format (labour only)</h2>
-<p>When the client supplies materials, quote labour by unit of work so the price scales with the job:</p>
-<table><thead><tr><th>Work item</th><th>Unit</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>
-<tr><td>Brickwork, 230 mm wall</td><td>m&sup2;</td><td>42</td><td>$38</td><td>$1,596</td></tr>
-<tr><td>Internal plastering</td><td>m&sup2;</td><td>120</td><td>$14</td><td>$1,680</td></tr>
-<tr><td>Floor tiling</td><td>m&sup2;</td><td>35</td><td>$22</td><td>$770</td></tr>
-<tr><td colspan="4"><strong>Total labour</strong></td><td><strong>$4,046</strong></td></tr>
-</tbody></table>
-<p>State clearly that materials, scaffolding and equipment hire are excluded (or list what you provide), and who is responsible for site clean-up.</p>`,
-
   plumber: `
 <h2>How to write a plumbing quote</h2>
 <ul>
@@ -130,29 +86,38 @@ const PROFESSION_GUIDES = {
 };
 
 const HOWTO_CONTENT = {
-  'how-to-send-a-quote-to-a-client': `
-<p>How you send a quote affects whether it gets accepted. The goal is a quote the client can understand in a minute, forward to whoever approves spending, and accept without calling you.</p>
-<h2>1. Send a PDF, not a Word file or a message</h2>
-<p>A PDF looks the same on every device and can't be edited by accident. Name it clearly, for example <code>Quote-Q-2026-031_Acme-Kitchen.pdf</code>. A price in a WhatsApp message is easy to lose and hard to approve.</p>
-<h2>2. Send it quickly</h2>
-<p>Send the quote while the conversation is fresh, ideally within a day of the site visit or call. Speed signals that you're organised, and clients often choose whoever answered first.</p>
-<h2>3. Write a short covering email</h2>
-<p><strong>Subject:</strong> <em>Quote Q-2026-031: kitchen refit, 14 Elm Road (valid until 30 Oct)</em></p>
-<blockquote>Hi Sarah,<br><br>Thanks for showing me the kitchen on Tuesday. Please find attached our quote for the refit, totalling &pound;8,450 including VAT.<br><br>It covers removal of the old units, new electrics to the island, fitting of the units you chose and tiling. Plastering of the back wall is not included.<br><br>We can start on 3 November, and the work takes about two weeks. The quote is valid until 30 October. To go ahead, just reply "accepted" or sign the attached PDF.<br><br>Any questions, call me on 07700 900123.<br><br>Best,<br>Tom</blockquote>
-<h2>4. Make accepting easy</h2>
-<p>Tell the client exactly how to say yes: reply to the email, sign the PDF, or pay the deposit. See our <a href="/blog/quote-acceptance-rate-tips">quote acceptance wording</a> for templates you can give clients.</p>
-<h2>5. Follow up on a schedule</h2>
-<p>If you haven't heard back, follow up after 3&ndash;5 days with something useful, such as a question about timing. Send a second follow-up a few days before the quote expires.</p>
-<blockquote>Hi Sarah, just checking the quote came through OK. We still have the 3 November start free if you'd like it. Happy to adjust anything. Tom</blockquote>
-<h2>Checklist before you hit send</h2>
+  'how-to-write-a-roofing-quote': `
+<p>A clear roofing quote protects you and reassures the homeowner. Set out the work, the materials and what is and isn&rsquo;t included, so there are no surprises once you are on the roof.</p>
+<h2>What to include in a roofing quote</h2>
 <ul>
-<li>Client name and address are correct</li>
-<li>Every line item is specific, with quantities</li>
-<li>Tax is shown correctly (including VAT for UK consumers)</li>
-<li>Exclusions and assumptions are listed</li>
-<li>Validity date, start date and payment terms are stated</li>
-<li>Your contact details are on the PDF, not only in the email</li>
-</ul>`,
+<li>The roof area in square metres (or squares) and the pitch</li>
+<li>Strip-off and disposal of the existing covering</li>
+<li>New materials: membrane or felt, battens, tiles or slates, ridge, flashing and fixings</li>
+<li>Labour, broken down by stage where helpful</li>
+<li>Scaffolding or access equipment, and how long it is needed</li>
+<li>Skip hire and waste removal</li>
+<li>Any repairs to timbers, fascias or guttering</li>
+<li>VAT or other tax as a separate line</li>
+<li>A validity date, since material prices move</li>
+</ul>
+<h2>Example roofing quote</h2>
+<p>A re-roof of a 68 m&sup2; pitched roof. Prices are examples only.</p>
+<table><thead><tr><th>Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead><tbody>
+<tr><td>Strip existing tiles and battens, dispose (m&sup2;)</td><td class="n">68</td><td class="n">&pound;18</td><td class="n">&pound;1,224</td></tr>
+<tr><td>Breathable membrane and new treated battens (m&sup2;)</td><td class="n">68</td><td class="n">&pound;16</td><td class="n">&pound;1,088</td></tr>
+<tr><td>Re-tile with new concrete interlocking tiles (m&sup2;)</td><td class="n">68</td><td class="n">&pound;34</td><td class="n">&pound;2,312</td></tr>
+<tr><td>Dry ridge system (linear metres)</td><td class="n">9</td><td class="n">&pound;42</td><td class="n">&pound;378</td></tr>
+<tr><td>Scaffolding, erect and dismantle</td><td class="n">1</td><td class="n">&pound;1,450</td><td class="n">&pound;1,450</td></tr>
+<tr><td>Skip hire</td><td class="n">2</td><td class="n">&pound;280</td><td class="n">&pound;560</td></tr>
+<tr><td colspan="3"><strong>Subtotal (VAT added if registered)</strong></td><td class="n"><strong>&pound;7,012</strong></td></tr>
+</tbody></table>
+<p>Load this example into the quote maker below, change the figures and download it as a PDF.</p>
+<h2>How to price a roofing quote</h2>
+<p>Measure the roof accurately and add an allowance to material quantities for waste and cuts. Price labour at your true day rate, including insurance, vehicle and tools. Put scaffolding and skips on their own lines so the homeowner can see them. Then decide how to handle the unknowns, such as rotten battens or felt, which often only show once the old covering is off: exclude them and price them when found, or add a clearly labelled provisional sum.</p>
+<h2>What to exclude and flag</h2>
+<p>State clearly that hidden defects found after strip-off, such as rotten rafters or damaged chimney work, are not included and will be quoted separately before any extra work begins. This one line prevents most disputes.</p>
+<h2>Roofing quote validity</h2>
+<p>Because tile, slate and timber prices change, keep a roofing quote valid for 14 to 30 days. Write the date on the quote and mention it when you follow up. For the covering email, use one of our <a href="/how-to-send-a-quote-to-a-client">quote email templates</a>.</p>`,
 
   'how-to-convert-a-quote-to-an-invoice': `
 <p>When a client accepts your quote, the invoice should match it exactly: the same line items, prices and tax, plus any variations the client agreed in writing. Here's how to convert one into the other cleanly.</p>
@@ -172,10 +137,46 @@ const HOWTO_CONTENT = {
 <tr><td>Purpose</td><td>Offer, not yet binding</td><td>Request for payment</td></tr>
 <tr><td>Payment details</td><td>Deposit terms</td><td>Bank details or payment link</td></tr>
 </tbody></table>
-<p>Create the quote here, then build the matching invoice with the same details in our sister tool, <a href="https://getinvoicemaker.com/">GetInvoiceMaker</a>. It's also free and needs no signup.</p>`
+<h2>Doing it in GetQuotationMaker</h2>
+<p>With <a href="/#pricing">Pro</a> ($9 one-time), the quote maker downloads the same quote as an invoice PDF: same line items, tax and totals, with an invoice number, invoice date, due date and a reference to the quote number. On the free plan, build the matching invoice in our free sister tool, <a href="https://getinvoicemaker.com/">GetInvoiceMaker</a>, which also needs no signup.</p>`
 };
 
 const BLOG_CONTENT = {
+  'quote-acceptance-rate-tips': `
+<div class="note"><strong>Looking for the words to accept or confirm a quote?</strong> Copy the email and letter templates in our <a href="/quote-acceptance-template">quote acceptance wording guide</a>. This article is about the other side: getting more of the quotes you send accepted.</div>
+<p>Your quote acceptance rate (also called a win rate or conversion rate) is the share of quotes you send that clients accept. It tells you whether your quoting process is working, and it is the number to watch when you change how you price, present or follow up.</p>
+<h2>How to work out your quote acceptance rate</h2>
+<p><strong>Acceptance rate = quotes accepted &divide; quotes sent &times; 100.</strong> If you sent 40 quotes last quarter and 18 were accepted, your rate is 45%.</p>
+<p>Work it out by job type and by where the enquiry came from (referral, website, directory). A low rate on one source often means those enquiries need qualifying before you spend time quoting, not that your prices are wrong.</p>
+<h2>9 ways to get more quotes accepted</h2>
+<h3>1. Reply quickly</h3>
+<p>Send the quote while the client is still thinking about the job, ideally within a working day of the visit or call. If a complicated quote will take longer, tell the client when to expect it.</p>
+<h3>2. Qualify before you quote</h3>
+<p>Ask about budget, timing and who makes the decision before you visit or price. You will send fewer quotes that were never going to be accepted.</p>
+<h3>3. Be specific</h3>
+<p>Itemise the work with quantities and rates, and name the materials or deliverables. A single figure invites comparison on price alone; specific line items show what the client gets.</p>
+<h3>4. Offer options</h3>
+<p>Two or three options (for example essential, recommended and premium) let the client choose how much to spend instead of deciding whether to go ahead at all.</p>
+<h3>5. Show the real total</h3>
+<p>Make the total, including tax, easy to find. In the UK, prices for consumers have to include VAT and other mandatory charges up front (<a href="https://www.gov.uk/government/publications/price-transparency-cma209/providing-clear-and-accurate-information-about-prices-summary" rel="nofollow noopener" target="_blank">CMA guidance</a>), and a surprise at the end loses trust.</p>
+<h3>6. Add a validity date</h3>
+<p>A date gives the client a reason to decide and protects you from honouring old prices. Thirty days is common; use less when material prices move.</p>
+<h3>7. Make accepting one step</h3>
+<p>Tell the client exactly how to say yes: reply "accepted", sign the PDF or pay the deposit. Put <a href="/quote-acceptance-template#seller-templates">acceptance wording on the quote</a> itself, and send the PDF as an attachment rather than asking the client to log in somewhere.</p>
+<h3>8. Follow up on a schedule</h3>
+<p>Follow up three to five days after sending, again a week later with something useful, and once more before the quote expires. Our <a href="/how-to-send-a-quote-to-a-client#follow-up">follow-up email templates</a> and <a href="/blog/how-to-follow-up-on-a-quote">follow-up guide</a> have wording for each step.</p>
+<h3>9. Find out why quotes are lost</h3>
+<p>When a client says no, ask one short question: was it price, timing or something else? Keep a note of the answers.</p>
+<table><thead><tr><th>Reason the quote was lost</th><th>What to change</th></tr></thead><tbody>
+<tr><td>Too expensive</td><td>Offer a lower-scope option, explain what the price includes, or qualify budget earlier</td></tr>
+<tr><td>Went with someone faster</td><td>Quote sooner; send a short "quote coming Thursday" message if it will take time</td></tr>
+<tr><td>Didn&rsquo;t understand the quote</td><td>Itemise, use plain descriptions, add a scope summary in the email</td></tr>
+<tr><td>Project postponed</td><td>Set a reminder to follow up when they said the timing might change</td></tr>
+<tr><td>No reply at all</td><td>Follow up on a schedule, and make the next step clearer</td></tr>
+</tbody></table>
+<h2>Track it in one place</h2>
+<p>A simple spreadsheet is enough: quote number, date sent, client, source, amount, status (sent, accepted, lost) and the reason if lost. Number every quote so the spreadsheet, emails and PDFs match. Our <a href="/">free quotation maker</a> numbers each quote and adds a validity date to the PDF.</p>`,
+
   'quote-vs-invoice-difference': `
 <p>A quote is an offer to do work for a stated price. An invoice is a request for payment after the work is done or goods are delivered. You send a quote before the job and an invoice after it.</p>
 <table><thead><tr><th></th><th>Quote</th><th>Invoice</th></tr></thead><tbody>
@@ -208,23 +209,31 @@ const BLOG_CONTENT = {
 <li>Don't discount in the first follow-up. It teaches clients to wait.</li>
 <li>Don't send "just checking in" with nothing else. Add something useful: a date, an option, an answer.</li>
 <li>Don't follow up more than three times.</li>
-</ul>`,
+</ul>
+<p>Copy ready-made wording for every step in our <a href="/how-to-send-a-quote-to-a-client#follow-up">quote follow-up email templates</a>.</p>`,
 
   'vat-on-quotes-explained': `
-<p>If you are VAT registered, your quotes should show VAT so the client knows the real cost. If you aren't registered, you must not add VAT. That's the rule in the UK and in most VAT countries.</p>
+<p>If you are VAT registered, your quotes should show VAT so the client knows the real cost. If you aren&rsquo;t registered, you must not add VAT. That applies in the UK and in most countries with a VAT or GST system.</p>
+<h2>UK VAT rate and registration threshold</h2>
+<ul>
+<li>The standard rate of VAT is <strong>20%</strong>, with a reduced rate of 5% and a zero rate for some goods and services (<a href="https://www.gov.uk/vat-rates" rel="nofollow noopener" target="_blank">GOV.UK: VAT rates</a>).</li>
+<li>You must register for VAT if your taxable turnover goes over <strong>&pound;90,000</strong> in the last 12 months, or you expect it to in the next 30 days. You can register voluntarily below that (<a href="https://www.gov.uk/register-for-vat" rel="nofollow noopener" target="_blank">GOV.UK: register for VAT</a>).</li>
+</ul>
 <h2>How to show VAT on a quote</h2>
 <ul>
 <li>List each item at its price <strong>excluding VAT</strong>.</li>
 <li>Show the <strong>subtotal</strong>, the <strong>VAT rate and amount</strong>, and the <strong>total including VAT</strong>.</li>
-<li>Include your VAT registration number.</li>
+<li>Include your VAT registration number. It is required on VAT invoices (<a href="https://www.gov.uk/guidance/vat-guide-notice-700" rel="nofollow noopener" target="_blank">VAT Notice 700</a>), so putting it on the quote keeps the two documents consistent.</li>
 </ul>
 <p>Example: labour &pound;1,800 + materials &pound;1,200 = &pound;3,000; VAT at 20% = &pound;600; total &pound;3,600.</p>
+<p>A quote is not a VAT invoice. The client reclaims VAT, if they can, from the invoice you send once the work is done.</p>
 <h2>Quoting consumers versus businesses</h2>
-<p>Businesses usually reclaim VAT, so they compare net prices. Consumers pay the full amount, and in the UK prices given to consumers should include VAT. For homeowners, lead with the VAT-inclusive total.</p>
+<p>Businesses that are VAT registered usually reclaim VAT, so they compare net prices. Consumers pay the full amount, and UK guidance says prices for consumers must include VAT and other mandatory charges up front (<a href="https://www.gov.uk/government/publications/price-transparency-cma209/providing-clear-and-accurate-information-about-prices-summary" rel="nofollow noopener" target="_blank">CMA price transparency guidance</a>). For homeowners, lead with the VAT-inclusive total.</p>
 <h2>Reduced and zero rates</h2>
-<p>Some work carries a reduced or zero rate. In the UK, for example, the installation of certain energy-saving materials in homes is currently zero-rated. Check the rules for your trade, and show each rate separately if a quote mixes them.</p>
+<p>Some work carries a reduced or zero rate. In the UK, for example, a zero rate applies to installing certain energy-saving materials in homes until 31 March 2027 (<a href="https://www.gov.uk/guidance/vat-on-energy-saving-materials-and-heating-equipment-notice-7086" rel="nofollow noopener" target="_blank">VAT Notice 708/6</a>). Check the rules for your trade, and show each rate separately if a quote mixes them.</p>
 <h2>What if you register for VAT after quoting?</h2>
-<p>If you become VAT registered before the work is invoiced, you may have to charge VAT even if the quote didn't show it. That's a good reason to note on quotes that "prices exclude VAT, which will be added if applicable".</p>`,
+<p>If you become VAT registered before the work is invoiced, you may have to charge VAT even though the quote didn&rsquo;t show it. That&rsquo;s a good reason to note on quotes that "prices exclude VAT, which will be added if applicable", or to agree the position with your accountant first.</p>
+<p class="src">Figures last checked 7 October 2026 on GOV.UK.</p>`,
 
   'how-to-price-a-job-quote': `
 <p>Underpricing is the most common quoting mistake. It wins the job and loses the money. Build every price from the same four parts.</p>
@@ -281,7 +290,7 @@ const BLOG_CONTENT = {
 <h2>5. Add terms</h2>
 <p>Include validity (30 days is common), start date and duration, deposit and payment schedule, and how changes are priced.</p>
 <h2>6. Make accepting easy</h2>
-<p>End with one clear action: "Reply 'accepted' to book your start date." See our <a href="/blog/quote-acceptance-rate-tips">quote acceptance wording</a>.</p>
+<p>End with one clear action: "Reply 'accepted' to book your start date." See our <a href="/quote-acceptance-template">quote acceptance wording</a>.</p>
 <h2>7. Send it fast and follow up</h2>
 <p>Send within a day, then follow up after a few days. See <a href="/how-to-send-a-quote-to-a-client">how to send a quote to a client</a>.</p>`
 };
@@ -296,7 +305,15 @@ const REDIRECTS = {
   '/how-to-quote-for-cleaning-services': '/quote-template-cleaner',
   '/how-to-write-a-quote-for-construction': '/quote-template-builder',
   '/how-to-quote-for-web-design': '/quote-template-web-designer',
-  '/how-to-quote-for-landscaping': '/quote-template-landscaper'
+  '/how-to-quote-for-landscaping': '/quote-template-landscaper',
+  // 2026-10-07 consolidation: thin or duplicate pages merged into the page that ranks.
+  '/blog/tradesman-quote-template': '/quote-template-contractor',
+  '/blog/free-quote-generator-netherlands-guide': '/free-quote-generator-netherlands',
+  '/quote-template-carpenter': '/quote-template-contractor',
+  '/quote-template-roofer': '/how-to-write-a-roofing-quote',
+  '/free-quote-generator-usa': '/',
+  '/contractor-quote-template.docx': '/templates/contractor-quote-template.docx',
+  '/tradesman-quote-template.docx': '/templates/tradesman-quote-template.docx'
 };
 
 module.exports = { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS };

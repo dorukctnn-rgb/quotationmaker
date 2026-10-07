@@ -1,0 +1,104 @@
+<%
+  var t = tool || {};
+  var presetButtons = t.presetButtons || [];
+%>
+<section class="qt" id="qtTool" aria-label="Quote maker">
+  <% if (t.heading) { %><h2 class="qt-heading" style="font:800 22px/1.25 'Sora',sans-serif;letter-spacing:-.3px;margin:0 0 14px;color:#0d1117"><%= t.heading %></h2><% } %>
+  <div class="qt-grid">
+    <div class="qt-card">
+      <% if (presetButtons.length) { %>
+      <div class="qt-presets">
+        <span>Start from an example:</span>
+        <% presetButtons.forEach(function (b) { %><button type="button" data-preset="<%= b.key %>"><%= b.label %></button><% }) %>
+      </div>
+      <% } %>
+      <div class="qt-status" id="qtPresetStatus" role="status" hidden></div>
+
+      <div class="qt-st">Your details</div>
+      <div class="qt-row">
+        <div class="qt-fg"><label for="qtFromName">Your name / company</label><input type="text" id="qtFromName" autocomplete="organization" placeholder="Acme Services Ltd"></div>
+        <div class="qt-fg"><label for="qtFromEmail">Your email / phone</label><input type="text" id="qtFromEmail" autocomplete="email" placeholder="hello@acme.com"></div>
+      </div>
+      <div class="qt-row one"><div class="qt-fg"><label for="qtFromAddress">Your address (and VAT/tax number if registered)</label><textarea id="qtFromAddress" rows="2" placeholder="12 High Street, Leeds LS1 4AB"></textarea></div></div>
+      <div class="qt-row one"><div class="qt-fg"><label for="qtLogo">Logo <span class="qt-chip">PRO</span></label><input type="file" id="qtLogo" accept="image/png,image/jpeg"><span class="qt-hint"><%= t.isPro ? 'PNG or JPG under 500 KB. Added to your downloaded PDF.' : 'PNG or JPG under 500 KB. Shown in the preview; added to the PDF with Pro.' %></span></div></div>
+
+      <div class="qt-st">Client details</div>
+      <div class="qt-row">
+        <div class="qt-fg"><label for="qtToName">Client name / company</label><input type="text" id="qtToName" placeholder="Client name"></div>
+        <div class="qt-fg"><label for="qtToEmail">Client email</label><input type="text" id="qtToEmail" placeholder="client@email.com"></div>
+      </div>
+      <div class="qt-row one"><div class="qt-fg"><label for="qtToAddress">Client or site address</label><textarea id="qtToAddress" rows="2" placeholder="Site address"></textarea></div></div>
+
+      <div class="qt-st">Quote details</div>
+      <div class="qt-row three">
+        <div class="qt-fg"><label for="qtNumber">Quote number</label><input type="text" id="qtNumber" value="Q-001"></div>
+        <div class="qt-fg"><label for="qtDate">Quote date</label><input type="date" id="qtDate"></div>
+        <div class="qt-fg"><label for="qtValid">Valid until</label><input type="date" id="qtValid"></div>
+      </div>
+      <div class="qt-row one"><div class="qt-fg"><label for="qtCurrency">Currency</label>
+        <select id="qtCurrency">
+          <% (t.currencies || []).forEach(function (c) { %><option value="<%= c.code %>|<%= c.symbol %>"><%= c.code %> &ndash; <%= c.name %> (<%= c.symbol %>)</option><% }) %>
+        </select>
+      </div></div>
+
+      <div class="qt-st">Line items</div>
+      <div class="qt-ih" aria-hidden="true"><span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span><span></span></div>
+      <div id="qtItems"></div>
+      <button type="button" class="qt-add" id="qtAdd">+ Add line item</button>
+
+      <div class="qt-row">
+        <div class="qt-fg"><label for="qtTaxRate">Tax rate (%)</label><input type="number" id="qtTaxRate" placeholder="0" min="0" max="100" step="any" inputmode="decimal"></div>
+        <div class="qt-fg"><label for="qtTaxLabel">Tax name</label><input type="text" id="qtTaxLabel" value="Tax" placeholder="VAT / GST / Sales tax"></div>
+      </div>
+      <div class="qt-disc">
+        <div class="qt-fg"><label for="qtDiscount">Discount</label><input type="number" id="qtDiscount" placeholder="0" min="0" step="any" inputmode="decimal"></div>
+        <div class="qt-fg"><label for="qtDiscountType">Type</label><select id="qtDiscountType"><option value="fixed">Amount</option><option value="percent">Percent</option></select></div>
+      </div>
+
+      <div class="qt-totals" aria-live="polite">
+        <div class="qt-tr"><span>Subtotal</span><span id="qtSub">0.00</span></div>
+        <div class="qt-tr" id="qtDiscRow" style="display:none;color:#b42318"><span id="qtDiscLabel">Discount</span><span id="qtDiscAmt">0.00</span></div>
+        <div class="qt-tr" id="qtTaxRow" style="display:none"><span id="qtTaxName">Tax</span><span id="qtTaxAmt">0.00</span></div>
+        <div class="qt-tr grand"><span>Total</span><span id="qtTot">0.00</span></div>
+      </div>
+
+      <div class="qt-st">Notes &amp; terms</div>
+      <div class="qt-row one"><div class="qt-fg"><label for="qtNotes">Scope, exclusions, payment terms, how to accept</label><textarea id="qtNotes" rows="4" placeholder="What is included and excluded, deposit and payment terms, how the client accepts this quote."></textarea></div></div>
+
+      <div class="qt-st">Accent colour</div>
+      <div class="qt-colors" role="group" aria-label="Accent colour">
+        <% [['#0f4c81','Navy'],['#7c3aed','Purple'],['#059669','Green'],['#dc2626','Red'],['#d97706','Amber'],['#0891b2','Teal'],['#1a1a2e','Charcoal']].forEach(function (c, i) { %><button type="button" class="qt-cdot<%= i === 0 ? ' on' : '' %>" style="background:<%= c[0] %>" data-c="<%= c[0] %>" title="<%= c[1] %>" aria-label="<%= c[1] %>" aria-pressed="<%= i === 0 ? 'true' : 'false' %>"></button><% }) %>
+      </div>
+
+      <% if (t.isPro) { %>
+      <div class="qt-inv-fields">
+        <div class="qt-st" style="margin-top:0">Invoice from this quote <span class="qt-chip">PRO</span></div>
+        <div class="qt-row three" style="margin-bottom:0">
+          <div class="qt-fg"><label for="qtInvNumber">Invoice no.</label><input type="text" id="qtInvNumber" value="INV-001"></div>
+          <div class="qt-fg"><label for="qtInvDate">Invoice date</label><input type="date" id="qtInvDate"></div>
+          <div class="qt-fg"><label for="qtInvDue">Due date</label><input type="date" id="qtInvDue"></div>
+        </div>
+      </div>
+      <% } %>
+
+      <div class="qt-actions">
+        <button type="button" class="qt-pdf" id="qtPdfBtn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download quote PDF</button>
+        <button type="button" class="qt-inv" id="qtInvBtn">Download as invoice PDF<span class="qt-chip">PRO</span></button>
+        <div class="qt-msg" id="qtMsg" role="status" hidden></div>
+      </div>
+    </div>
+
+    <div class="qt-preview">
+      <div class="qt-ph"><strong>Live preview</strong><span>Updates as you type</span></div>
+      <iframe id="qtFrame" title="Quote preview"></iframe>
+      <% if (!t.isPro) { %>
+      <div class="qt-probar">
+        <p><strong>Pro, $9 one-time:</strong> no &ldquo;Made with GetQuotationMaker&rdquo; line, your logo on the PDF, and one-click invoice from any quote.</p>
+        <a href="<%= t.gumroadLink %>" target="_blank" rel="noopener">Get Pro</a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+<script>window.QT_CONFIG = <%- JSON.stringify({ isPro: !!t.isPro, gumroadLink: t.gumroadLink, presets: t.presets || {}, currency: t.currency || null, taxRate: (t.taxRate == null ? null : t.taxRate), taxLabel: t.taxLabel || null, defaultPreset: t.defaultPreset || null }).replace(/</g, '\\u003c') %>;</script>
+<script src="/tool.js?v=<%= t.assetVersion || '1' %>" defer></script>

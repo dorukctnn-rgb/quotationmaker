@@ -1,334 +1,227 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const PDFDocument = require('pdfkit');
 const path = require('path');
 const { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS } = require('./content');
-const app = express();
+const { GUIDE_PAGES } = require('./content/guides');
+const { PROFESSION_EXTRAS, SHORT_GUIDES } = require('./content/trades');
+const { PRESETS } = require('./content/presets');
+const { COUNTRIES, COUNTRY_FACTS_CHECKED } = require('./content/countries');
+const { CURRENCIES } = require('./lib/currencies');
+const pdf = require('./lib/pdf');
+const pro = require('./lib/pro');
 
+const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.disable('x-powered-by');
+
+const SITE_URL = process.env.SITE_URL || 'https://www.getquotationmaker.com';
+const GUMROAD_LINK = process.env.GUMROAD_LINK || 'https://dorukctn.gumroad.com/l/cjogv';
+const ASSET_VERSION = '20261007';
+const UPDATED = '2026-10-07';
+const PREVIOUS_UPDATE = '2026-09-24';
+
+// -- Redirects (old URLs merged into stronger pages) ------------------------
+Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
+
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '2mb' }));
 app.use(bodyParser.json({ limit: '2mb' }));
 app.use(cookieParser());
 
-const SITE_URL = process.env.SITE_URL || 'https://www.getquotationmaker.com';
-const GUMROAD_LINK = process.env.GUMROAD_LINK || 'https://dorukctn.gumroad.com/l/cjogv';
-const users = {};
-
+// -- Data ---------------------------------------------------------------------
 const PROFESSIONS = [
-  { slug: 'plumber', label: 'Plumbers', h1: 'Free Plumber Quote Template', desc: 'Create professional plumbing quotes instantly. Include call-out fee, parts, labour and VAT. Free PDF download, no signup.', intro: 'Generate professional plumbing quotes in seconds. Include call-out charges, parts, labour hours and applicable taxes.' },
-  { slug: 'electrician', label: 'Electricians', h1: 'Free Electrician Quote Template', desc: 'Electrician quote generator. Include materials, labour and VAT. Free PDF, no signup required.', intro: 'Professional quote template for electricians. Bill for materials, labour hours, call-out fees and VAT.' },
-  { slug: 'contractor', label: 'Contractors', h1: 'Free Contractor Quote Template', desc: 'Contractor quote generator. Professional quotes with labour, materials and tax. Free PDF download.', intro: 'Create contractor quotes instantly. Itemise labour, materials, equipment hire and taxes.', template: 'contractor-quote-template.docx' },
-  { slug: 'web-designer', label: 'Web Designers', h1: 'Free Web Design Quote Template', desc: 'Web design quote generator. Quote for design, development and ongoing maintenance. Free PDF.', intro: 'Quote for web design projects professionally. Include design, development, hosting setup and ongoing retainer fees.' },
-  { slug: 'photographer', label: 'Photographers', h1: 'Free Photography Quote Template', desc: 'Photography quote generator. Quote for shoots, editing and licensing. Free PDF download.', intro: 'Professional photography quote template. Include shoot days, editing hours, travel and licensing fees.' },
-  { slug: 'consultant', label: 'Consultants', h1: 'Free Consulting Quote Template', desc: 'Consulting quote generator. Quote for consulting services and retainers. Free PDF.', intro: 'Create professional consulting quotes. Include daily rate, project fee, expenses and payment terms.' },
-  { slug: 'landscaper', label: 'Landscapers', h1: 'Free Landscaping Quote Template', desc: 'Landscaping quote generator. Quote for design, planting and maintenance. Free PDF.', intro: 'Professional landscaping quotes. Include design, planting, materials and ongoing maintenance fees.' },
-  { slug: 'cleaner', label: 'Cleaning Services', h1: 'Free Cleaning Service Quote Template', desc: 'Cleaning quote generator. Quote for one-off and recurring cleaning jobs. Free PDF.', intro: 'Quote for cleaning services professionally. Include hourly rate, materials and recurring schedule pricing.' },
-  { slug: 'mechanic', label: 'Auto Mechanics', h1: 'Free Auto Repair Quote Template', desc: 'Auto repair quote generator. Include parts, labour and diagnostics. Free PDF download.', intro: 'Professional auto repair quotes. Include parts, labour hours, diagnostics and applicable taxes.' },
-  { slug: 'roofer', label: 'Roofers', h1: 'Free Roofing Quote Template', desc: 'Roofing quote generator. Quote for materials, labour and scaffolding. Free PDF.', intro: 'Create professional roofing quotes. Include materials, labour, scaffolding and waste removal costs.' },
-  { slug: 'painter', label: 'Painters & Decorators', h1: 'Free Painting Quote Template', desc: 'Painting and decorating quote generator. Include materials, prep and labour. Free PDF.', intro: 'Professional painting quotes. Include surface prep, materials, labour hours and number of coats.' },
-  { slug: 'builder', label: 'Builders', h1: 'Free Builder Quote Template', desc: 'Builder quote generator. Quote for construction and renovation projects. Free PDF.', intro: 'Create detailed builder quotes. Include materials, labour, subcontractors and project timeline.' },
-  { slug: 'graphic-designer', label: 'Graphic Designers', h1: 'Free Graphic Design Quote Template', desc: 'Graphic design quote generator. Quote for design projects and revisions. Free PDF.', intro: 'Professional graphic design quotes. Include project scope, revisions, file formats and licensing.' },
-  { slug: 'hvac', label: 'HVAC Technicians', h1: 'Free HVAC Quote Template', desc: 'HVAC quote generator. Quote for installation, repair and maintenance. Free PDF.', intro: 'Quote for HVAC services professionally. Include unit cost, installation, labour and annual maintenance.' },
-  { slug: 'carpenter', label: 'Carpenters', h1: 'Free Carpentry Quote Template', desc: 'Carpentry quote generator. Quote for custom woodwork and fitting. Free PDF.', intro: 'Professional carpentry quotes. Include materials, bespoke fabrication, fitting and finishing.' },
-  { slug: 'flooring', label: 'Flooring Installers', h1: 'Free Flooring Quote Template', desc: 'Flooring quote generator. Quote for supply and installation. Free PDF download.', intro: 'Quote for flooring installation. Include materials per m\u00B2, underlay, fitting and waste removal.' },
-  { slug: 'it-support', label: 'IT Support', h1: 'Free IT Support Quote Template', desc: 'IT support quote generator. Quote for setup, repair and support contracts. Free PDF.', intro: 'Professional IT support quotes. Include hourly rate, call-out fee, parts and support contract pricing.' },
-  { slug: 'architect', label: 'Architects', h1: 'Free Architecture Quote Template', desc: 'Architecture quote generator. Quote for design, planning and project management. Free PDF.', intro: 'Create professional architecture quotes. Include feasibility, design, planning submission and site management fees.' },
-  { slug: 'wedding-planner', label: 'Wedding Planners', h1: 'Free Wedding Planning Quote Template', desc: 'Wedding planning quote generator. Quote for planning, coordination and on-the-day services. Free PDF.', intro: 'Professional wedding planning quotes. Include planning hours, supplier coordination, venue visits and on-the-day management.' },
-  { slug: 'personal-trainer', label: 'Personal Trainers', h1: 'Free Personal Training Quote Template', desc: 'Personal trainer quote generator. Quote for sessions and programmes. Free PDF.', intro: 'Create professional personal training quotes. Include session rate, programme length, assessments and nutrition plans.' }
+  { slug: 'contractor', label: 'Contractors & tradesmen', name: 'Contractor' },
+  { slug: 'painter', label: 'Painters & decorators', name: 'Painting' },
+  { slug: 'mechanic', label: 'Auto repair & mechanics', name: 'Auto Repair' },
+  { slug: 'plumber', label: 'Plumbers', name: 'Plumber', intro: 'Quote plumbing jobs with the call-out fee, labour, parts and any VAT on separate lines, plus a guarantee and validity date.' },
+  { slug: 'electrician', label: 'Electricians', name: 'Electrician', intro: 'Quote electrical work point by point, with testing and certification, making good and exclusions spelled out.' },
+  { slug: 'builder', label: 'Builders', name: 'Builder', intro: 'Quote building and extension work by stage, with provisional sums, exclusions and a stage payment schedule.' },
+  { slug: 'consultant', label: 'Consultants', name: 'Consulting', intro: 'Quote consulting work by deliverable, with day rates or fixed fees, expenses, assumptions and payment terms.',
+    title: 'Consulting Quote Template & Sample Quotation (Free PDF)' },
+  { slug: 'web-designer', label: 'Web designers', name: 'Web Design', intro: 'Quote web projects by milestone: discovery, design rounds, development, content and launch, with exclusions and ongoing costs.' },
+  { slug: 'photographer', label: 'Photographers', name: 'Photography', intro: 'Quote shoots with coverage hours, editing, deliverables, licence terms, travel and the booking fee.' },
+  { slug: 'graphic-designer', label: 'Graphic designers', name: 'Graphic Design', intro: 'Quote design projects with deliverables, concepts, revision rounds, file formats and usage rights.' },
+  { slug: 'landscaper', label: 'Landscapers', name: 'Landscaping', intro: 'Quote landscaping with materials by quantity, labour, machinery, waste removal and aftercare.' },
+  { slug: 'cleaner', label: 'Cleaning services', name: 'Cleaning', intro: 'Quote one-off and regular cleans by the hour, per visit or per area, with frequency, supplies and cancellation terms.' },
+  { slug: 'hvac', label: 'HVAC technicians', name: 'HVAC', intro: 'Quote HVAC installs and repairs with equipment model and capacity, installation, permits, warranties and maintenance options.' },
+  { slug: 'flooring', label: 'Flooring installers', name: 'Flooring', intro: 'Quote flooring by measured area, with materials, underlay, subfloor preparation, finishing and uplift of the old floor.' },
+  { slug: 'it-support', label: 'IT support', name: 'IT Support', intro: 'Quote IT setup, migrations and monthly support per user or device, with licences and support hours stated.' },
+  { slug: 'architect', label: 'Architects', name: 'Architecture', intro: 'Quote architectural fees stage by stage, with deliverables, revision rounds and third-party fees excluded.' },
+  { slug: 'wedding-planner', label: 'Wedding planners', name: 'Wedding Planning', intro: 'Quote wedding planning packages with meetings, supplier management, on-the-day staff and a retainer schedule.' },
+  { slug: 'personal-trainer', label: 'Personal trainers', name: 'Personal Training', intro: 'Quote training blocks with session length, assessments, programmes, rescheduling policy and payment.' }
 ];
-
-const COUNTRIES = [
-  { slug: 'uk', label: 'UK', fullName: 'United Kingdom', currency: 'GBP', symbol: '\u00A3', tax: 'VAT', taxRate: 20 },
-  { slug: 'usa', label: 'USA', fullName: 'United States', currency: 'USD', symbol: '$', tax: 'Sales Tax', taxRate: 0 },
-  { slug: 'canada', label: 'Canada', fullName: 'Canada', currency: 'CAD', symbol: 'CA$', tax: 'GST/HST', taxRate: 5 },
-  { slug: 'australia', label: 'Australia', fullName: 'Australia', currency: 'AUD', symbol: 'AU$', tax: 'GST', taxRate: 10 },
-  { slug: 'germany', label: 'Germany', fullName: 'Germany', currency: 'EUR', symbol: '\u20AC', tax: 'MwSt', taxRate: 19 },
-  { slug: 'france', label: 'France', fullName: 'France', currency: 'EUR', symbol: '\u20AC', tax: 'TVA', taxRate: 20 },
-  { slug: 'india', label: 'India', fullName: 'India', currency: 'INR', symbol: '\u20B9', tax: 'GST', taxRate: 18 },
-  { slug: 'uae', label: 'UAE', fullName: 'United Arab Emirates', currency: 'AED', symbol: 'AED', tax: 'VAT', taxRate: 5 },
-  { slug: 'singapore', label: 'Singapore', fullName: 'Singapore', currency: 'SGD', symbol: 'S$', tax: 'GST', taxRate: 9 },
-  { slug: 'netherlands', label: 'Netherlands', fullName: 'Netherlands', currency: 'EUR', symbol: '\u20AC', tax: 'BTW', taxRate: 21 },
-  { slug: 'new-zealand', label: 'New Zealand', fullName: 'New Zealand', currency: 'NZD', symbol: 'NZ$', tax: 'GST', taxRate: 15 },
-  { slug: 'south-africa', label: 'South Africa', fullName: 'South Africa', currency: 'ZAR', symbol: 'R', tax: 'VAT', taxRate: 15 }
-];
+const PRESET_FOR = { contractor: 'tradesman-uk', painter: 'painting-interior-uk', mechanic: 'auto-brakes' };
+PROFESSIONS.forEach(p => {
+  const extra = PROFESSION_EXTRAS[p.slug];
+  Object.assign(p, extra || {});
+  p.path = '/quote-template-' + p.slug;
+  if (!extra) {
+    p.h1 = p.name + ' quote template';
+    p.title = p.title || p.name + ' Quote Template (Free PDF, No Signup)';
+    p.desc = 'Free ' + p.name.toLowerCase() + ' quote template: fill it in online with a ready-made example, add tax and terms, and download a professional PDF. No signup.';
+    p.lead = p.intro + ' Load the example below, change the details and download a PDF.';
+    p.guide = (PROFESSION_GUIDES[p.slug] || '') + (SHORT_GUIDES[p.slug] || '');
+    p.presetButtons = PRESETS[p.slug] ? [{ key: p.slug, label: 'Example ' + p.name.toLowerCase() + ' quote' }] : [];
+    p.heroCta = PRESETS[p.slug] ? { preset: p.slug, label: 'Load an example ' + p.name.toLowerCase() + ' quote' } : null;
+    p.updated = UPDATED;
+  }
+});
 
 const BLOG_POSTS = [
-  { slug: 'how-to-write-a-professional-quote', title: 'How to Write a Professional Quote: Complete Guide 2026', desc: 'Learn how to write a professional business quote that wins jobs. Includes what to include, how to price, validity dates and free template.', date: '2026-01-10', readTime: '8 min read', category: 'Guide', content: '<h2>What is a business quote?</h2><p>A business quote (also called a quotation or estimate) is a document sent to a potential client before work begins. It states the proposed price, scope of work, and terms.</p><h2>What to include in a professional quote</h2><ul><li><strong>Your business name, address and contact details</strong></li><li><strong>Client name and project address</strong></li><li><strong>A unique quote number</strong></li><li><strong>Quote date and validity date</strong></li><li><strong>Itemised list of work</strong></li><li><strong>Applicable tax</strong></li><li><strong>Total amount and payment terms</strong></li></ul><h2>How to price your quote correctly</h2><p>Include all costs: materials, labour, travel time, consumables, and a margin for unexpected complications. Add 15-20% contingency to material costs.</p><h2>Setting a validity date</h2><p>Always include a validity date - the date until which your quoted price is guaranteed. For most trades and services, 30 days is standard.</p><h2>How to follow up on a sent quote</h2><p>If you have not heard back within 3-5 days, send a brief follow-up email. A polite follow-up significantly increases your win rate.</p>' },
-  { slug: 'quote-vs-invoice-difference', title: 'Quote vs Invoice: What is the Difference?', desc: 'Confused about the difference between a quote and an invoice? This guide explains when to use each.', date: '2026-01-18', readTime: '5 min read', category: 'Guide', content: '<h2>The key difference</h2><p>A <strong>quote</strong> is sent before work begins to propose a price. An <strong>invoice</strong> is sent after work is complete to request payment.</p><h2>When to send a quote</h2><p>Send a quote when a client asks how much a job will cost. Once they accept the quote, you can begin work.</p><h2>When to send an invoice</h2><p>Send an invoice when the work is complete. The invoice requests payment based on the agreed price.</p><h2>Can a quote become an invoice?</h2><p>Yes - once a quote is accepted, you convert it directly to an invoice. Our PRO plan lets you do this in one click.</p>' },
-  { slug: 'how-to-price-a-job-quote', title: 'How to Price a Job Quote: A Guide for Tradespeople and Freelancers', desc: 'Learn how to price your quotes correctly. Avoid underpricing, calculate materials and labour, and what margin to add.', date: '2026-01-26', readTime: '7 min read', category: 'Pricing', content: '<h2>The most common quoting mistake: underpricing</h2><p>Most freelancers and tradespeople consistently underprice their work. Here is how to price correctly.</p><h2>Step 1: Calculate your material costs</h2><p>List every material you will need. Add 10-15% for wastage and price fluctuations.</p><h2>Step 2: Calculate your labour costs</h2><p>Estimate the hours the job will take. Multiply by your hourly rate which should cover salary, overheads, and profit margin.</p><h2>Step 3: Add contingency</h2><p>Add 10-20% contingency for unexpected complications.</p><h2>Step 4: Add tax</h2><p>If VAT or GST registered, add the applicable tax to your quote total.</p><h2>Step 5: Check your profit margin</h2><p>Aim for at least 20-30% gross margin. If lower, your pricing is too low or costs too high.</p>' },
-  { slug: 'what-is-a-quotation-in-business', title: 'What is a Quotation in Business? Definition, Types and Examples', desc: 'A complete guide to business quotations. What they are, the different types, what to include and when to use them.', date: '2026-02-03', readTime: '6 min read', category: 'Guide', content: '<h2>What is a quotation in business?</h2><p>A business quotation is a formal document sent by a supplier to a potential customer that specifies the price for goods or services.</p><h2>Types of business quotations</h2><ul><li><strong>Fixed price quote</strong> - the price stated is the final price</li><li><strong>Estimate</strong> - an approximate price that may vary</li><li><strong>Bid</strong> - used in competitive tendering</li><li><strong>Proforma invoice</strong> - used in international trade before goods are shipped</li></ul><h2>When is a quotation legally binding?</h2><p>A quote is not binding until the client formally accepts it. Once accepted in writing, it forms the basis of a contract.</p>' },
-  { slug: 'how-to-write-quote-email', title: 'How to Send a Quote by Email: Templates and Best Practices', desc: 'Professional email templates for sending quotes to clients.', date: '2026-02-11', readTime: '6 min read', category: 'Templates', content: '<h2>Initial quote email template</h2><p><strong>Subject:</strong> Quote #Q-001 - [Service] - [Your Company]</p><p>Hi [Client Name], please find attached Quote #Q-001 for [description], totalling [amount]. This quote is valid until [date]. To proceed, simply reply confirming acceptance.</p><h2>Follow-up email template</h2><p><strong>Subject:</strong> Following up - Quote #Q-001</p><p>Hi [Client Name], I wanted to follow up on Quote #Q-001 sent on [date]. Please let me know if you have any questions.</p><h2>Quote accepted confirmation</h2><p><strong>Subject:</strong> Quote #Q-001 Accepted - Next Steps</p><p>Hi [Client Name], thank you for accepting Quote #Q-001. I will be in touch to confirm the start date. Looking forward to working with you.</p>' },
-  { slug: 'quote-template-construction', title: 'Construction Quote Template: What to Include and How to Win Jobs', desc: 'A complete guide to construction quotes for builders, contractors and tradespeople.', date: '2026-02-19', readTime: '8 min read', category: 'Templates', content: '<h2>What makes a good construction quote?</h2><p>A professional construction quote gives clients confidence that you understand the scope and have priced it accurately.</p><h2>What to include</h2><ul><li>Project address</li><li>Detailed scope of work - what is included AND excluded</li><li>Materials breakdown</li><li>Labour costs</li><li>Waste disposal</li><li>VAT or applicable tax</li><li>Payment schedule for larger jobs</li><li>Validity date - 14-30 days</li></ul><h2>How to handle variations</h2><p>Additional work should always be quoted separately and approved in writing before starting.</p><h2>Stage payments for larger projects</h2><p>For projects over \u00A35,000, use stage payments: deposit on acceptance, interim at milestones, final on completion.</p>' },
-  { slug: 'how-to-follow-up-on-a-quote', title: 'How to Follow Up on a Quote Without Being Pushy', desc: 'Scripts and timing advice for following up on quotes to improve your acceptance rate.', date: '2026-02-27', readTime: '6 min read', category: 'Tips', content: '<h2>Why most quotes are lost to silence</h2><p>Most unanswered quotes are not rejections - clients are busy. Following up at least once increases your acceptance rate by 30-40%.</p><h2>When to follow up</h2><ul><li><strong>First:</strong> 3-5 business days after sending</li><li><strong>Second:</strong> 7-10 days after the first follow-up</li><li><strong>Final:</strong> A few days before the validity date expires</li></ul><h2>Using the validity date as leverage</h2><p>A few days before it expires: "Quote #Q-001 is valid until [date] - please let me know if you would like to proceed." This creates urgency without pressure.</p>' },
-  { slug: 'vat-on-quotes-explained', title: 'VAT on Quotes: Do You Charge VAT and How to Show It', desc: 'A complete guide to VAT on business quotes. When to charge and how to display it.', date: '2026-03-06', readTime: '7 min read', category: 'Tax', content: '<h2>Do you need to charge VAT on your quotes?</h2><p>You only charge VAT if you are VAT registered. In the UK, you must register when taxable turnover exceeds \u00A390,000.</p><h2>How to show VAT on a quote</h2><p>Always show VAT as a separate line item: subtotal (excluding VAT), VAT amount (with rate), and total (including VAT).</p><h2>VAT rates by country</h2><ul><li><strong>UK</strong> - 20% standard</li><li><strong>Germany</strong> - 19% standard</li><li><strong>France</strong> - 20% standard</li><li><strong>Australia (GST)</strong> - 10%</li><li><strong>Canada (GST)</strong> - 5% federal</li><li><strong>UAE (VAT)</strong> - 5%</li></ul>' },
-  { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance Wording: Examples & Templates to Copy', desc: 'Copy-paste quote acceptance wording: how to accept a quotation by email, confirmation of quotation templates, and the acceptance clause to put on your quotes.', date: '2026-03-14', readTime: '9 min read', category: 'Templates', content: '<p>Need the right words to accept a quote, or to confirm one a client has accepted? Below are ready-to-use quote acceptance wording examples you can copy, followed by how quotation acceptance actually works and how to get more of your own quotes accepted.</p><h2>Quote acceptance wording: examples you can copy</h2><p>Replace the details in square brackets. Keep the quote number, date and total in every message, so the accepted terms are recorded in writing.</p><h3>1. Accepting a supplier quote (client to business)</h3><p>Use this when you have received a quote and want to accept it.</p><div style="background:#f8fafc;border-left:3px solid #2563eb;border-radius:6px;padding:14px 18px;margin:10px 0 20px;font-size:15px;line-height:1.75">Subject: Acceptance of quotation [Q-001]<br><br>Dear [Name],<br><br>Thank you for your quotation [Q-001] dated [date]. We are pleased to accept it for [short description of work] at the quoted total of [amount], on the terms set out in the quotation.<br><br>Please go ahead and confirm the start date. Let us know if you need anything further from us, such as a purchase order or deposit.<br><br>Kind regards,<br>[Your name]<br>[Company]</div><h3>2. Confirmation of quotation (business to client)</h3><p>Send this the same day a client accepts, especially if they accepted by phone or in person.</p><div style="background:#f8fafc;border-left:3px solid #2563eb;border-radius:6px;padding:14px 18px;margin:10px 0 20px;font-size:15px;line-height:1.75">Subject: Confirmation of quotation [Q-001]<br><br>Dear [Name],<br><br>Thank you for accepting quotation [Q-001] dated [date]. This email confirms the scope and total of [amount] exactly as quoted.<br><br>Next steps: we will send the deposit invoice today and book the work in for [date] once it is received. Any additional work will be quoted separately before we carry it out.<br><br>Kind regards,<br>[Your name]</div><h3>3. Acceptance wording to put on your quote</h3><p>Add this at the bottom of every quote so the client knows exactly how to accept.</p><div style="background:#f8fafc;border-left:3px solid #2563eb;border-radius:6px;padding:14px 18px;margin:10px 0 20px;font-size:15px;line-height:1.75"><strong>Acceptance</strong><br>To accept this quotation, sign below and return it, or reply to the email it came with confirming acceptance. This quotation is valid until [date]. Work will be scheduled on receipt of acceptance [and the deposit of amount].<br><br>Accepted by: ______________________ &nbsp; Date: ____________<br>Name and position: ______________________</div><h3>4. Short acceptance reply</h3><p>For small jobs, a one-line written reply is enough, as long as it references the quote.</p><div style="background:#f8fafc;border-left:3px solid #2563eb;border-radius:6px;padding:14px 18px;margin:10px 0 20px;font-size:15px;line-height:1.75">Hi [Name], we accept quotation [Q-001] for [amount]. Please go ahead and let us know the start date. Thanks, [Your name]</div><h3>5. Accepting a quote with changes</h3><p>If you want to accept only part of a quote or change something, say so clearly. Strictly, this is a counter-offer, so ask for a revised quote rather than assuming the change is agreed.</p><div style="background:#f8fafc;border-left:3px solid #2563eb;border-radius:6px;padding:14px 18px;margin:10px 0 20px;font-size:15px;line-height:1.75">Dear [Name],<br><br>Thank you for quotation [Q-001]. We would like to proceed with [items to accept] but not [items to remove]. Could you please send a revised quotation reflecting this? We will confirm acceptance on receipt.<br><br>Kind regards,<br>[Your name]</div><h2>What does quotation acceptance mean?</h2><p>A quote on its own is an offer. It carries no obligation for either side until the client accepts it. Once the client accepts the quote as written, that acceptance normally forms the basis of a contract: you agree to carry out the scope described, and they agree to the price and terms on the document. This is why the wording matters. Whatever is listed, excluded or left vague is what you are both agreeing to.</p><p>Acceptance only applies while the quote is still valid. If the validity date has passed, the offer has lapsed and the business is free to re-quote at current prices.</p><h2>How a client accepts a quote</h2><ul><li><strong>Written reply</strong> - the client emails back confirming they accept. The most common method and the easiest to evidence.</li><li><strong>Signed quote</strong> - the client signs and returns the quote document. Useful for larger projects.</li><li><strong>Deposit payment</strong> - paying the deposit stated on the quote is usually treated as acceptance of it.</li><li><strong>Verbal agreement</strong> - it may count, but it is very hard to prove. Always follow a verbal yes with a written confirmation.</li></ul><h2>Always confirm acceptance in writing</h2><p>Written confirmation fixes the price, the scope and the date the work was agreed, so neither side relies on memory later. Keep the accepted quote exactly as it was. Do not edit it after acceptance. If something changes, issue a separate written quotation for the extra work.</p><h2>What happens after a quote is accepted</h2><ul><li>Confirm acceptance in writing and thank the client</li><li>Raise a deposit invoice if your terms include one</li><li>Schedule the work and confirm the dates</li><li>Quote any additional work separately before carrying it out</li><li>Invoice the balance on completion, matching the accepted quote line for line</li></ul><p>The fastest way to turn an accepted quote into an invoice is to build the invoice from the same line items, so the two documents match exactly.</p><h2>7 ways to improve your quote acceptance rate</h2><h3>1. Send quotes quickly</h3><p>The first professional quote to arrive often wins. Aim to send within 24 hours of the enquiry.</p><h3>2. Be specific</h3><p>Vague descriptions lose jobs. Specific line items build trust and reduce the questions that stall a decision.</p><h3>3. Include a validity date</h3><p>It creates gentle urgency. Without one, clients sit on quotes indefinitely and prices drift.</p><h3>4. Follow up</h3><p>Many accepted quotes need a nudge. Send one short follow-up 3 to 5 days after the quote. Most silence is busyness, not rejection.</p><h3>5. Make it easy to accept</h3><p>Put clear acceptance wording on the quote itself, like example 3 above, and attach the PDF rather than sending the client somewhere to log in.</p><h3>6. Include clear terms</h3><p>Payment terms, warranty and exclusions make a quote feel complete, and a complete quote feels safer to accept.</p><h3>7. Look professional</h3><p>A clean PDF with your business details, a quote number and a validity date signals that you will run the job the same way.</p>' },
-  { slug: 'free-quote-template-guide', title: 'Free Quote Template: What to Use and How to Customise It', desc: 'A guide to free quote templates for freelancers and small businesses.', date: '2026-03-22', readTime: '6 min read', category: 'Templates', content: '<h2>What makes a good quote template?</h2><p>Clean, professional, and quick to complete. Minimum customisation per client while looking personalised.</p><h2>Must-have elements</h2><ul><li>Your business details (pre-filled)</li><li>Client details section</li><li>Quote number and date fields</li><li>Validity date field</li><li>Line items table with auto-calculations</li><li>Tax and discount fields</li><li>Total in clear formatting</li><li>Notes and payment terms section</li></ul><h2>Word and Excel templates: the problem</h2><p>Calculations are manual, formatting breaks when edited, and they look generic. A purpose-built online generator solves all of these problems.</p><h2>Always include a validity date</h2><p>The most overlooked feature of any quote template. Protects you from old prices and creates urgency.</p>' },
-  { slug: 'tradesman-quote-template', title: 'Tradesman Quote Template: Free Download for UK Tradespeople', desc: 'Free tradesman quote template for UK tradespeople. What to include, how to price labour and materials, and VAT rules.', date: '2026-05-20', readTime: '7 min read', category: 'Templates', content: '<h2>What is a tradesman quote?</h2><p>A tradesman quote is a written price proposal sent to a client before work begins. It details the scope of work, materials, labour costs, and any applicable VAT.</p><h2>What to include in a tradesman quote</h2><ul><li>Your name or business name and contact details</li><li>VAT registration number if VAT registered</li><li>Client name and site address</li><li>Quote number and date</li><li>Validity date - typically 30 days</li><li>Itemised breakdown: materials, labour hours, call-out fee</li><li>VAT at 20% if registered</li><li>Total amount</li><li>Payment terms</li></ul><h2>How to price a tradesman quote</h2><p>Calculate materials at cost plus 15-20% markup. Charge labour at your true hourly rate, which should cover your salary, insurance, tools, vehicle costs, and a profit margin. Add 10-15% contingency for complications.</p><h2>Tradesman quote vs estimate</h2><p>A quote is a fixed price - once accepted, you must honour it. An estimate is approximate and can change. Always be clear which you are providing.</p><h2>Send your tradesman quote as a PDF</h2><p>A professional PDF quote wins more jobs than a handwritten price. Use our free generator to create and download your tradesman quote as PDF in seconds.</p>', template: 'tradesman-quote-template.docx' },
-  { slug: 'contractor-quotation-guide', title: 'Contractor Quotation: How to Write and Win More Jobs', desc: 'Complete guide to writing contractor quotations. What to include, stage payments, variations and how to follow up.', date: '2026-05-21', readTime: '8 min read', category: 'Templates', content: '<h2>Why your contractor quotation is costing you jobs</h2><p>Most contractors lose jobs not on price but on presentation. A professional detailed quotation builds client confidence. A vague email loses the job to a competitor who looks more professional.</p><h2>What every contractor quotation must include</h2><ul><li>Your company name, address and contact details</li><li>Registration and insurance details</li><li>Client name and project site address</li><li>Unique quotation number and issue date</li><li>Validity period - 30 days recommended</li><li>Detailed scope of work including what is NOT included</li><li>Materials breakdown with quantities</li><li>Labour costs by trade</li><li>Equipment hire or plant costs</li><li>Waste disposal</li><li>Applicable VAT or tax</li><li>Stage payment schedule for large projects</li><li>Payment terms</li></ul><h2>Stage payments for contractor quotations</h2><p>For projects over \u00A35,000: deposit on acceptance 25%, progress payment at midpoint 50%, final on completion 25%. Always get stage payment milestones agreed in writing before starting.</p><h2>How to handle variations</h2><p>Any work outside the original scope must be quoted separately and approved in writing. State this clearly: Any additional works not listed above will be subject to a separate written quotation.</p>', template: 'contractor-quote-template.docx' },
-  { slug: 'free-quote-generator-netherlands-guide', title: 'Free Quote Generator Netherlands - Create Dutch Offertes Instantly', desc: 'How to create professional Dutch business quotes with 21% BTW. Free generator for ZZP-ers and small businesses in the Netherlands.', date: '2026-05-22', readTime: '6 min read', category: 'Guide', content: '<h2>What is an offerte in the Netherlands?</h2><p>An offerte is a formal written price proposal sent to a potential client before work begins. Once accepted it forms the basis of a contract.</p><h2>Required elements of a Dutch offerte</h2><ul><li>Your business name and KVK number</li><li>BTW identification number if BTW registered</li><li>Client name and address</li><li>Offerte number and date</li><li>Geldigheid validity - typically 30 days</li><li>Itemised work description</li><li>BTW rate - 21% standard or 9% reduced</li><li>Total including BTW</li><li>Betalingstermijn payment terms</li></ul><h2>BTW rates in the Netherlands</h2><p>The standard BTW rate is 21%. A reduced rate of 9% applies to food, books, medicines, and some repair services. A 0% rate applies to exports.</p><h2>ZZP-ers and offertes</h2><p>As a ZZP-er, sending a professional offerte for every project protects you legally and projects professionalism. Our free generator creates BTW-compliant Dutch offertes in seconds.</p>' }
+  { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance Rate: 9 Ways to Get More Quotes Accepted', h1: 'How to improve your quote acceptance rate', desc: 'How to work out your quote acceptance rate, and nine practical ways to get more quotes accepted: speed, specific line items, options, validity dates and follow-ups.', date: '2026-03-14', updated: UPDATED, category: 'Tips' },
+  { slug: 'how-to-write-a-professional-quote', title: 'How to Write a Professional Quote: Step-by-Step Guide', desc: 'How to write a professional quote that wins work: start with the client’s problem, itemise, list exclusions, show tax, add terms and make accepting easy.', date: '2026-01-10', category: 'Guide' },
+  { slug: 'quote-vs-invoice-difference', title: 'Quote vs Invoice: What Is the Difference?', desc: 'A quote is an offer sent before the work; an invoice asks for payment after it. How they differ, quote vs estimate vs proposal, and moving from one to the other.', date: '2026-01-18', category: 'Guide' },
+  { slug: 'how-to-price-a-job-quote', title: 'How to Price a Job Quote: Materials, Labour, Overheads, Profit', desc: 'Price a job quote from four parts: materials, labour, overheads and profit, with a worked example you can follow.', date: '2026-01-26', category: 'Pricing' },
+  { slug: 'what-is-a-quotation-in-business', title: 'What Is a Quotation in Business? Definition, Types, Examples', desc: 'What a business quotation is, what it contains, the main types (fixed price, itemised, estimate, tender) and when it becomes binding.', date: '2026-02-03', category: 'Guide' },
+  { slug: 'how-to-follow-up-on-a-quote', title: 'How to Follow Up on a Quote Without Being Pushy', desc: 'When to follow up on a quote, scripts for each follow-up, and what not to do. Includes wording for before and after the quote expires.', date: '2026-02-27', category: 'Tips' },
+  { slug: 'vat-on-quotes-explained', title: 'VAT on Quotes: Do You Charge VAT and How to Show It', desc: 'When to add VAT to a quote, how to show it, quoting consumers versus businesses, and the UK VAT rate and registration threshold.', date: '2026-03-06', category: 'Tax' }
 ];
-const HOW_TO_PAGES = [
-  { slug: 'how-to-write-a-quote-for-plumbing', title: 'How to Write a Quote for Plumbing Work', desc: 'Step-by-step guide to writing professional plumbing quotes. What to include, how to price call-out fees, parts and labour.' },
-  { slug: 'how-to-quote-for-cleaning-services', title: 'How to Quote for Cleaning Services', desc: 'How to write a professional cleaning service quote. Hourly rates, flat fees, recurring schedules and what to include.' },
-  { slug: 'how-to-write-a-quote-for-construction', title: 'How to Write a Quote for Construction', desc: 'Construction quote guide for builders and contractors. What to include, stage payments and how to handle variations.' },
-  { slug: 'how-to-send-a-quote-to-a-client', title: 'How to Send a Quote to a Client (With an Email Template)', desc: 'The best way to send quotes to clients. Email templates, PDF best practices and follow-up strategies.', content: '<h2>The best way to send a quote to a client</h2><p>Send your quote as a PDF attached to a short, professional email. A PDF looks consistent on every device, cannot be edited by accident, and reads as more professional than a price typed into the body of a message.</p><h2>What to write in the email</h2><p>Keep it short and clear. A good quote email has four parts: a subject line with the quote number, a one-line thank you, a sentence pointing to the attached quote and its total, and a clear next step.</p><ul><li><strong>Subject:</strong> Quote Q-001 for the work, from your business</li><li><strong>Opening:</strong> thank them for the opportunity to quote</li><li><strong>Body:</strong> note the attached PDF, the total and the validity date</li><li><strong>Next step:</strong> tell them exactly how to accept, for example simply reply to confirm</li></ul><h2>When to send it</h2><p>Send the quote within twenty four hours of the enquiry where you can. The first professional quote to arrive often wins the job, even when it is not the cheapest.</p><h2>How to follow up</h2><p>If you do not hear back, follow up politely three to five days after sending. A short message referencing the quote number and validity date is enough. Following up at least once can lift your acceptance rate significantly, because most silence is busyness rather than rejection.</p><h2>Make it easy to accept</h2><p>Reduce friction. Tell the client the single action that accepts the quote, attach the PDF rather than asking them to log in somewhere, and make sure your contact details are on the document. The easier it is to say yes, the more jobs you win.</p>' },
-  { slug: 'how-to-convert-a-quote-to-an-invoice', title: 'How to Convert a Quote to an Invoice', desc: 'Step-by-step guide to converting an accepted quote into an invoice without re-entering data.' },
-  { slug: 'how-to-quote-for-web-design', title: 'How to Quote for Web Design Projects', desc: 'Web design quoting guide. How to scope projects, price your services and include the right terms.' },
-  { slug: 'how-to-write-a-roofing-quote', title: 'How to Write a Roofing Quote', desc: 'Roofing quote guide. Materials, labour, scaffolding, waste disposal and what to exclude.', content: '<h2>What to include in a roofing quote</h2><p>A clear roofing quote protects you and reassures the homeowner. Set out exactly what work you will carry out, the materials you will use, and what is and is not included, so there are no surprises once you are on the roof.</p><ul><li>The roof area in square metres, or the number of squares, and the pitch</li><li>Tear-off and disposal of the existing covering</li><li>New materials: membrane or felt, battens, tiles or slates, ridge, flashing and fixings</li><li>Labour, broken down by stage where helpful</li><li>Scaffolding or access equipment and how long it is needed</li><li>Skip hire and waste removal</li><li>Any repairs to timbers, fascias or guttering</li><li>VAT or applicable tax shown as a separate line</li><li>A validity date, since material prices move</li></ul><h2>How to price a roofing quote</h2><p>Measure the roof accurately and add ten to fifteen percent to material quantities for waste and cuts. Price labour at your true day rate, including insurance, vehicle and tools. Add scaffolding and skip costs as their own lines so the homeowner can see them. Finish with a contingency of ten to twenty percent for hidden problems such as rotten battens or felt, which are common once the old covering is off.</p><h2>What to exclude and flag</h2><p>State clearly that hidden defects found after strip-off, such as rotten rafters or damaged chimney work, are not included and will be quoted separately before any extra work begins. This single line prevents most disputes.</p><h2>Roofing quote validity</h2><p>Because tile, slate and timber prices change, keep your roofing quote valid for fourteen to thirty days. Add the date to the quote and mention it when you follow up.</p>' },
-  { slug: 'how-to-quote-for-landscaping', title: 'How to Quote for Landscaping Work', desc: 'Landscaping quote guide. How to price design, planting, materials and ongoing maintenance.' }
-];
-
-const CONTENT_UPDATED = '2026-09-24';
-PROFESSIONS.forEach(p => { if (PROFESSION_GUIDES[p.slug]) p.guide = PROFESSION_GUIDES[p.slug]; });
-const redirectedSlugs = new Set(Object.keys(REDIRECTS).map(u => u.replace(/^\/(blog\/)?/, '')));
-for (let i = BLOG_POSTS.length - 1; i >= 0; i--) if (redirectedSlugs.has(BLOG_POSTS[i].slug)) BLOG_POSTS.splice(i, 1);
-for (let i = HOW_TO_PAGES.length - 1; i >= 0; i--) if (redirectedSlugs.has(HOW_TO_PAGES[i].slug)) HOW_TO_PAGES.splice(i, 1);
 BLOG_POSTS.forEach(p => {
-  if (BLOG_CONTENT[p.slug]) p.content = BLOG_CONTENT[p.slug];
-  const words = (p.content || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  p.content = BLOG_CONTENT[p.slug] || '';
+  p.h1 = p.h1 || p.title;
+  p.updated = p.updated || PREVIOUS_UPDATE;
+  const words = p.content.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   p.readTime = Math.max(2, Math.round(words / 220)) + ' min read';
-  p.updated = CONTENT_UPDATED;
 });
-HOW_TO_PAGES.forEach(p => { if (HOWTO_CONTENT[p.slug]) p.content = HOWTO_CONTENT[p.slug]; p.updated = CONTENT_UPDATED; });
 
-// -- ROUTES --------------------------------------------------
-Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
+const HOW_TO_PAGES = [
+  { slug: 'how-to-write-a-roofing-quote', title: 'How to Write a Roofing Quote (Example & Free Template)', h1: 'How to write a roofing quote', desc: 'What to include in a roofing quote, how to price materials, labour and scaffolding, what to exclude, and an example roofing quote to load into a free quote maker.', preset: 'roofing-uk', updated: UPDATED },
+  { slug: 'how-to-convert-a-quote-to-an-invoice', title: 'How to Convert a Quote to an Invoice', h1: 'How to convert a quote to an invoice', desc: 'Turn an accepted quote into a matching invoice: same line items, agreed variations, deposits deducted, a new invoice number and a due date.', updated: UPDATED }
+];
+HOW_TO_PAGES.forEach(p => { p.content = HOWTO_CONTENT[p.slug] || ''; });
 
+// Pages and their last meaningful update, for the sitemap.
+function sitemapEntries() {
+  const e = [{ loc: '/', lastmod: UPDATED }, { loc: '/blog', lastmod: UPDATED }];
+  PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: UPDATED }));
+  GUIDE_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
+  COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
+  HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
+  BLOG_POSTS.forEach(p => e.push({ loc: '/blog/' + p.slug, lastmod: p.updated }));
+  return e;
+}
+
+// -- Request locals ---------------------------------------------------------------
+app.use(async (req, res, next) => {
+  try { res.locals.isPro = await pro.isPro(req); } catch (e) { res.locals.isPro = false; }
+  Object.assign(res.locals, { siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK, assetVersion: ASSET_VERSION });
+  next();
+});
+
+function toolConfig(res, extra) {
+  return Object.assign({ isPro: res.locals.isPro, gumroadLink: GUMROAD_LINK, currencies: CURRENCIES, presets: PRESETS, assetVersion: ASSET_VERSION }, extra || {});
+}
+
+const POPULAR_GUIDES = [
+  ['/how-to-send-a-quote-to-a-client', 'How to send a quote to a client (email templates)'],
+  ['/quote-acceptance-template', 'Quote acceptance wording'],
+  ['/how-to-write-a-roofing-quote', 'How to write a roofing quote'],
+  ['/blog/how-to-price-a-job-quote', 'How to price a job quote'],
+  ['/blog/how-to-write-a-professional-quote', 'How to write a professional quote'],
+  ['/blog/quote-vs-invoice-difference', 'Quote vs invoice'],
+  ['/blog/vat-on-quotes-explained', 'VAT on quotes']
+];
+
+// -- Pages ------------------------------------------------------------------------
 app.get('/', (req, res) => {
-  res.render('index', { isPro: req.cookies.pro === 'true', professions: PROFESSIONS, countries: COUNTRIES, page: null, profession: null, country: null, siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
+  res.render('index', { professions: PROFESSIONS, countries: COUNTRIES, guides: POPULAR_GUIDES, tool: toolConfig(res, { presetButtons: [
+    { key: 'tradesman-uk', label: 'Tradesman (UK)' }, { key: 'contractor-us', label: 'Contractor' }, { key: 'painting-interior-uk', label: 'Painting' },
+    { key: 'auto-brakes', label: 'Auto repair' }, { key: 'web-designer', label: 'Web design' }, { key: 'consultant', label: 'Consulting' }] }) });
 });
 
 PROFESSIONS.forEach(p => {
-  app.get('/quote-template-' + p.slug, (req, res) => {
-    res.render('profession', { isPro: req.cookies.pro === 'true', professions: PROFESSIONS, countries: COUNTRIES, profession: p, siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
+  app.get(p.path, (req, res) => {
+    res.render('profession', { profession: p, professions: PROFESSIONS, tool: toolConfig(res, { presetButtons: p.presetButtons }) });
   });
 });
 
 COUNTRIES.forEach(c => {
   app.get('/free-quote-generator-' + c.slug, (req, res) => {
-    res.render('country', { isPro: req.cookies.pro === 'true', professions: PROFESSIONS, countries: COUNTRIES, country: c, siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
+    res.render('country', { country: c, countries: COUNTRIES, professions: PROFESSIONS, factsChecked: COUNTRY_FACTS_CHECKED,
+      tool: toolConfig(res, { currency: c.currency, taxRate: c.taxRate, taxLabel: c.tax }) });
   });
 });
 
+GUIDE_PAGES.forEach(page => {
+  app.get('/' + page.slug, (req, res) => res.render('guide', { page }));
+});
+
 app.get('/blog', (req, res) => {
-  res.render('blog-index', { posts: BLOG_POSTS, howTo: HOW_TO_PAGES, siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
+  res.render('blog-index', { posts: BLOG_POSTS, howTo: HOW_TO_PAGES, guides: GUIDE_PAGES });
 });
 
 BLOG_POSTS.forEach(post => {
   app.get('/blog/' + post.slug, (req, res) => {
-    res.render('blog-post', { post, relatedPosts: BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 3), siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
+    res.render('blog-post', { post, relatedPosts: BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 3) });
   });
 });
 
 HOW_TO_PAGES.forEach(page => {
   app.get('/' + page.slug, (req, res) => {
-    res.render('how-to', { page, professions: PROFESSIONS, siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK });
+    res.render('how-to', { page, professions: PROFESSIONS, tool: page.preset ? toolConfig(res, { presetButtons: [{ key: page.preset, label: 'Example roofing quote' }] }) : null });
   });
 });
 
-app.get('/activate', (req, res) => {
-  res.render('activate', { isPro: req.cookies.pro === 'true', gumroadLink: GUMROAD_LINK });
-});
+app.get('/activate', (req, res) => res.render('activate', { productId: pro.PRODUCT_ID }));
 
-// -- PDF GENERATION (PDFKit - no chromium needed) -------------
-
-function currencySymbol(code) {
-  const map = { USD:'$', GBP:'\u00A3', EUR:'\u20AC', CAD:'CA$', AUD:'AU$', INR:'\u20B9', AED:'AED ', SGD:'S$', TRY:'\u20BA', JPY:'\u00A5', CHF:'CHF ', NZD:'NZ$', ZAR:'R', BRL:'R$', MXN:'MX$', SEK:'kr ', NOK:'kr ' };
-  return map[code] || (code + ' ');
-}
-
+// -- PDF ----------------------------------------------------------------------------
 app.post('/generate-pdf', (req, res) => {
   try {
-    const isPro = req.cookies.pro === 'true';
-    let d = req.body || {};
-    if (d.quoteData && typeof d.quoteData === 'string') {
-      try { d = JSON.parse(d.quoteData); } catch(e) {}
+    const d = pdf.normalise(req.body);
+    const isPro = res.locals.isPro;
+    if (d.docType === 'invoice' && !isPro) {
+      return res.status(402).json({ error: 'Creating an invoice from a quote is part of Pro. Activate your licence key to use it.' });
     }
-
-    const color = d.color || '#0f4c81';
-    const sym = d.symbol || currencySymbol(d.currency || 'USD');
-    const items = Array.isArray(d.items) ? d.items : [];
-
-    const subtotal = items.reduce((s, i) => s + (parseFloat(i.qty||0) * parseFloat(i.rate||0)), 0);
-    const discAmt = d.discountType === 'percent'
-      ? subtotal * (parseFloat(d.discount||0) / 100)
-      : parseFloat(d.discount||0);
-    const afterDisc = subtotal - discAmt;
-    const taxAmt = afterDisc * (parseFloat(d.taxRate||0) / 100);
-    const total = afterDisc + taxAmt;
-
-    const doc = new PDFDocument({ size: 'A4', margin: 50 });
-    const filename = 'quote-' + (d.quoteNumber || 'Q-001').replace(/[^a-z0-9-]/gi, '_') + '.pdf';
+    const base = (d.docType === 'invoice' ? 'invoice-' + d.invoiceNumber : 'quote-' + d.quoteNumber).replace(/[^a-z0-9-]/gi, '_');
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename="' + filename + '"');
-    doc.pipe(res);
-
-    // Header bar
-    doc.rect(50, 45, 500, 3).fill(color);
-
-    // Pro users can place their logo above the title; the rest of the page shifts down.
-    let off = 0;
-    const logoMatch = isPro && typeof d.logo === 'string' && d.logo.match(/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=]+)$/);
-    if (logoMatch) {
-      try { doc.image(Buffer.from(logoMatch[2], 'base64'), 50, 56, { fit: [140, 40] }); off = 48; } catch (e) { console.error('Logo error:', e.message); }
-    }
-
-    // Title
-    doc.fontSize(26).fillColor(color).font('Helvetica-Bold').text('QUOTATION', 50, 58 + off);
-    doc.fontSize(10).fillColor('#888').font('Helvetica').text('#' + (d.quoteNumber || 'Q-001'), 50, 90 + off);
-
-    // From (right side)
-    doc.fontSize(12).fillColor('#111').font('Helvetica-Bold').text(d.fromName || '', 300, 58, { width: 250, align: 'right' });
-    doc.fontSize(9).fillColor('#666').font('Helvetica')
-      .text(d.fromEmail || '', 300, 75, { width: 250, align: 'right' })
-      .text((d.fromAddress || '').replace(/\n/g, ', '), 300, 88, { width: 250, align: 'right' });
-
-    // Bill To / Dates
-    let y = 130 + off;
-    doc.rect(50, y, 500, 1).fill('#e5e7eb');
-    y += 15;
-
-    doc.fontSize(9).fillColor('#888').font('Helvetica-Bold').text('PREPARED FOR', 50, y);
-    doc.fontSize(12).fillColor('#111').font('Helvetica-Bold').text(d.toName || '', 50, y + 14);
-    doc.fontSize(9).fillColor('#666').font('Helvetica')
-      .text(d.toEmail || '', 50, y + 30)
-      .text((d.toAddress || '').replace(/\n/g, ', '), 50, y + 44, { width: 220 });
-
-    doc.fontSize(9).fillColor('#888').font('Helvetica-Bold').text('QUOTE DATE', 380, y, { width: 170, align: 'right' });
-    doc.fontSize(11).fillColor('#111').font('Helvetica').text(d.quoteDate || '', 380, y + 14, { width: 170, align: 'right' });
-
-    if (d.validUntil) {
-      doc.fontSize(9).fillColor('#888').font('Helvetica-Bold').text('VALID UNTIL', 380, y + 34, { width: 170, align: 'right' });
-      doc.fontSize(11).fillColor('#dc2626').font('Helvetica-Bold').text(d.validUntil, 380, y + 48, { width: 170, align: 'right' });
-    }
-
-    // Items table
-    y += 90;
-    doc.rect(50, y, 500, 24).fill(color);
-    doc.fillColor('#fff').fontSize(9).font('Helvetica-Bold')
-      .text('DESCRIPTION', 60, y + 8)
-      .text('QTY', 330, y + 8, { width: 40, align: 'right' })
-      .text('RATE', 378, y + 8, { width: 70, align: 'right' })
-      .text('AMOUNT', 455, y + 8, { width: 85, align: 'right' });
-
-    y += 30;
-    items.forEach((item, idx) => {
-      const qty = parseFloat(item.qty || 0);
-      const rate = parseFloat(item.rate || 0);
-      const amt = qty * rate;
-      if (idx % 2 === 0) doc.rect(50, y - 4, 500, 20).fill('#f9fafb');
-      doc.fillColor('#111').fontSize(10).font('Helvetica')
-        .text(item.desc || '', 60, y, { width: 260 })
-        .text(String(qty), 330, y, { width: 40, align: 'right' })
-        .text(sym + rate.toFixed(2), 378, y, { width: 70, align: 'right' })
-        .text(sym + amt.toFixed(2), 455, y, { width: 85, align: 'right' });
-      y += 22;
-    });
-
-    // Totals
-    y += 10;
-    doc.rect(50, y, 500, 1).fill('#e5e7eb');
-    y += 12;
-
-    doc.fontSize(10).fillColor('#666').font('Helvetica')
-      .text('Subtotal', 350, y, { width: 100, align: 'right' });
-    doc.fillColor('#111').text(sym + subtotal.toFixed(2), 455, y, { width: 85, align: 'right' });
-    y += 18;
-
-    if (discAmt > 0) {
-      doc.fillColor('#dc2626')
-        .text('Discount' + (d.discountType === 'percent' ? ' (' + d.discount + '%)' : ''), 350, y, { width: 100, align: 'right' });
-      doc.text('-' + sym + discAmt.toFixed(2), 455, y, { width: 85, align: 'right' });
-      y += 18;
-    }
-
-    if (parseFloat(d.taxRate || 0) > 0) {
-      doc.fillColor('#666')
-        .text((d.taxLabel || 'Tax') + ' (' + d.taxRate + '%)', 350, y, { width: 100, align: 'right' });
-      doc.fillColor('#111').text(sym + taxAmt.toFixed(2), 455, y, { width: 85, align: 'right' });
-      y += 18;
-    }
-
-    doc.rect(350, y, 200, 2).fill(color);
-    y += 8;
-    doc.fontSize(14).fillColor('#111').font('Helvetica-Bold').text('TOTAL', 350, y, { width: 100, align: 'right' });
-    doc.fillColor(color).text(sym + total.toFixed(2), 455, y, { width: 85, align: 'right' });
-
-    // Notes
-    if (d.notes) {
-      y += 45;
-      doc.rect(50, y, 4, 40).fill(color);
-      doc.fontSize(9).fillColor('#888').font('Helvetica-Bold').text('NOTES & TERMS', 62, y);
-      doc.fontSize(10).fillColor('#333').font('Helvetica').text(d.notes, 62, y + 14, { width: 470 });
-    }
-
-    // Valid until warning
-    if (d.validUntil) {
-      y += (d.notes ? 60 : 45);
-      doc.rect(50, y, 500, 28).fill('#fff5f5');
-      doc.fontSize(9).fillColor('#c53030').font('Helvetica')
-        .text('  This quotation is valid until ' + d.validUntil + '. Prices may change after this date.', 60, y + 10, { width: 480 });
-    }
-
-    // Watermark
-    if (!isPro) {
-      doc.fontSize(8).fillColor('#9ca3af').font('Helvetica')
-        .text('Made with GetQuotationMaker.com', 50, 802, { width: 500, align: 'center' });
-    }
-
-    doc.end();
-  } catch(err) {
+    res.setHeader('Content-Disposition', 'attachment; filename="' + base + '.pdf"');
+    res.setHeader('Cache-Control', 'no-store');
+    pdf.build(d, { isPro }, res);
+  } catch (err) {
     console.error('PDF error:', err);
-    res.status(500).json({ error: err.message });
+    if (!res.headersSent) res.status(500).json({ error: 'The PDF could not be created. Please try again.' });
   }
 });
 
-// -- AUTH ----------------------------------------------------
-
-app.post('/gumroad-webhook', (req, res) => {
-  try {
-    const { email, sale_timestamp } = req.body;
-    if (email) { users[email.toLowerCase()] = { pro: true, since: sale_timestamp || new Date().toISOString() }; }
-  } catch(e) {}
-  res.sendStatus(200);
+// -- Pro activation (Gumroad licence key) -----------------------------------------
+app.post('/activate-pro', async (req, res) => {
+  const key = (req.body && (req.body.license_key || req.body.licenseKey)) || '';
+  const result = await pro.verifyLicense(key, { increment: true });
+  if (!result.ok) return res.status(result.reason === 'network' ? 503 : 400).json({ success: false, message: result.message });
+  res.cookie(pro.COOKIE, result.key, pro.cookieOptions(req));
+  res.clearCookie('pro');
+  res.json({ success: true });
 });
 
-app.post('/activate-pro', (req, res) => {
-  const { email } = req.body;
-  if (email && users[email.toLowerCase()]?.pro) {
-    res.cookie('pro', 'true', { maxAge: 365*24*60*60*1000, httpOnly: true });
-    res.json({ success: true });
-  } else {
-    res.json({ success: false, message: 'No PRO purchase found.' });
-  }
+app.post('/deactivate-pro', (req, res) => {
+  res.clearCookie(pro.COOKIE, { path: '/' });
+  res.clearCookie('pro');
+  res.json({ success: true });
 });
 
-// -- SEO -----------------------------------------------------
+// Gumroad pings used to unlock Pro by email without any proof of purchase. They are now ignored;
+// access comes only from a licence key that Gumroad confirms.
+app.post('/gumroad-webhook', (req, res) => res.sendStatus(200));
 
+// -- SEO ------------------------------------------------------------------------------
 app.get('/sitemap.xml', (req, res) => {
-  const urls = [
-    { loc: '', priority: '1.0', freq: 'daily' },
-    { loc: '/blog', priority: '0.9', freq: 'weekly' }
-  ];
-  PROFESSIONS.forEach(p => urls.push({ loc: '/quote-template-' + p.slug, priority: '0.9', freq: 'weekly' }));
-  COUNTRIES.forEach(c => urls.push({ loc: '/free-quote-generator-' + c.slug, priority: '0.9', freq: 'weekly' }));
-  BLOG_POSTS.forEach(p => urls.push({ loc: '/blog/' + p.slug, priority: '0.8', freq: 'monthly' }));
-  HOW_TO_PAGES.forEach(p => urls.push({ loc: '/' + p.slug, priority: '0.8', freq: 'monthly' }));
-  const xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
-    urls.map(u => '<url><loc>' + SITE_URL + u.loc + '</loc><lastmod>' + CONTENT_UPDATED + '</lastmod><changefreq>' + u.freq + '</changefreq><priority>' + u.priority + '</priority></url>').join('') + '</urlset>';
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    sitemapEntries().map(u => '  <url><loc>' + SITE_URL + u.loc + '</loc><lastmod>' + u.lastmod + '</lastmod></url>').join('\n') + '\n</urlset>\n';
   res.set('Content-Type', 'application/xml').send(xml);
 });
 
-app.get('/google-verification', (req, res) => { res.type('text/html'); res.send('google-site-verification: SRbRrdv1CAaGtpC67I5g5htAbMp2LmyqfylqDAKWvK0'); });
 app.get('/robots.txt', (req, res) => {
-  res.type('text/plain').send('User-agent: *\nAllow: /\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
+  res.type('text/plain').send('User-agent: *\nAllow: /\nDisallow: /activate\n\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
+});
+
+app.get('/google-verification', (req, res) => { res.type('text/html'); res.send('google-site-verification: SRbRrdv1CAaGtpC67I5g5htAbMp2LmyqfylqDAKWvK0'); });
+
+app.use((req, res) => {
+  res.status(404).render('not-found', { professions: PROFESSIONS });
 });
 
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, '0.0.0.0', () => console.log('QuotationMaker running on ' + PORT));
-
-
-
+if (require.main === module) app.listen(PORT, '0.0.0.0', () => console.log('QuotationMaker running on ' + PORT));
+module.exports = app;
