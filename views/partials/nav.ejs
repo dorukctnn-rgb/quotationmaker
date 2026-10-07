@@ -1,0 +1,15 @@
+<nav class="site-nav" aria-label="Main">
+  <a href="/" class="logo">Get<span>Quotation</span>Maker</a>
+  <div class="nav-r">
+    <a href="/#tool" class="nav-link">Quote maker</a>
+    <a href="/#templates" class="nav-link">Templates</a>
+    <a href="/how-to-send-a-quote-to-a-client" class="nav-link">Quote emails</a>
+    <a href="/blog" class="nav-link">Guides</a>
+    <a href="/activate" class="nav-link">Activate Pro</a>
+    <% if (typeof isPro !== 'undefined' && isPro) { %>
+      <span class="pro-on">Pro active</span>
+    <% } else { %>
+      <a href="<%= gumroadLink %>" class="btn-pro" target="_blank" rel="noopener">Get Pro, $9</a>
+    <% } %>
+  </div>
+</nav>

@@ -13,7 +13,7 @@
     },
     {
       "keyword": "acceptance of quotation",
-      "targetPath": "/blog/quote-acceptance-rate-tips",
+      "targetPath": "/quote-acceptance-template",
       "priority": "medium",
       "_seed": {
         "rank": 20,
@@ -23,7 +23,7 @@
     },
     {
       "keyword": "acceptance of quote",
-      "targetPath": "/blog/quote-acceptance-rate-tips",
+      "targetPath": "/quote-acceptance-template",
       "priority": "low",
       "_seed": {
         "rank": 22.71,
@@ -33,7 +33,7 @@
     },
     {
       "keyword": "quotation acceptance",
-      "targetPath": "/blog/quote-acceptance-rate-tips",
+      "targetPath": "/quote-acceptance-template",
       "priority": "low",
       "_seed": {
         "rank": 27.23,
@@ -113,7 +113,7 @@
     },
     {
       "keyword": "accepting quotation",
-      "targetPath": "/blog/quote-acceptance-rate-tips",
+      "targetPath": "/quote-acceptance-template",
       "priority": "low",
       "_seed": {
         "rank": 35,
@@ -183,7 +183,7 @@
     },
     {
       "keyword": "accept a quote",
-      "targetPath": "/blog/quote-acceptance-rate-tips",
+      "targetPath": "/quote-acceptance-template",
       "priority": "low",
       "_seed": {
         "rank": 38,
@@ -298,6 +298,156 @@
       "_seed": {
         "rank": 43.5,
         "impressions": 2,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "acceptance of quote wording",
+      "targetPath": "/quote-acceptance-template",
+      "priority": "high",
+      "_seed": {
+        "rank": 6.9,
+        "impressions": 101,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "quote acceptance template",
+      "targetPath": "/quote-acceptance-template",
+      "priority": "high",
+      "_seed": {
+        "rank": 17.1,
+        "impressions": 45,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "confirm quotation",
+      "targetPath": "/quote-acceptance-template",
+      "priority": "medium",
+      "_seed": {
+        "rank": 13.5,
+        "impressions": 32,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "confirmation of quotation",
+      "targetPath": "/quote-acceptance-template",
+      "priority": "medium",
+      "_seed": {
+        "rank": 15.3,
+        "impressions": 28,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "sending quote to client email",
+      "targetPath": "/how-to-send-a-quote-to-a-client",
+      "priority": "high",
+      "_seed": {
+        "rank": 46.4,
+        "impressions": 280,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "emailing a quote to a customer",
+      "targetPath": "/how-to-send-a-quote-to-a-client",
+      "priority": "high",
+      "_seed": {
+        "rank": 57.6,
+        "impressions": 182,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "email quote to customer",
+      "targetPath": "/how-to-send-a-quote-to-a-client",
+      "priority": "medium",
+      "_seed": {
+        "rank": 51.1,
+        "impressions": 47,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "tradesman quote template",
+      "targetPath": "/quote-template-contractor",
+      "priority": "high",
+      "_seed": {
+        "rank": 68.5,
+        "impressions": 350,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "contractor quote template",
+      "targetPath": "/quote-template-contractor",
+      "priority": "high",
+      "_seed": {
+        "rank": 61.2,
+        "impressions": 135,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "contractor quote template free",
+      "targetPath": "/quote-template-contractor",
+      "priority": "medium",
+      "_seed": {
+        "rank": 75.4,
+        "impressions": 94,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "painting quotation template",
+      "targetPath": "/quote-template-painter",
+      "priority": "high",
+      "_seed": {
+        "rank": 41.6,
+        "impressions": 82,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "painter quote template",
+      "targetPath": "/quote-template-painter",
+      "priority": "high",
+      "_seed": {
+        "rank": 53.0,
+        "impressions": 76,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "painting and decorating quote template uk",
+      "targetPath": "/quote-template-painter",
+      "priority": "medium",
+      "_seed": {
+        "rank": 53.0,
+        "impressions": 15,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "car repair quotation sample",
+      "targetPath": "/quote-template-mechanic",
+      "priority": "medium",
+      "_seed": {
+        "rank": 48.1,
+        "impressions": 14,
+        "clicks": 0
+      }
+    },
+    {
+      "keyword": "quotation maker",
+      "targetPath": "/",
+      "priority": "high",
+      "_seed": {
+        "rank": 51.0,
+        "impressions": 65,
         "clicks": 0
       }
     }

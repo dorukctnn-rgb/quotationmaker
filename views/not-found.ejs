@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head', { meta: { title: 'Page not found | GetQuotationMaker', desc: 'This page does not exist. Use the free online quotation maker or browse quote templates.', path: '/', robots: 'noindex, follow' } }) %>
+</head>
+<body>
+<%- include('partials/nav') %>
+<header class="hero">
+  <h1>Page not found</h1>
+  <p class="lead">That page doesn&rsquo;t exist or has moved. You can make a quote straight away, or pick a template below.</p>
+  <div class="btn-row"><a class="btn" href="/#tool">Open the quotation maker</a><a class="btn ghost" href="/blog">Guides</a></div>
+</header>
+<section class="links-sec">
+  <h2>Quote templates</h2>
+  <div class="sgrid"><% professions.forEach(function (p) { %><a class="sl" href="<%= p.path %>"><%= p.label %></a><% }) %></div>
+</section>
+<%- include('partials/footer') %>
+</body>
+</html>
