@@ -37,7 +37,7 @@
       </div>
       <div class="qt-row one"><div class="qt-fg"><label for="qtCurrency">Currency</label>
         <select id="qtCurrency">
-          <% (t.currencies || []).forEach(function (c) { %><option value="<%= c.code %>|<%= c.symbol %>"><%= c.code %> &ndash; <%= c.name %> (<%= c.symbol %>)</option><% }) %>
+          <% (t.currencies || []).forEach(function (c) { %><option value="<%= c.code %>|<%= c.symbol %>"><%= c.code %>, <%= c.name %> (<%= c.symbol %>)</option><% }) %>
         </select>
       </div></div>
 

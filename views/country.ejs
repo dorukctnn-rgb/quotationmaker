@@ -19,7 +19,7 @@ var path = '/free-quote-generator-' + c.slug;
 <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#templates">By country</a> &rsaquo; <%= c.fullName %></div>
 
 <header class="hero">
-  <div class="badge"><%= c.currency %> &middot; <%= c.tax %> <%= c.taxRate %>% pre-filled &middot; Free PDF</div>
+  <div class="badge">Free PDF. <%= c.currency %> and <%= c.taxRate %>% <%= c.tax %> pre-filled</div>
   <h1><%= c.h1 %></h1>
   <p class="lead"><%= c.lead %></p>
   <div class="btn-row"><a class="btn" href="#qtTool">Start your quote</a><a class="btn ghost" href="#facts"><%= c.tax %> and quote rules</a></div>
