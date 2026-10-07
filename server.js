@@ -213,7 +213,7 @@ app.get('/sitemap.xml', (req, res) => {
 });
 
 app.get('/robots.txt', (req, res) => {
-  res.type('text/plain').send('User-agent: *\nAllow: /\nDisallow: /activate\n\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
+  res.type('text/plain').send('User-agent: *\nAllow: /\n\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
 });
 
 app.get('/google-verification', (req, res) => { res.type('text/html'); res.send('google-site-verification: SRbRrdv1CAaGtpC67I5g5htAbMp2LmyqfylqDAKWvK0'); });
