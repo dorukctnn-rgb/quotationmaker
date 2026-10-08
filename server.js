@@ -70,7 +70,7 @@ PROFESSIONS.forEach(p => {
 });
 
 const BLOG_POSTS = [
-  { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance Rate: 9 Ways to Get More Quotes Accepted', h1: 'How to improve your quote acceptance rate', desc: 'How to work out your quote acceptance rate, and nine practical ways to get more quotes accepted: speed, specific line items, options, validity dates and follow-ups.', date: '2026-03-14', updated: UPDATED, category: 'Tips' },
+  { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance Rate: 9 Ways to Get More Quotes Accepted', h1: 'How to improve your quote acceptance rate', desc: 'How to work out your quote acceptance rate, and nine practical ways to get more quotes accepted: speed, specific line items, options, validity dates and follow-ups.', date: '2026-03-14', updated: '2026-10-08', category: 'Tips' },
   { slug: 'how-to-write-a-professional-quote', title: 'How to Write a Professional Quote: Step-by-Step Guide', desc: 'How to write a professional quote that wins work: start with the client’s problem, itemise, list exclusions, show tax, add terms and make accepting easy.', date: '2026-01-10', category: 'Guide' },
   { slug: 'quote-vs-invoice-difference', title: 'Quote vs Invoice: What Is the Difference?', desc: 'A quote is an offer sent before the work; an invoice asks for payment after it. How they differ, quote vs estimate vs proposal, and moving from one to the other.', date: '2026-01-18', category: 'Guide' },
   { slug: 'how-to-price-a-job-quote', title: 'How to Price a Job Quote: Materials, Labour, Overheads, Profit', desc: 'Price a job quote from four parts: materials, labour, overheads and profit, with a worked example you can follow.', date: '2026-01-26', category: 'Pricing' },

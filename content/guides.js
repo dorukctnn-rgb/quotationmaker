@@ -316,11 +316,11 @@ Thanks again,
 
 const ACCEPTANCE = {
   slug: 'quote-acceptance-template',
-  title: 'Quote Acceptance Wording: Email & Letter Templates to Copy',
-  desc: 'How to accept or confirm a quotation in writing: copy-ready acceptance emails and letters, accepting with changes, declining politely, and wording for your quotes.',
+  title: 'Quote Acceptance Wording: How to Accept or Confirm a Quotation',
+  desc: 'Wording to accept a quote: "We accept quotation Q-1042 dated 2 October for the work described at £8,450 incl. VAT." Plus confirmation of quotation emails and letters.',
   h1: 'Quote acceptance wording: how to accept or confirm a quotation',
   lead: 'Copy-ready wording for accepting a quote by email or letter, confirming a quotation, accepting only part of it or with changes, and declining politely. Further down: what a business should put on its quotes so a client’s yes is clear.',
-  updated: '2026-10-07',
+  updated: '2026-10-08',
   breadcrumb: 'Quote acceptance wording',
   jump: 'client-templates',
   cta: { href: '/?preset=acceptance#tool', label: 'Add acceptance wording to a quote' },
@@ -333,7 +333,7 @@ const ACCEPTANCE = {
     ['clear-acceptance', 'Making acceptance unambiguous'],
     ['binding', 'Is accepting a quote binding?']
   ],
-  answer: '<p><strong>To accept a quote, reply in writing and include:</strong> the quote number and date, the total you are accepting (and whether tax is included), a one-line description of the work, the start or delivery date you want, and your name. For example:</p><blockquote>We accept quotation Q-1042 dated 2 October for the kitchen refit at &pound;8,450 including VAT, on the terms set out in the quotation. Please confirm the start date.</blockquote>',
+  answer: '<p><strong>Wording to accept a quote</strong> (reply to the email the quote came with):</p><blockquote>We accept quotation Q-1042 dated 2 October for the kitchen refit at &pound;8,450 including VAT, on the terms set out in the quotation. Please confirm the start date.</blockquote><p><strong>Wording to confirm a quotation you agreed by phone:</strong></p><blockquote>Further to our call today, I confirm that we accept quotation Q-1042 dated 2 October for the kitchen refit at &pound;8,450 including VAT. Please send the deposit invoice and confirm the start date.</blockquote><p>Whichever you send, include the quote number and date, the total and whether tax is included, a one-line description of the work, the start or delivery date you want, and your name. Longer emails, a formal acceptance letter and wording for accepting with changes are below.</p>',
   content: `
 <h2 id="what-to-include">What to include when you accept a quote</h2>
 <ul>

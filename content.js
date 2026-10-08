@@ -143,7 +143,7 @@ const HOWTO_CONTENT = {
 
 const BLOG_CONTENT = {
   'quote-acceptance-rate-tips': `
-<div class="note"><strong>Looking for the words to accept or confirm a quote?</strong> Copy the email and letter templates in our <a href="/quote-acceptance-template">quote acceptance wording guide</a>. This article is about the other side: getting more of the quotes you send accepted.</div>
+<div class="answer"><p><strong>Quote acceptance wording:</strong> to accept or confirm a quotation, reply in writing with the quote number, its date and the total, for example: &ldquo;We accept quotation Q-1042 dated 2 October for the kitchen refit at &pound;8,450 including VAT, on the terms set out in the quotation. Please confirm the start date.&rdquo;</p><p>For confirmation of quotation emails, a formal acceptance letter and accepting with changes, copy the <a href="/quote-acceptance-template">quote acceptance wording templates</a>. This article covers the other side: getting more of the quotes you send accepted.</p></div>
 <p>Your quote acceptance rate (also called a win rate or conversion rate) is the share of quotes you send that clients accept. It tells you whether your quoting process is working, and it is the number to watch when you change how you price, present or follow up.</p>
 <h2>How to work out your quote acceptance rate</h2>
 <p><strong>Acceptance rate = quotes accepted &divide; quotes sent &times; 100.</strong> If you sent 40 quotes last quarter and 18 were accepted, your rate is 45%.</p>
