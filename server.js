@@ -18,7 +18,7 @@ app.disable('x-powered-by');
 
 const SITE_URL = process.env.SITE_URL || 'https://www.getquotationmaker.com';
 const GUMROAD_LINK = process.env.GUMROAD_LINK || 'https://dorukctn.gumroad.com/l/cjogv';
-const ASSET_VERSION = '20261007';
+const ASSET_VERSION = '20261009';
 const UPDATED = '2026-10-07';
 const PREVIOUS_UPDATE = '2026-09-24';
 
@@ -72,25 +72,29 @@ PROFESSIONS.forEach(p => {
 const BLOG_POSTS = [
   { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance Rate: 9 Ways to Get More Quotes Accepted', h1: 'How to improve your quote acceptance rate', desc: 'How to work out your quote acceptance rate, and nine practical ways to get more quotes accepted: speed, specific line items, options, validity dates and follow-ups.', date: '2026-03-14', updated: '2026-10-08', category: 'Tips' },
   { slug: 'how-to-write-a-professional-quote', title: 'How to Write a Professional Quote: Step-by-Step Guide', desc: 'How to write a professional quote that wins work: start with the client’s problem, itemise, list exclusions, show tax, add terms and make accepting easy.', date: '2026-01-10', category: 'Guide' },
-  { slug: 'quote-vs-invoice-difference', title: 'Quote vs Invoice: What Is the Difference?', desc: 'A quote is an offer sent before the work; an invoice asks for payment after it. How they differ, quote vs estimate vs proposal, and moving from one to the other.', date: '2026-01-18', category: 'Guide' },
   { slug: 'how-to-price-a-job-quote', title: 'How to Price a Job Quote: Materials, Labour, Overheads, Profit', desc: 'Price a job quote from four parts: materials, labour, overheads and profit, with a worked example you can follow.', date: '2026-01-26', category: 'Pricing' },
-  { slug: 'what-is-a-quotation-in-business', title: 'What Is a Quotation in Business? Definition, Types, Examples', desc: 'What a business quotation is, what it contains, the main types (fixed price, itemised, estimate, tender) and when it becomes binding.', date: '2026-02-03', category: 'Guide' },
+  { slug: 'what-is-a-quotation-in-business', title: 'What Is a Quotation in Business? Meaning, Example and Types', h1: 'What is a quotation in business?', desc: 'A quotation is a written offer to supply work or goods at a stated price. See an annotated example, quote vs estimate vs pro forma vs invoice, and when it binds.', date: '2026-02-03', updated: '2026-10-09', category: 'Guide' },
   { slug: 'how-to-follow-up-on-a-quote', title: 'How to Follow Up on a Quote Without Being Pushy', desc: 'When to follow up on a quote, scripts for each follow-up, and what not to do. Includes wording for before and after the quote expires.', date: '2026-02-27', category: 'Tips' },
-  { slug: 'vat-on-quotes-explained', title: 'VAT on Quotes: Do You Charge VAT and How to Show It', desc: 'When to add VAT to a quote, how to show it, quoting consumers versus businesses, and the UK VAT rate and registration threshold.', date: '2026-03-06', category: 'Tax' }
+  { slug: 'vat-on-quotes-explained', title: 'VAT on Quotes (UK): When to Add It and How to Show It', h1: 'VAT on quotes: when to add it and how to show it', desc: 'VAT registered? Show VAT on every quote; if not, never add it. What a quote silent on VAT means, wording to copy, consumer price rules and worked examples.', date: '2026-03-06', updated: '2026-10-09', category: 'Tax' }
 ];
+// Content is either an HTML string or an object with content plus answer, toc, faq, cta and related.
+const withContent = (p, c) => { if (typeof c === 'string') p.content = c; else Object.assign(p, c || {}, { content: (c && c.content) || '' }); };
 BLOG_POSTS.forEach(p => {
-  p.content = BLOG_CONTENT[p.slug] || '';
+  withContent(p, BLOG_CONTENT[p.slug]);
   p.h1 = p.h1 || p.title;
   p.updated = p.updated || PREVIOUS_UPDATE;
-  const words = p.content.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  const words = ((p.answer || '') + ' ' + p.content).replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   p.readTime = Math.max(2, Math.round(words / 220)) + ' min read';
 });
 
 const HOW_TO_PAGES = [
-  { slug: 'how-to-write-a-roofing-quote', title: 'How to Write a Roofing Quote (Example & Free Template)', h1: 'How to write a roofing quote', desc: 'What to include in a roofing quote, how to price materials, labour and scaffolding, what to exclude, and an example roofing quote to load into a free quote maker.', preset: 'roofing-uk', updated: UPDATED },
-  { slug: 'how-to-convert-a-quote-to-an-invoice', title: 'How to Convert a Quote to an Invoice', h1: 'How to convert a quote to an invoice', desc: 'Turn an accepted quote into a matching invoice: same line items, agreed variations, deposits deducted, a new invoice number and a due date.', updated: UPDATED }
+  { slug: 'how-to-write-a-roofing-quote', title: 'How to Write a Roofing Quote (Example & Free Template)', h1: 'How to write a roofing quote', desc: 'What to include in a roofing quote, how to price materials, labour and scaffolding, what to exclude, and an example roofing quote to load into a free quote maker.', preset: 'roofing-uk', presetLabel: 'Example roofing quote', updated: UPDATED },
+  { slug: 'how-to-convert-a-quote-to-an-invoice', title: 'How to Convert a Quote to an Invoice (Steps and Example)', h1: 'How to convert a quote to an invoice', breadcrumb: 'Convert a quote to an invoice',
+    desc: 'Turn an accepted quote into an invoice: what to change field by field, how to add agreed extras and deduct a deposit, and a worked UK example with VAT.',
+    lead: 'Keep the accepted lines and prices; change the title, number and dates; add agreed extras; take off any deposit; add how to pay. Below: a field-by-field checklist, then one job taken from quote to final invoice.',
+    jump: ['example', 'See the worked example'], heroLabel: 'Load the example quote', preset: 'kitchen-refit-uk', presetLabel: 'Example quote from this guide', updated: '2026-10-09' }
 ];
-HOW_TO_PAGES.forEach(p => { p.content = HOWTO_CONTENT[p.slug] || ''; });
+HOW_TO_PAGES.forEach(p => withContent(p, HOWTO_CONTENT[p.slug]));
 
 // Pages and their last meaningful update, for the sitemap.
 function sitemapEntries() {
@@ -120,7 +124,7 @@ const POPULAR_GUIDES = [
   ['/how-to-write-a-roofing-quote', 'How to write a roofing quote'],
   ['/blog/how-to-price-a-job-quote', 'How to price a job quote'],
   ['/blog/how-to-write-a-professional-quote', 'How to write a professional quote'],
-  ['/blog/quote-vs-invoice-difference', 'Quote vs invoice'],
+  ['/how-to-convert-a-quote-to-an-invoice', 'Quote vs invoice, and turning one into the other'],
   ['/blog/vat-on-quotes-explained', 'VAT on quotes']
 ];
 
@@ -154,13 +158,16 @@ app.get('/blog', (req, res) => {
 
 BLOG_POSTS.forEach(post => {
   app.get('/blog/' + post.slug, (req, res) => {
-    res.render('blog-post', { post, relatedPosts: BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 3) });
+    const relatedPosts = post.related
+      ? post.related.map(r => ({ href: r[0], tag: r[1], title: r[2] }))
+      : BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 3).map(p => ({ href: '/blog/' + p.slug, tag: p.category, title: p.h1 }));
+    res.render('blog-post', { post, relatedPosts });
   });
 });
 
 HOW_TO_PAGES.forEach(page => {
   app.get('/' + page.slug, (req, res) => {
-    res.render('how-to', { page, professions: PROFESSIONS, tool: page.preset ? toolConfig(res, { presetButtons: [{ key: page.preset, label: 'Example roofing quote' }] }) : null });
+    res.render('how-to', { page, professions: PROFESSIONS, tool: page.preset ? toolConfig(res, { presetButtons: [{ key: page.preset, label: page.presetLabel || 'Load the example' }] }) : null });
   });
 });
 

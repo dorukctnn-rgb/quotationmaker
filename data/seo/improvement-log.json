@@ -82,5 +82,47 @@
         "done": "Title/H1 now \"Free online quotation maker\", removed unverifiable competitor table, honest $9 one-time Pro, tool rebuilt (mobile layout, escaping, presets, Unicode PDF)"
       }
     ]
+  },
+  {
+    "keyword": "how to convert a quote to an invoice",
+    "targetPath": "/how-to-convert-a-quote-to-an-invoice",
+    "status": "observing",
+    "nextReviewDate": "2026-10-23",
+    "actions": [
+      {
+        "date": "2026-10-09",
+        "rankAtAction": null,
+        "needs": "URL Inspection: Crawled - currently not indexed (crawled 2026-09-12); 0 impressions in 16 months. SERP is software help docs (Zoho, Powered Now, Wafeq, Sole) and 2,800-4,000 word generic quote-vs-invoice articles (Tipalti, Hiveage, InvoiceOwl, Payoneer) with no worked conversion, deposit, variation or VAT handling",
+        "done": "Rewrote as the conversion guide: field-by-field table, 8 steps, worked UK example (quote, deposit invoice, final invoice with a variation and the deposit deducted before VAT, totals checked), invoice vs quote limits (Citizens Advice, CRA 2015 s.51), stage payments, pro forma, UK VAT points (Notice 700 14.2.3, 16.2, 16.3; VATA s.89), official convert steps for QuickBooks, Zoho Books, Wave; embedded quote maker with the example preset; FAQ. Merged /blog/quote-vs-invoice-difference into it (301)"
+      }
+    ]
+  },
+  {
+    "keyword": "what is a quotation in business",
+    "targetPath": "/blog/what-is-a-quotation-in-business",
+    "status": "observing",
+    "nextReviewDate": "2026-10-23",
+    "actions": [
+      {
+        "date": "2026-10-09",
+        "rankAtAction": null,
+        "needs": "URL Inspection: Crawled - currently not indexed (crawled 2026-05-20); 0 impressions in 16 months. Top results (InvoiceFly, Tally, Vyapar, Refrens, Deskera) are generic glossaries with no sample quotation and no sourced binding rules",
+        "done": "Rewrote: definition answer, annotated example quotation with 10 numbered parts and a matching preset, RFQ/quote/estimate/proposal/tender/PO/pro forma/invoice table, quote-or-estimate guidance, pricing formats, binding rules (CRA 2015 s.50, Citizens Advice), validity; FAQ"
+      }
+    ]
+  },
+  {
+    "keyword": "vat on quotes",
+    "targetPath": "/blog/vat-on-quotes-explained",
+    "status": "observing",
+    "nextReviewDate": "2026-10-23",
+    "actions": [
+      {
+        "date": "2026-10-09",
+        "rankAtAction": null,
+        "needs": "URL Inspection: Crawled - currently not indexed (crawled 2026-05-20); 0 impressions in 16 months. Results are UK Business Forums threads, a Crunch explainer and template pages; none cite VATA s.19(2) on prices silent about VAT, the Flat Rate Scheme, deposits or consumer price rules",
+        "done": "Rewrote with sources checked 9 Oct 2026: s.19(2) silent-price table, how to show VAT, rounding (Notice 700 17.5), homeowner vs business (CMA DMCC guidance), rates incl. 708/6 dates and Notice 708, Flat Rate Scheme example, materials, deposits, CIS domestic reverse charge, s.89 rate changes, registering after quoting, wording to copy; FAQ"
+      }
+    ]
   }
 ]

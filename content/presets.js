@@ -124,6 +124,30 @@ const P = {
     ],
     notes: 'Rotten rafters or other hidden defects found after strip-off are not included; we will price them and agree with you before carrying out the work.\nPayment: 20% deposit, balance on completion.\nPrices exclude VAT.\nValid for 21 days because material prices change.\n\n' + ACCEPT_BLOCK
   },
+  // The annotated example on /blog/what-is-a-quotation-in-business.
+  'fencing-uk': {
+    label: 'Fence replacement quote, UK (the example from the quotation guide)', currency: 'GBP', taxRate: 20, taxLabel: 'VAT', validDays: 30, number: 'Q-2026-114',
+    items: [
+      ['Remove old fence and posts and take them away (metres)', 11, 12],
+      ['Concrete posts and gravel boards, supplied and set in concrete', 7, 58],
+      ['1.8 m featheredge panels, supplied and fitted', 6, 96],
+      ['Side gate with latch, supplied and hung', 1, 245],
+      ['Waste removal', 1, 85]
+    ],
+    notes: 'Scope: replace the 11 m rear boundary fence and the side gate, as discussed on site.\nNot included: moving plants along the fence line, work on the neighbour’s side, and pipes or cables that were not pointed out to us before work starts.\nPayment: £300 deposit to book a date, balance within 7 days of completion by bank transfer.\nPrices exclude VAT; VAT at 20% is added below and the total includes VAT.\nThis quote is valid for 30 days.\n\n' + ACCEPT_BLOCK
+  },
+  // The worked example on /how-to-convert-a-quote-to-an-invoice.
+  'kitchen-refit-uk': {
+    label: 'Staff kitchen refit quote (the example from the quote-to-invoice guide)', currency: 'GBP', taxRate: 20, taxLabel: 'VAT', validDays: 30, number: 'Q-2026-031',
+    items: [
+      ['Strip out existing units and worktop, remove waste', 1, 480],
+      ['Supply and fit base and wall units', 6, 310],
+      ['Laminate worktop, supply and fit (metres)', 4, 95],
+      ['Plumbing for sink and dishwasher', 1, 420],
+      ['Two double sockets and under-unit lighting', 1, 560]
+    ],
+    notes: 'Payment: 25% deposit on acceptance, balance within 14 days of completion by bank transfer.\nPrices exclude VAT; VAT at 20% is added below.\nThis quote is valid for 30 days.\n\n' + ACCEPT_BLOCK
+  },
   'acceptance': {
     label: 'Acceptance wording added to Notes & terms',
     notes: ACCEPT_BLOCK.replace('This quotation is valid until the date shown above.', 'This quotation is valid until the date shown above. Work will be booked on receipt of acceptance.')

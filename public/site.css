@@ -93,6 +93,25 @@ a.logo:hover{text-decoration:none}
 .facts{font-size:14.5px}
 .src{font-size:12.5px;color:var(--muted)}
 
+/* Example documents (quote and invoice mock-ups in guides) */
+.doc{background:#fff;border:1px solid #cfd8e3;border-radius:10px;margin:14px 0 22px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.doc-h{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:12px 16px;border-bottom:2px solid var(--blue);font-size:13.5px;color:var(--muted);line-height:1.5}
+.doc-h b{font:800 15px 'Sora',sans-serif;color:var(--blue);letter-spacing:.4px;margin-right:6px}
+.doc table{margin:0;border:0;font-size:14px;font-variant-numeric:tabular-nums}
+.doc th,.doc td{border-width:0 0 1px 0;border-color:#eef1f5}
+.doc tr.sub td{color:var(--muted)}
+.doc tr.tot td{font-weight:700;color:var(--text);border-bottom:0;background:#f8fafc}
+.doc-f{padding:10px 16px;font-size:13.5px;color:var(--muted);background:#fbfcfe;border-top:1px solid #eef1f5;line-height:1.6}
+.doc-f p{margin:0 0 6px}.doc-f p:last-child{margin:0}
+.qparties{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;padding:12px 16px 0;font-size:14px;line-height:1.55}
+.qparties p,.qscope{margin:0 0 8px}
+.qscope{padding:2px 16px 6px;font-size:14px}
+.qn{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;padding:0 5px;margin-right:7px;border-radius:999px;background:var(--blue);color:#fff;font:700 11px/1 'Sora',sans-serif;vertical-align:1px}
+.qlegend{list-style:none;counter-reset:q;margin-left:0}
+.qlegend li{counter-increment:q;position:relative;padding-left:32px}
+.qlegend li::before{content:counter(q);position:absolute;left:0;top:3px;display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:999px;background:var(--blue);color:#fff;font:700 11px/1 'Sora',sans-serif}
+@media (max-width:640px){.qparties{grid-template-columns:1fr}.doc table{display:table;font-size:13px}.doc th,.doc td{padding:7px 8px}}
+
 /* Copyable templates */
 .tpl{background:#fff;border:1px solid var(--border);border-radius:12px;margin:14px 0 22px;overflow:hidden}
 .tpl-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f1f3f6;background:#fbfcfe}
