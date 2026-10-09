@@ -248,7 +248,7 @@ const HOWTO_CONTENT = {
       ['/blog/vat-on-quotes-explained', 'VAT on quotes'],
       ['/quote-acceptance-template', 'Quote acceptance wording'],
       ['/how-to-send-a-quote-to-a-client', 'How to send a quote by email'],
-      ['/blog/how-to-follow-up-on-a-quote', 'Following up on a quote']
+      ['/blog/how-to-price-a-job-quote', 'How to price a job quote']
     ]
   }
 };
@@ -276,7 +276,7 @@ const BLOG_CONTENT = {
 <h3>7. Make accepting one step</h3>
 <p>Tell the client exactly how to say yes: reply "accepted", sign the PDF or pay the deposit. Put <a href="/quote-acceptance-template#seller-templates">acceptance wording on the quote</a> itself, and send the PDF as an attachment rather than asking the client to log in somewhere.</p>
 <h3>8. Follow up on a schedule</h3>
-<p>Follow up three to five days after sending, again a week later with something useful, and once more before the quote expires. Our <a href="/how-to-send-a-quote-to-a-client#follow-up">follow-up email templates</a> and <a href="/blog/how-to-follow-up-on-a-quote">follow-up guide</a> have wording for each step.</p>
+<p>Follow up three to five days after sending, again a week later with something useful, and once more before the quote expires. Our <a href="/how-to-send-a-quote-to-a-client#follow-up">follow-up email templates</a> have wording for each step.</p>
 <h3>9. Find out why quotes are lost</h3>
 <p>When a client says no, ask one short question: was it price, timing or something else? Keep a note of the answers.</p>
 <table><thead><tr><th>Reason the quote was lost</th><th>What to change</th></tr></thead><tbody>
@@ -288,27 +288,6 @@ const BLOG_CONTENT = {
 </tbody></table>
 <h2>Track it in one place</h2>
 <p>A simple spreadsheet is enough: quote number, date sent, client, source, amount, status (sent, accepted, lost) and the reason if lost. Number every quote so the spreadsheet, emails and PDFs match. Our <a href="/">free quotation maker</a> numbers each quote and adds a validity date to the PDF.</p>`,
-
-  'how-to-follow-up-on-a-quote': `
-<p>Many quotes that go unanswered aren't rejected. The client got busy, forwarded it to someone else, or is comparing prices. A well-timed follow-up wins a lot of that work back.</p>
-<h2>When to follow up</h2>
-<ul>
-<li><strong>Day 1:</strong> send the quote with a clear next step.</li>
-<li><strong>Day 3&ndash;5:</strong> check it arrived and offer to answer questions.</li>
-<li><strong>A few days before it expires:</strong> remind them of the validity date and your availability.</li>
-<li><strong>After it expires:</strong> one last note offering to re-quote if the timing changes.</li>
-</ul>
-<h2>Scripts you can use</h2>
-<blockquote><strong>First follow-up:</strong> Hi Alex, just checking our quote for the bathroom came through OK. Happy to walk through any of the line items, or adjust the tiling allowance if you'd prefer a different finish.</blockquote>
-<blockquote><strong>Before expiry:</strong> Hi Alex, a quick heads-up that our quote is valid until Friday. We can still hold the 14 November start date for you. Just reply and I'll book it in.</blockquote>
-<blockquote><strong>After expiry:</strong> Hi Alex, I'll close this one off on my side. If the project comes back on, I'm happy to update the quote. Prices for materials may have changed, but I'll keep it as close as I can.</blockquote>
-<h2>What not to do</h2>
-<ul>
-<li>Don't discount in the first follow-up. It teaches clients to wait.</li>
-<li>Don't send "just checking in" with nothing else. Add something useful: a date, an option, an answer.</li>
-<li>Don't follow up more than three times.</li>
-</ul>
-<p>Copy ready-made wording for every step in our <a href="/how-to-send-a-quote-to-a-client#follow-up">quote follow-up email templates</a>.</p>`,
 
   // Rewritten 9 Oct 2026 (was "Crawled - currently not indexed"): every rule checked on GOV.UK and legislation.gov.uk.
   'vat-on-quotes-explained': {
@@ -410,27 +389,102 @@ const BLOG_CONTENT = {
     ]
   },
 
-  'how-to-price-a-job-quote': `
-<p>Underpricing is the most common quoting mistake. It wins the job and loses the money. Build every price from the same four parts.</p>
-<h2>1. Materials</h2>
-<p>Cost every item, add a waste allowance (typically 5&ndash;15% depending on the material) and add delivery. Many trades add a handling margin on materials to cover ordering and collection time.</p>
-<h2>2. Labour</h2>
-<p>Estimate the hours honestly, including setup, cleanup and travel, and multiply by your rate. Your rate must cover more than wages: it has to pay for unbillable time such as quoting, admin and travel.</p>
-<h2>3. Overheads</h2>
-<p>Insurance, vehicle, tools, software, phone and accounting. Divide your annual overheads by your billable hours to get an overhead cost per hour, and make sure your rate covers it.</p>
-<h2>4. Profit</h2>
-<p>Profit is not the same as your wage. Add a margin on top, often 10&ndash;20%, so the business can absorb mistakes and invest.</p>
-<h2>A worked example</h2>
-<table><thead><tr><th>Part</th><th>Calculation</th><th>Amount</th></tr></thead><tbody>
-<tr><td>Materials</td><td>&pound;900 + 10% waste + &pound;40 delivery</td><td>&pound;1,030</td></tr>
-<tr><td>Labour</td><td>22 h &times; &pound;45</td><td>&pound;990</td></tr>
-<tr><td>Overheads</td><td>22 h &times; &pound;9</td><td>&pound;198</td></tr>
-<tr><td>Subtotal</td><td></td><td>&pound;2,218</td></tr>
-<tr><td>Profit</td><td>15%</td><td>&pound;333</td></tr>
-<tr><td><strong>Quote price (ex. VAT)</strong></td><td></td><td><strong>&pound;2,551</strong></td></tr>
+  // Rewritten 9 Oct 2026 ("URL is unknown to Google", 201 words): formula, calculator, markup vs margin, hourly rate method.
+  'how-to-price-a-job-quote': {
+    script: '/price-calc.js',
+    answer: `<p><strong>The formula:</strong> price before tax = (materials + labour + overheads) &divide; (1 &minus; profit margin). Take materials at cost plus waste and delivery, labour as hours &times; your rate, and overheads as hours &times; your overhead cost per hour. Dividing by (1 &minus; margin) gives you the margin you planned; adding the same percentage on top (a markup) gives you less.</p>`,
+    toc: [
+      ['calculator', 'Job price calculator'],
+      ['parts', 'The four parts of a price'],
+      ['margin', 'Markup or margin: the mistake that costs most'],
+      ['rate', 'Working out your hourly rate and overheads'],
+      ['method', 'Fixed price, day rate or time and materials'],
+      ['check', 'Checking the price before you send it']
+    ],
+    content: `
+<h2 id="calculator">Job price calculator</h2>
+<div class="pcalc" id="pcalc">
+<div class="pc-grid">
+<label>Materials at cost<input type="number" id="pcMat" value="900" min="0" step="any" inputmode="decimal"></label>
+<label>Waste allowance (%)<input type="number" id="pcWaste" value="10" min="0" step="any" inputmode="decimal"></label>
+<label>Delivery and collection<input type="number" id="pcDel" value="40" min="0" step="any" inputmode="decimal"></label>
+<label>Labour hours<input type="number" id="pcHours" value="22" min="0" step="any" inputmode="decimal"></label>
+<label>Labour rate per hour<input type="number" id="pcRate" value="45" min="0" step="any" inputmode="decimal"></label>
+<label>Overheads per hour<input type="number" id="pcOver" value="9" min="0" step="any" inputmode="decimal"></label>
+<label>Profit margin (%)<input type="number" id="pcMargin" value="20" min="0" max="90" step="any" inputmode="decimal"></label>
+<label>Currency<select id="pcCur"><option value="&pound;">&pound; GBP</option><option value="$">$ USD</option><option value="&euro;">&euro; EUR</option></select></label>
+</div>
+<table class="pc-out" aria-live="polite"><tbody>
+<tr><td>Materials (with waste and delivery)</td><td class="n" id="pcoMat"></td></tr>
+<tr><td>Labour</td><td class="n" id="pcoLab"></td></tr>
+<tr><td>Overheads</td><td class="n" id="pcoOver"></td></tr>
+<tr class="sub"><td>Cost of the job</td><td class="n" id="pcoCost"></td></tr>
+<tr><td>Profit</td><td class="n" id="pcoProfit"></td></tr>
+<tr class="tot"><td>Price before tax</td><td class="n" id="pcoPrice"></td></tr>
 </tbody></table>
-<p>Round sensibly and present it in the <a href="/">quote tool</a> as clear line items rather than one number.</p>`,
+<p class="pc-note" id="pcoNote"></p>
+<noscript><p class="pc-note">The calculator needs JavaScript. With the example figures: cost &pound;2,218.00, price &pound;2,772.50 at a 20% margin.</p></noscript>
+</div>
+<p>The figures loaded are the worked example below. Change any of them; the result updates as you type. Add VAT on top if you are registered (<a href="/blog/vat-on-quotes-explained">VAT on quotes</a>).</p>
 
+<h2 id="parts">The four parts of a price</h2>
+<table><thead><tr><th>Part</th><th>How to work it out</th><th class="n">Example</th></tr></thead><tbody>
+<tr><td>Materials</td><td>&pound;900 at cost, plus a 10% waste allowance, plus &pound;40 delivery</td><td class="n">&pound;1,030.00</td></tr>
+<tr><td>Labour</td><td>22 hours, including setting up, clearing up and travel, at &pound;45</td><td class="n">&pound;990.00</td></tr>
+<tr><td>Overheads</td><td>22 hours at &pound;9, your overheads per billable hour (see below)</td><td class="n">&pound;198.00</td></tr>
+<tr class="sub"><td>Cost</td><td>What the job costs you before any profit</td><td class="n">&pound;2,218.00</td></tr>
+<tr><td>Profit</td><td>A 20% margin: &pound;2,218 &divide; 0.8 = &pound;2,772.50</td><td class="n">&pound;554.50</td></tr>
+<tr class="tot"><td>Price before tax</td><td></td><td class="n">&pound;2,772.50</td></tr>
+</tbody></table>
+<p>The example figures are made up; use your own costs and rate. If you are VAT registered, price materials before VAT, because you can reclaim the VAT you pay on them.</p>
+
+<h2 id="margin">Markup or margin: the mistake that costs most</h2>
+<p>Markup is profit as a share of your cost. Margin is profit as a share of the price. They are not the same number, and pricing with one while thinking of the other quietly lowers every quote.</p>
+<table><thead><tr><th>On &pound;2,218 of cost</th><th class="n">Add 20% to cost</th><th class="n">Price for a 20% margin</th></tr></thead><tbody>
+<tr><td>Price</td><td class="n">&pound;2,661.60</td><td class="n">&pound;2,772.50</td></tr>
+<tr><td>Profit</td><td class="n">&pound;443.60</td><td class="n">&pound;554.50</td></tr>
+<tr><td>Markup (profit &divide; cost)</td><td class="n">20%</td><td class="n">25%</td></tr>
+<tr><td>Margin (profit &divide; price)</td><td class="n">16.7%</td><td class="n">20%</td></tr>
+</tbody></table>
+<p>To convert: margin = markup &divide; (1 + markup), and markup = margin &divide; (1 &minus; margin). A 25% markup is a 20% margin; a 20% markup is a 16.7% margin.</p>
+
+<h2 id="rate">Working out your hourly rate and overheads</h2>
+<p>Your labour rate and your overheads both depend on how many hours you can actually bill in a year, which is fewer than the hours you work. An example with made-up figures:</p>
+<ol>
+<li><strong>Billable hours:</strong> 46 working weeks &times; 5 days &times; 6 billable hours = 1,380 hours. Quoting, travel between jobs, admin and holidays are the hours you don&rsquo;t bill.</li>
+<li><strong>Overheads per hour:</strong> van &pound;4,800 + insurance &pound;900 + tools &pound;1,500 + phone and software &pound;720 + accountant &pound;1,200 = &pound;9,120 a year, &divide; 1,380 = &pound;6.61 per billable hour.</li>
+<li><strong>Labour rate:</strong> the yearly pay you need, say &pound;45,000, &divide; 1,380 = &pound;32.61 per billable hour.</li>
+<li><strong>Cost per hour before profit:</strong> &pound;32.61 + &pound;6.61 = &pound;39.22. Anything you charge below this per billable hour loses money, however busy you are.</li>
+</ol>
+
+<h2 id="method">Fixed price, day rate or time and materials</h2>
+<ul>
+<li><strong>Fixed price:</strong> one price for a defined scope. Use it when you can see the whole job, and state what is excluded.</li>
+<li><strong>Day rate or hourly rate:</strong> the rate, an estimated number of days and a cap that needs sign-off to exceed. Use it when the scope will change as the work goes on.</li>
+<li><strong>Time and materials:</strong> hours at your rate plus materials at cost and an agreed handling charge. Use it for repairs and fault-finding, and call the document an estimate.</li>
+</ul>
+<p>Unknowns are better named than hidden. A labelled allowance or an exclusion (&ldquo;rotten timbers found after strip-out will be priced separately&rdquo;) keeps the quote fair to both sides; see <a href="/blog/what-is-a-quotation-in-business#quote-or-estimate">when to send a quote and when an estimate</a>.</p>
+
+<h2 id="check">Checking the price before you send it</h2>
+<ul>
+<li>Compare the hours with the last similar job you did, using the hours it actually took rather than what you quoted.</li>
+<li>Work out what the price earns per labour hour once materials are taken out: (price &minus; materials) &divide; hours. In the example that is (&pound;2,772.50 &minus; &pound;1,030) &divide; 22 = &pound;79.20, well above the &pound;39.22 cost per hour worked out above.</li>
+<li>Round the total, then present it as priced lines, not one figure (<a href="/blog/how-to-write-a-professional-quote#lines">line items a client can check</a>).</li>
+</ul>`,
+    faq: [
+      { q: 'What is the difference between markup and margin?', a: 'Markup is profit as a share of cost; margin is profit as a share of the price. A 25% markup on £100 of cost gives a £125 price, which is a 20% margin.' },
+      { q: 'How do I work out a price from a profit margin?', a: 'Divide the cost by (1 minus the margin). For a 20% margin on £2,218 of cost: 2,218 ÷ 0.8 = £2,772.50, which leaves £554.50 of profit.' },
+      { q: 'How much profit should I put on a quote?', a: 'There is no single right figure. Work out the margin your recent jobs actually made, once every hour and cost is counted, and price from that. Your own wage belongs in the labour line, not in the profit.' },
+      { q: 'Should I charge for travel time?', a: 'If the travel is part of the job, include it in the labour hours or show it as its own line. Travel between jobs belongs in your overheads, which is why it reduces your billable hours.' },
+      { q: 'How do I price materials on a quote?', a: 'At what they cost you, plus an allowance for waste and offcuts and any delivery or collection. If you are VAT registered, use prices before VAT, because you reclaim the VAT you pay.' }
+    ],
+    cta: { title: 'Turn the price into a quote', text: 'Put the figures into priced lines in the free quote maker and download the PDF. No signup.', href: '/#tool', label: 'Open the quote maker' },
+    related: [
+      ['/blog/how-to-write-a-professional-quote', 'Guide', 'How to write a professional quote'],
+      ['/blog/vat-on-quotes-explained', 'Tax', 'VAT on quotes'],
+      ['/quote-template-contractor', 'Template', 'Contractor and tradesman quote template']
+    ]
+  },
   // Rewritten 9 Oct 2026 (was "Crawled - currently not indexed"): annotated example, document comparison, sourced binding rules.
   'what-is-a-quotation-in-business': {
     answer: `<p><strong>A quotation</strong> (or quote) is a document a business sends before a sale or a job, offering to supply specific goods or services at a stated price, usually until a stated date. If the customer accepts it, the quote normally becomes the agreed price and scope for the job.</p>
@@ -541,22 +595,99 @@ const BLOG_CONTENT = {
     ]
   },
 
-  'how-to-write-a-professional-quote': `
-<p>A professional quote wins work because it's easy to understand and easy to accept. Follow these steps.</p>
-<h2>1. Start with the client's problem</h2>
-<p>Restate what they asked for in one or two lines. It shows you listened and frames everything that follows.</p>
-<h2>2. Break the work into line items</h2>
-<p>Show each task or product with a quantity and rate. Itemised quotes are trusted more than a single figure and let clients adjust scope instead of walking away.</p>
-<h2>3. Be explicit about what's excluded</h2>
-<p>Exclusions prevent most disputes: permits, making good, disposal, content, travel. If it isn't in the quote, say so.</p>
-<h2>4. Show tax correctly</h2>
-<p>If you're registered, show the subtotal, tax and total. Consumers should see the tax-inclusive price clearly.</p>
-<h2>5. Add terms</h2>
-<p>Include validity (30 days is common), start date and duration, deposit and payment schedule, and how changes are priced.</p>
-<h2>6. Make accepting easy</h2>
-<p>End with one clear action: "Reply 'accepted' to book your start date." See our <a href="/quote-acceptance-template">quote acceptance wording</a>.</p>
-<h2>7. Send it fast and follow up</h2>
-<p>Send within a day, then follow up after a few days. See <a href="/how-to-send-a-quote-to-a-client">how to send a quote to a client</a>.</p>`
+  // Rewritten 9 Oct 2026 ("URL is unknown to Google", 193 words): section order, wording to copy, before and after.
+  'how-to-write-a-professional-quote': {
+    answer: `<p><strong>The short answer:</strong> write the quote in the order the client reads it. Say what they asked for in a line, list the work as priced lines with quantities, say what is not included, show tax and the total, then give the terms: when you can start, how changes are priced, the deposit and payment, how long the price stands and exactly how to accept. Wording for each part is below, ready to copy.</p>`,
+    toc: [
+      ['order', 'The eight parts, in order'],
+      ['lines', 'Line items a client can check'],
+      ['wording', 'Wording to copy'],
+      ['example', 'Before and after: one quote rewritten'],
+      ['check', 'Check before you send']
+    ],
+    content: `
+<h2 id="order">The eight parts, in order</h2>
+<ol>
+<li><strong>Header:</strong> the word &ldquo;Quotation&rdquo;, a quote number, the date and a valid-until date, then your business details and the client&rsquo;s. Every part is labelled in <a href="/blog/what-is-a-quotation-in-business#example">this annotated example</a>.</li>
+<li><strong>What they asked for:</strong> a line or two in the client&rsquo;s own words, with the address or project name.</li>
+<li><strong>The work, priced line by line:</strong> each line with a quantity, a unit, a rate and an amount.</li>
+<li><strong>What is not included:</strong> the things this client is likely to assume are in the price.</li>
+<li><strong>Tax and total:</strong> subtotal, tax rate and amount, and the total. The VAT rules are in <a href="/blog/vat-on-quotes-explained">VAT on quotes</a>.</li>
+<li><strong>Timing:</strong> your earliest start date and how long the work takes.</li>
+<li><strong>Terms:</strong> how changes are priced, the deposit and payment schedule, and any guarantee.</li>
+<li><strong>How to accept:</strong> one action, and what happens after it.</li>
+</ol>
+
+<h2 id="lines">Line items a client can check</h2>
+<p>Clients compare quotes line by line and ask about anything they can&rsquo;t picture. Name the work, give the quantity and its unit, and say what the price covers.</p>
+<table><thead><tr><th>Vague</th><th>Clear</th></tr></thead><tbody>
+<tr><td>Bathroom works</td><td>Remove the existing bath, basin and WC, and take away the waste</td></tr>
+<tr><td>Tiling</td><td>Wall tiling to full height, 22 m&sup2;, tiles supplied by you</td></tr>
+<tr><td>Materials</td><td>Plasterboard, adhesive, grout and fixings, itemised on request</td></tr>
+<tr><td>Labour</td><td>Fitting: 3 days, two people</td></tr>
+<tr><td>Website</td><td>Design and build of 5 page templates in WordPress, with 2 rounds of changes</td></tr>
+</tbody></table>
+<p>Three habits make lines easier to accept: use the client&rsquo;s words for rooms and features, put any allowance for something not yet chosen on its own labelled line, and give options as separate lines or sections instead of a note at the bottom.</p>
+
+<h2 id="wording">Wording to copy</h2>
+<p>Replace everything in square brackets.</p>
+<blockquote><strong>Scope:</strong> This quotation covers [the work] at [address], as discussed on site on [date]. It is based on [the measurements, drawings or specification dated ...].</blockquote>
+<blockquote><strong>Not included:</strong> [Decorating after the work], [moving furniture], and repairs to hidden defects found once work starts, which we will price and agree with you before doing them.</blockquote>
+<blockquote><strong>Changes:</strong> Any change to the work described will be priced in writing and agreed with you before we do it.</blockquote>
+<blockquote><strong>Timing:</strong> Earliest start [date]. The work takes about [5 working days].</blockquote>
+<blockquote><strong>Payment:</strong> [25%] deposit to confirm the start date, balance within [7] days of completion by bank transfer.</blockquote>
+<blockquote><strong>Tax (business clients):</strong> Prices are shown before VAT. VAT at 20% is added to the total.</blockquote>
+<blockquote><strong>Validity:</strong> This quotation is valid until [date]. After that we may need to update the price.</blockquote>
+<blockquote><strong>Accepting:</strong> To accept, reply to this email or sign and return the quote. We will confirm your start date within one working day.</blockquote>
+<p>More acceptance wording, including a signature block, is in <a href="/quote-acceptance-template#seller-templates">quote acceptance wording</a>.</p>
+
+<h2 id="example">Before and after: one quote rewritten</h2>
+<p>The same kitchen job, quoted twice. The first version leaves the client to guess; the second answers the questions before they are asked. Prices are made up.</p>
+<div class="doc">
+<div class="doc-h"><span><b>BEFORE</b> one line</span><span>No number, no dates</span></div>
+<table><tbody><tr><td>Kitchen refit, supply and fit</td><td class="n">&pound;8,400</td></tr></tbody></table>
+<div class="doc-f">Payment on completion. The client can&rsquo;t tell whether VAT is included, what is in the price, when the work starts, or how long the price stands.</div>
+</div>
+<div class="doc">
+<div class="doc-h"><span><b>QUOTATION</b> Q-2026-207</span><span>5 October 2026, valid until 4 November 2026</span></div>
+<p class="qscope">Replace the kitchen at 3 Elm Road with the units, worktops and layout agreed on site on 2 October.</p>
+<table><thead><tr><th>Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead><tbody>
+<tr><td>Remove the existing kitchen and take away the waste</td><td class="n">1</td><td class="n">&pound;650.00</td><td class="n">&pound;650.00</td></tr>
+<tr><td>Supply and fit 12 units, worktops and sink, as agreed</td><td class="n">1</td><td class="n">&pound;4,200.00</td><td class="n">&pound;4,200.00</td></tr>
+<tr><td>Plumbing: sink, dishwasher and washing machine connections</td><td class="n">1</td><td class="n">&pound;580.00</td><td class="n">&pound;580.00</td></tr>
+<tr><td>Electrics: 6 sockets, under-unit lights, hob and oven circuits, certificate</td><td class="n">1</td><td class="n">&pound;1,120.00</td><td class="n">&pound;1,120.00</td></tr>
+<tr><td>Wall tiling between worktop and wall units (m&sup2;)</td><td class="n">6</td><td class="n">&pound;75.00</td><td class="n">&pound;450.00</td></tr>
+<tr class="sub"><td colspan="3">Subtotal</td><td class="n">&pound;7,000.00</td></tr>
+<tr class="sub"><td colspan="3">VAT 20%</td><td class="n">&pound;1,400.00</td></tr>
+<tr class="tot"><td colspan="3">Total including VAT</td><td class="n">&pound;8,400.00</td></tr>
+</tbody></table>
+<div class="doc-f"><p><strong>Not included:</strong> decorating, appliances, and hidden defects found when the old units come out (priced and agreed before any work).</p><p><strong>Timing and payment:</strong> start 9 November, about 8 working days; &pound;1,000 deposit to book, balance within 7 days of completion.</p><p><strong>To accept:</strong> reply &ldquo;accepted&rdquo; to the email this quote came with.</p></div>
+</div>
+
+<h2 id="check">Check before you send</h2>
+<ul>
+<li>The quote number, the date and the valid-until date are filled in.</li>
+<li>Every line has a quantity and a unit, and the lines add up to the subtotal.</li>
+<li>Tax is shown, or the quote says you are not VAT registered.</li>
+<li>The exclusions name the things this client is likely to assume.</li>
+<li>There is one way to accept, written as an instruction.</li>
+<li>The PDF reads well on a phone, and the client&rsquo;s name is spelled correctly.</li>
+</ul>
+<p>Then send it the same day if you can, with the total and the valid-until date in the email itself: <a href="/how-to-send-a-quote-to-a-client">quote email templates</a>. The price behind the lines is worked out in <a href="/blog/how-to-price-a-job-quote">how to price a job quote</a>.</p>`,
+    faq: [
+      { q: 'What should a professional quote include?', a: 'A quote number, the date and a valid-until date, your details and the client\u2019s, a one-line scope, priced lines with quantities, what is not included, tax and the total, timing, how changes are priced, payment terms and how to accept.' },
+      { q: 'Should I itemise a quote or give one price?', a: 'Itemise. A single figure gives the client nothing to check, so the only thing they can compare is the total. Priced lines show what the money buys and let the client drop or change one item instead of turning down the whole quote.' },
+      { q: 'How long should a quote be valid for?', a: 'Choose a period that matches how quickly your costs move, such as 30 days, or 14 to 21 days if your material prices change often, and write the actual date on the quote.' },
+      { q: 'Should I send a quote as a PDF or a Word document?', a: 'Send a PDF. It looks the same on every phone and computer and the client cannot change the figures by accident. Keep the editable version for yourself.' },
+      { q: 'How do I make a quote look professional?', a: 'Use your business name and contact details, a quote number, clear dates, a clean table of priced lines, and send it as a PDF rather than a Word file. Keep the wording plain and specific.' }
+    ],
+    cta: { title: 'Write the quote in the quote maker', text: 'Free quotation maker: quote number, priced lines, VAT, a valid-until date and your terms, downloaded as a PDF. No signup.', href: '/#tool', label: 'Open the quote maker' },
+    related: [
+      ['/blog/what-is-a-quotation-in-business', 'Guide', 'What is a quotation in business?'],
+      ['/blog/how-to-price-a-job-quote', 'Pricing', 'How to price a job quote'],
+      ['/how-to-send-a-quote-to-a-client', 'Templates', 'How to send a quote by email']
+    ]
+  }
 };
 
 // Old URLs that competed with stronger pages for the same query.
@@ -580,7 +711,10 @@ const REDIRECTS = {
   '/tradesman-quote-template.docx': '/templates/tradesman-quote-template.docx',
   // 2026-10-09: "Crawled - currently not indexed" with 0 impressions in 16 months. Its table and
   // definitions now open the convert guide, which shows the same job as a quote and as invoices.
-  '/blog/quote-vs-invoice-difference': '/how-to-convert-a-quote-to-an-invoice'
+  '/blog/quote-vs-invoice-difference': '/how-to-convert-a-quote-to-an-invoice',
+  // 2026-10-09: "URL is unknown to Google", 0 impressions in 16 months. Its schedule and four scripts repeated the
+  // follow-up section of the send-quote guide (859 impressions in 90 days); its "what not to do" list moved there.
+  '/blog/how-to-follow-up-on-a-quote': '/how-to-send-a-quote-to-a-client#follow-up'
 };
 
 module.exports = { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS };

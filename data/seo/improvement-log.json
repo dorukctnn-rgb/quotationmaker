@@ -10,6 +10,12 @@
         "rankAtAction": 46.4,
         "needs": "Ready-to-send quote email wording: subject lines, emails per situation, follow-ups",
         "done": "Rewrote as a template page: 9 copyable quote emails, subject lines, 4 follow-ups, acceptance confirmation, checklist, FAQ + FAQPage schema"
+      },
+      {
+        "date": "2026-10-09",
+        "rankAtAction": null,
+        "needs": "/blog/how-to-follow-up-on-a-quote (URL is unknown to Google, 0 impressions in 16 months) repeated this page's follow-up schedule and scripts",
+        "done": "301 /blog/how-to-follow-up-on-a-quote to #follow-up here; its three \"what not to do\" points replaced the link to it in the follow-up section; related link swapped. The 2026-10-21 review stands"
       }
     ]
   },
@@ -122,6 +128,34 @@
         "rankAtAction": null,
         "needs": "URL Inspection: Crawled - currently not indexed (crawled 2026-05-20); 0 impressions in 16 months. Results are UK Business Forums threads, a Crunch explainer and template pages; none cite VATA s.19(2) on prices silent about VAT, the Flat Rate Scheme, deposits or consumer price rules",
         "done": "Rewrote with sources checked 9 Oct 2026: s.19(2) silent-price table, how to show VAT, rounding (Notice 700 17.5), homeowner vs business (CMA DMCC guidance), rates incl. 708/6 dates and Notice 708, Flat Rate Scheme example, materials, deposits, CIS domestic reverse charge, s.89 rate changes, registering after quoting, wording to copy; FAQ"
+      }
+    ]
+  },
+  {
+    "keyword": "how to write a professional quote",
+    "targetPath": "/blog/how-to-write-a-professional-quote",
+    "status": "observing",
+    "nextReviewDate": "2026-10-23",
+    "actions": [
+      {
+        "date": "2026-10-09",
+        "rankAtAction": null,
+        "needs": "URL is unknown to Google; 193 words; 0 impressions in 16 months. PandaDoc, Housecall Pro, Jobber and Zigaflow give generic steps with no wording to copy and no worked before-and-after",
+        "done": "Rewrote: eight parts in order, vague vs clear line items, eight wording blocks to copy (scope, exclusions, changes, timing, payment, VAT, validity, accepting), before-and-after quote, pre-send checklist, FAQ"
+      }
+    ]
+  },
+  {
+    "keyword": "how to price a job quote",
+    "targetPath": "/blog/how-to-price-a-job-quote",
+    "status": "observing",
+    "nextReviewDate": "2026-10-23",
+    "actions": [
+      {
+        "date": "2026-10-09",
+        "rankAtAction": null,
+        "needs": "URL is unknown to Google; 201 words; 0 impressions in 16 months. Jobber, simPRO, Markel and BigChange explain the parts and quote uncited \"typical\" percentages; one tool page (invoicer.ai) has a calculator",
+        "done": "Rewrote: formula answer, live job price calculator (materials with waste, labour, overheads, margin, markup check), worked example, markup vs margin table, billable-hours method for rate and overheads, pricing methods, checks; FAQ"
       }
     ]
   }
