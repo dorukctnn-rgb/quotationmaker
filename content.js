@@ -500,7 +500,7 @@ const BLOG_CONTENT = {
 
 <h2 id="quote-or-estimate">When to send a quote and when an estimate</h2>
 <ul>
-<li><strong>Send a quote</strong> when you can see the whole job: a measured room, a known parts list, a defined deliverable. Customers prefer the certainty, and it is the document they compare.</li>
+<li><strong>Send a quote</strong> when you can see the whole job: a measured room, a known parts list, a defined deliverable. It gives the customer a fixed price to compare and to accept.</li>
 <li><strong>Send an estimate</strong> when you can&rsquo;t know the scope until you start, such as a repair behind a wall. Call it an estimate on the document and say what could change the price.</li>
 <li><strong>Or quote, and name the unknowns.</strong> Price everything you can see, then list the unknowns as exclusions or as a clearly labelled allowance (a provisional sum) that will be adjusted to the actual cost.</li>
 </ul>
@@ -524,7 +524,7 @@ const BLOG_CONTENT = {
 <p>Acceptance wording, the 14-day cancellation right for jobs agreed at a customer&rsquo;s home, and accepting only part of a quote are covered in <a href="/quote-acceptance-template#binding">quote acceptance wording</a>.</p>
 
 <h2 id="validity">How long a quotation lasts</h2>
-<p>As long as the date on it says. Thirty days is common; trades whose material prices move quickly often give 14 to 21 days. A quote without a date leaves it unclear how long the price stands. If you need to change a quote before it is accepted, send a revised version with a new revision number (Q-2026-114 rev. 2) and say that it replaces the earlier one.</p>
+<p>As long as the date on it says. Pick a period that suits your costs, such as 30 days, or 14 to 21 days if your material prices move quickly. A quote without a date leaves it unclear how long the price stands. If you need to change a quote before it is accepted, send a revised version with a new revision number (Q-2026-114 rev. 2) and say that it replaces the earlier one.</p>
 <p class="src">Sources checked 9 October 2026: Citizens Advice; Consumer Rights Act 2015, s.50; HMRC VAT Notice 700 (updated 25 June 2026). General information, not legal advice.</p>`,
     faq: [
       { q: 'Is a quotation the same as an invoice?', a: 'No. A quotation offers a price before the work; an invoice asks for payment after it, or at an agreed stage. Once a quote is accepted, the invoice should match it line for line, plus any extras the customer agreed.' },
