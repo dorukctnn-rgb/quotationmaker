@@ -249,7 +249,12 @@ If the project comes back on, just reply to this email and I'll send you an upda
 
 All the best,
 [Your name]`)}
-<p>More timing advice and what not to say: <a href="/blog/how-to-follow-up-on-a-quote">how to follow up on a quote without being pushy</a>.</p>
+<p>Three things to avoid in any follow-up:</p>
+<ul>
+<li><strong>Discounting in the first follow-up.</strong> It teaches the client that waiting brings the price down.</li>
+<li><strong>&ldquo;Just checking in&rdquo; with nothing else.</strong> Add a date you can hold, an option or an answer.</li>
+<li><strong>Following up more than three times.</strong> After the quote expires, close it politely and offer to re-quote.</li>
+</ul>
 
 <h2 id="accepted">When the client accepts</h2>
 <p>Confirm it in writing the same day, especially if they said yes on the phone. Restate the quote number and total, then give the next steps.</p>
@@ -307,7 +312,7 @@ Thanks again,
   ],
   related: [
     ['/quote-acceptance-template', 'Quote acceptance wording templates'],
-    ['/blog/how-to-follow-up-on-a-quote', 'How to follow up on a quote'],
+    ['/blog/how-to-price-a-job-quote', 'How to price a job quote'],
     ['/blog/how-to-write-a-professional-quote', 'How to write a professional quote'],
     ['/quote-template-contractor', 'Contractor and tradesman quote template'],
     ['/blog/quote-acceptance-rate-tips', 'How to get more quotes accepted']
