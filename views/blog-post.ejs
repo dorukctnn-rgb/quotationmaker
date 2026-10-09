@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%- include('partials/head', { meta: {
-  title: post.title, desc: post.desc, path: '/blog/' + post.slug, type: 'article',
-  jsonld: [
+<%
+  var jsonld = [
     { '@context': 'https://schema.org', '@type': 'Article', headline: post.h1, description: post.desc, datePublished: post.date, dateModified: post.updated,
       mainEntityOfPage: siteUrl + '/blog/' + post.slug, image: siteUrl + '/og-image.png',
       author: { '@type': 'Organization', name: 'GetQuotationMaker', url: siteUrl + '/' }, publisher: { '@type': 'Organization', name: 'GetQuotationMaker', url: siteUrl + '/' } },
@@ -11,7 +10,11 @@
       { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
       { '@type': 'ListItem', position: 2, name: 'Guides', item: siteUrl + '/blog' },
       { '@type': 'ListItem', position: 3, name: post.h1, item: siteUrl + '/blog/' + post.slug } ] }
-  ] } }) %>
+  ];
+  if (post.faq && post.faq.length) jsonld.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: post.faq.map(function (f) { return { '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }; }) });
+  var cta = post.cta || { title: 'Create a professional quote now', text: 'Free quotation maker: line items, tax, discount and a validity date, downloaded as a PDF. No signup.', href: '/#tool', label: 'Open the quote maker' };
+%>
+<%- include('partials/head', { meta: { title: post.title, desc: post.desc, path: '/blog/' + post.slug, type: 'article', jsonld: jsonld } }) %>
 <style>
 .post-head{max-width:760px;margin:0 auto;padding:40px 20px 0}
 .tag{font:700 11px 'Sora',sans-serif;color:var(--blue);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
@@ -34,17 +37,33 @@
   <div class="post-meta"><span>Updated <%= new Date(post.updated + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) %></span><span><%= post.readTime %></span></div>
 </div>
 <main class="article">
+  <% if (post.answer) { %><div class="answer prose"><%- post.answer %></div><% } %>
+  <% if (post.toc && post.toc.length) { %>
+  <nav class="toc" aria-label="On this page"><strong>On this page</strong>
+    <ol><% post.toc.forEach(function (t) { %><li><a href="#<%= t[0] %>"><%= t[1] %></a></li><% }) %></ol>
+  </nav>
+  <% } %>
   <article class="prose"><%- post.content %></article>
   <div class="cta-box">
-    <h2>Create a professional quote now</h2>
-    <p>Free quotation maker: line items, tax, discount and a validity date, downloaded as a PDF. No signup.</p>
-    <a href="/#tool">Open the quote maker</a>
-  </div>
-  <h2 style="font:800 19px 'Sora',sans-serif;margin-top:10px">Related guides</h2>
-  <div class="rel-grid">
-    <% relatedPosts.forEach(function (p) { %><a href="/blog/<%= p.slug %>" class="rel-card"><span><%= p.category %></span><strong><%= p.h1 %></strong></a><% }) %>
+    <h2><%= cta.title %></h2>
+    <p><%= cta.text %></p>
+    <a href="<%= cta.href %>"><%= cta.label %></a>
   </div>
 </main>
+<% if (post.faq && post.faq.length) { %>
+<section class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Questions</h2>
+  <% post.faq.forEach(function (f) { %>
+  <details><summary><%= f.q %></summary><p><%= f.a %></p></details>
+  <% }) %>
+</section>
+<% } %>
+<div class="article" style="padding-top:0">
+  <h2 style="font:800 19px 'Sora',sans-serif;margin-top:10px">Related guides</h2>
+  <div class="rel-grid">
+    <% relatedPosts.forEach(function (p) { %><a href="<%= p.href %>" class="rel-card"><span><%= p.tag %></span><strong><%= p.title %></strong></a><% }) %>
+  </div>
+</div>
 <%- include('partials/footer') %>
 </body>
 </html>
