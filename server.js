@@ -21,6 +21,7 @@ const GUMROAD_LINK = process.env.GUMROAD_LINK || 'https://dorukctn.gumroad.com/l
 const ASSET_VERSION = '20261009b';
 const UPDATED = '2026-10-07';
 const PREVIOUS_UPDATE = '2026-09-24';
+const LEGAL_UPDATED = '2026-10-11';
 
 // -- Redirects (old URLs merged into stronger pages) ------------------------
 Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
@@ -103,6 +104,7 @@ function sitemapEntries() {
   COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
   HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   BLOG_POSTS.forEach(p => e.push({ loc: '/blog/' + p.slug, lastmod: p.updated }));
+  e.push({ loc: '/privacy', lastmod: LEGAL_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED });
   return e;
 }
 
@@ -171,6 +173,8 @@ HOW_TO_PAGES.forEach(page => {
 });
 
 app.get('/activate', (req, res) => res.render('activate', { productId: pro.PRODUCT_ID }));
+app.get('/privacy', (req, res) => res.render('privacy'));
+app.get('/terms', (req, res) => res.render('terms'));
 
 // -- PDF ----------------------------------------------------------------------------
 app.post('/generate-pdf', (req, res) => {
