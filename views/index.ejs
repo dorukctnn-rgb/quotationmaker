@@ -1,7 +1,7 @@
 <%
 var faqs = [
   ['Is this quotation maker really free?', 'Yes. You can make and download as many quotations as you like for free, with no account and no credit card. Free PDFs carry a small "Made with GetQuotationMaker.com" line at the bottom. Pro ($9, one-time) removes that line, adds your logo and lets you download any quote as a matching invoice.'],
-  ['Do I need to sign up or log in?', 'No. The quotation maker runs in your browser. Your business name, email and address are remembered on this device so the next quote is faster; nothing is stored in an account.'],
+  ['Do I need to sign up or log in?', 'No. The form and the live preview run in your browser. When you download, our server builds the PDF from what you typed and does not keep a copy. Your business name, email and address are remembered on this device so the next quote is faster; nothing is stored in an account.'],
   ['How do I make a quotation online?', 'Enter your details and your client’s, add a line for each item with a quantity and rate, set the tax rate, any discount and a valid-until date, add your terms, then press Download quote PDF. The live preview shows exactly what the PDF will look like.'],
   ['Can I use it on my phone?', 'Yes. The form and preview work on phones and tablets, and the PDF downloads straight to your device so you can attach it to an email or WhatsApp message.'],
   ['Which currencies and taxes are supported?', 'Over twenty currencies, including US dollars, pounds, euros, Indian rupees, Canadian, Australian and New Zealand dollars, rand, dirhams and more. Set any tax rate and name it VAT, GST, sales tax or anything else.'],
@@ -19,7 +19,7 @@ var faqs = [
   path: '/', tool: true,
   jsonld: [
     { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'GetQuotationMaker', alternateName: 'Free Online Quotation Maker', url: siteUrl + '/',
-      description: 'Free online quotation maker that creates professional quote PDFs in the browser, with line items, tax, discounts and validity dates.',
+      description: 'Free online quotation maker that creates professional quote PDFs, with line items, tax, discounts and validity dates.',
       applicationCategory: 'BusinessApplication', operatingSystem: 'Any (web browser)', browserRequirements: 'Requires JavaScript',
       offers: [
         { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'USD' },

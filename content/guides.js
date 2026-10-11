@@ -278,7 +278,7 @@ Thanks again,
 <li><strong>Keep it small.</strong> A compressed logo keeps the PDF well under typical email size limits.</li>
 <li><strong>Send from your business address</strong> and double-check the spelling of the client&rsquo;s email. If someone else approves spending, ask whether to copy them in.</li>
 </ul>
-<p>GetQuotationMaker creates the PDF in your browser. It doesn&rsquo;t send emails for you: download the PDF, then attach it in Gmail, Outlook or your phone&rsquo;s mail app.</p>
+<p>When you press download, GetQuotationMaker builds the PDF on our server, sends it to you and does not keep a copy. It doesn&rsquo;t send emails for you: download the PDF, then attach it in Gmail, Outlook or your phone&rsquo;s mail app.</p>
 
 <h2 id="checklist">Checklist before you send</h2>
 <ul>
@@ -308,7 +308,7 @@ Thanks again,
     { q: 'How do I follow up on a quote without being pushy?', a: 'Follow up three to five days after sending, then add something useful each time: a date you can hold, an option, or an answer to a likely question. Send a reminder a few days before the quote expires, and a short closing message after it does.' },
     { q: 'Should I send a quote as a PDF or a Word document?', a: 'Send a PDF. It looks the same on every device and the client cannot change the figures by accident. Keep the editable version for yourself.' },
     { q: 'Is a quote sent by email binding?', a: 'A quote is an offer. Once the client accepts it, it normally becomes the agreement for that work at that price, which is why the scope, exclusions and validity date matter. Rules vary by country, so take advice on large contracts. See our guide to quote acceptance wording for what the acceptance should say.' },
-    { q: 'Can GetQuotationMaker email the quote for me?', a: 'No. It creates the quote PDF in your browser for free, without an account. You attach the PDF to an email yourself, which means the quote comes from your own address and lands in the client’s inbox like any other email from you.' }
+    { q: 'Can GetQuotationMaker email the quote for me?', a: 'No. It makes the quote PDF for free, without an account: when you press download, our server builds the PDF and does not keep a copy. You attach the PDF to an email yourself, which means the quote comes from your own address and lands in the client’s inbox like any other email from you.' }
   ],
   related: [
     ['/quote-acceptance-template', 'Quote acceptance wording templates'],
