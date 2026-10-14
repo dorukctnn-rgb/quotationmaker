@@ -22,6 +22,7 @@ const ASSET_VERSION = '20261009b';
 const UPDATED = '2026-10-07';
 const PREVIOUS_UPDATE = '2026-09-24';
 const LEGAL_UPDATED = '2026-10-11';
+const PRIVACY_UPDATED = '2026-10-15'; // the Pro link note on the privacy page
 
 // -- Redirects (old URLs merged into stronger pages) ------------------------
 Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
@@ -104,7 +105,7 @@ function sitemapEntries() {
   COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
   HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   BLOG_POSTS.forEach(p => e.push({ loc: '/blog/' + p.slug, lastmod: p.updated }));
-  e.push({ loc: '/privacy', lastmod: LEGAL_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED });
+  e.push({ loc: '/privacy', lastmod: PRIVACY_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED });
   return e;
 }
 
