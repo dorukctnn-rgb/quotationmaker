@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS } = require('./content');
 const { GUIDE_PAGES } = require('./content/guides');
+const { CONFIRM_REVISE_PAGES } = require('./content/confirm-revise');
 const { PROFESSION_EXTRAS, SHORT_GUIDES } = require('./content/trades');
 const { PRESETS } = require('./content/presets');
 const { COUNTRIES, COUNTRY_FACTS_CHECKED } = require('./content/countries');
@@ -95,6 +96,8 @@ const HOW_TO_PAGES = [
     jump: ['example', 'See the worked example'], heroLabel: 'Load the example quote', preset: 'kitchen-refit-uk', presetLabel: 'Example quote from this guide', updated: '2026-10-09' }
 ];
 HOW_TO_PAGES.forEach(p => withContent(p, HOWTO_CONTENT[p.slug]));
+// Self-contained pages (content, FAQ and any page-only presets live in the module).
+HOW_TO_PAGES.push(...CONFIRM_REVISE_PAGES);
 
 // Pages and their last meaningful update, for the sitemap.
 function sitemapEntries() {
@@ -167,8 +170,11 @@ BLOG_POSTS.forEach(post => {
 });
 
 HOW_TO_PAGES.forEach(page => {
+  // Page-only presets are merged here so the shared PRESETS (embedded on every tool page) stay unchanged.
+  const extra = page.presets ? { presets: Object.assign({}, PRESETS, page.presets) } : {};
   app.get('/' + page.slug, (req, res) => {
-    res.render('how-to', { page, professions: PROFESSIONS, tool: page.preset ? toolConfig(res, { presetButtons: [{ key: page.preset, label: page.presetLabel || 'Load the example' }] }) : null });
+    res.render('how-to', { page, professions: PROFESSIONS, tool: page.preset ? toolConfig(res, Object.assign({
+      presetButtons: page.presetButtons || [{ key: page.preset, label: page.presetLabel || 'Load the example' }] }, extra)) : null });
   });
 });
 

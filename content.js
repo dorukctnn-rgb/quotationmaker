@@ -151,7 +151,7 @@ const HOWTO_CONTENT = {
 
 <h2 id="steps">Step by step</h2>
 <ol>
-<li><strong>Find the version the client accepted.</strong> Use the quote number, revision and date they accepted, and keep their acceptance email or signed copy with the job. If they said yes on the phone, confirm it in writing first (<a href="/quote-acceptance-template#c4-h">confirmation wording</a>).</li>
+<li><strong>Find the version the client accepted.</strong> Use the quote number, revision and date they accepted, and keep their acceptance email or signed copy with the job, next to your <a href="/quotation-confirmation">order confirmation</a>. If they said yes on the phone, confirm it in writing first (<a href="/quote-acceptance-template#c4-h">confirmation wording</a>).</li>
 <li><strong>Copy the lines instead of retyping them.</strong> Same descriptions, quantities and unit prices. Clients and their accounts teams check an invoice against the quote line by line, and any difference holds up payment while it is queried.</li>
 <li><strong>Give it an invoice number.</strong> Invoices run in their own sequence, separate from quotes. Keep the quote number on the invoice as a reference so the two documents can be matched later.</li>
 <li><strong>Replace the dates.</strong> Add the invoice date and a due date written as a date (&ldquo;Due 16 October 2026&rdquo;), not only &ldquo;14 days&rdquo;.</li>
@@ -215,7 +215,7 @@ const HOWTO_CONTENT = {
 <ul>
 <li><strong>Deposits.</strong> Invoice the deposit when it is due, then deduct it on the final invoice with the deposit invoice&rsquo;s number, as in the example.</li>
 <li><strong>Stage payments.</strong> Send one invoice per stage, each saying which stage it covers (&ldquo;Stage 2 of 4 under quotation Q-2026-031&rdquo;), how much has been invoiced so far and how much is left. The last invoice covers the final stage plus any agreed extras.</li>
-<li><strong>Only part of the quote accepted.</strong> Invoice only the accepted items. It is cleaner to send a revised quote for those items and have that accepted first (<a href="/quote-acceptance-template#changes">accepting part of a quote</a>).</li>
+<li><strong>Only part of the quote accepted.</strong> Invoice only the accepted items. It is cleaner to send a <a href="/revised-quotation">revised quote</a> for those items and have that accepted first (<a href="/quote-acceptance-template#changes">accepting part of a quote</a>).</li>
 <li><strong>Pro forma invoices.</strong> If you ask for payment before supplying anything by sending a pro forma, HMRC says it can&rsquo;t be used to reclaim VAT and should be marked &ldquo;This is not a VAT invoice&rdquo;; once you are paid or you supply the work, issue a proper VAT invoice (<a href="https://www.gov.uk/guidance/vat-guide-notice-700#pro-forma-invoices" rel="nofollow noopener" target="_blank">VAT Notice 700, 17.3</a>).</li>
 </ul>
 
@@ -247,6 +247,8 @@ const HOWTO_CONTENT = {
       ['/blog/what-is-a-quotation-in-business', 'What a quotation is, with an annotated example'],
       ['/blog/vat-on-quotes-explained', 'VAT on quotes'],
       ['/quote-acceptance-template', 'Quote acceptance wording'],
+      ['/quotation-confirmation', 'How to confirm a quotation'],
+      ['/revised-quotation', 'How to send a revised quotation'],
       ['/how-to-send-a-quote-to-a-client', 'How to send a quote by email'],
       ['/blog/how-to-price-a-job-quote', 'How to price a job quote']
     ]
@@ -547,6 +549,7 @@ const BLOG_CONTENT = {
 <tr><td>Proposal</td><td>Seller</td><td>Before larger or advisory work</td><td>Usually contains a quote, plus the approach and timetable</td></tr>
 <tr><td>Tender (bid)</td><td>Seller</td><td>In reply to a formal invitation to tender</td><td>Yes, in the buyer&rsquo;s format and on the buyer&rsquo;s terms</td></tr>
 <tr><td>Purchase order</td><td>Buyer</td><td>After accepting a quote</td><td>Confirms the order and price; put its number on your invoice</td></tr>
+<tr><td>Order confirmation</td><td>Seller</td><td>After the acceptance or purchase order</td><td>Yes, the accepted price, with the dates and terms that apply (<a href="/quotation-confirmation">how confirming a quotation works</a>)</td></tr>
 <tr><td>Pro forma invoice</td><td>Seller</td><td>Before supply, when payment comes first</td><td>Yes. In the UK it is not a VAT invoice and should say so (<a href="https://www.gov.uk/guidance/vat-guide-notice-700#pro-forma-invoices" rel="nofollow noopener" target="_blank">VAT Notice 700, 17.3</a>)</td></tr>
 <tr><td>Invoice</td><td>Seller</td><td>After the work, or at an agreed stage</td><td>Asks for the agreed price plus any agreed extras</td></tr>
 </tbody></table>
@@ -578,7 +581,7 @@ const BLOG_CONTENT = {
 <p>Acceptance wording, the 14-day cancellation right for jobs agreed at a customer&rsquo;s home, and accepting only part of a quote are covered in <a href="/quote-acceptance-template#binding">quote acceptance wording</a>.</p>
 
 <h2 id="validity">How long a quotation lasts</h2>
-<p>As long as the date on it says. Pick a period that suits your costs, such as 30 days, or 14 to 21 days if your material prices move quickly. A quote without a date leaves it unclear how long the price stands. If you need to change a quote before it is accepted, send a revised version with a new revision number (Q-2026-114 rev. 2) and say that it replaces the earlier one.</p>
+<p>As long as the date on it says. Pick a period that suits your costs, such as 30 days, or 14 to 21 days if your material prices move quickly. A quote without a date leaves it unclear how long the price stands. If you need to change a quote before it is accepted, send a <a href="/revised-quotation">revised version</a> with a new revision number (Q-2026-114 rev. 2) and say that it replaces the earlier one.</p>
 <p class="src">Sources checked 9 October 2026: Citizens Advice; Consumer Rights Act 2015, s.50; HMRC VAT Notice 700 (updated 25 June 2026). General information, not legal advice.</p>`,
     faq: [
       { q: 'Is a quotation the same as an invoice?', a: 'No. A quotation offers a price before the work; an invoice asks for payment after it, or at an agreed stage. Once a quote is accepted, the invoice should match it line for line, plus any extras the customer agreed.' },
@@ -639,7 +642,7 @@ const BLOG_CONTENT = {
 <blockquote><strong>Tax (business clients):</strong> Prices are shown before VAT. VAT at 20% is added to the total.</blockquote>
 <blockquote><strong>Validity:</strong> This quotation is valid until [date]. After that we may need to update the price.</blockquote>
 <blockquote><strong>Accepting:</strong> To accept, reply to this email or sign and return the quote. We will confirm your start date within one working day.</blockquote>
-<p>More acceptance wording, including a signature block, is in <a href="/quote-acceptance-template#seller-templates">quote acceptance wording</a>.</p>
+<p>More acceptance wording, including a signature block, is in <a href="/quote-acceptance-template#seller-templates">quote acceptance wording</a>. When the client says yes, reply with an order confirmation the same day (<a href="/quotation-confirmation#supplier">confirmation emails to copy</a>).</p>
 
 <h2 id="example">Before and after: one quote rewritten</h2>
 <p>The same kitchen job, quoted twice. The first version leaves the client to guess; the second answers the questions before they are asked. Prices are made up.</p>
