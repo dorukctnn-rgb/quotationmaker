@@ -30,7 +30,7 @@
   <p class="lead"><%= page.lead || page.desc %></p>
   <div class="btn-row">
     <% if (page.jump) { %><a class="btn" href="#<%= page.jump[0] %>"><%= page.jump[1] %></a><% } %>
-    <a class="btn<%= page.jump ? ' ghost' : '' %>" href="<%= tool ? '#qtTool' : '/#tool' %>"><%= page.heroLabel || (tool ? 'Open the example in the quote maker' : 'Create a free quote') %></a>
+    <a class="btn<%= page.jump ? ' ghost' : '' %>" href="<%= page.heroHref || (tool ? '#qtTool' : '/#tool') %>"><%= page.heroLabel || (tool ? 'Open the example in the quote maker' : 'Create a free quote') %></a>
   </div>
   <p class="meta">Updated <%= new Date(page.updated + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) %></p>
 </header>
@@ -65,6 +65,7 @@
   </div>
 </section>
 <%- include('partials/footer') %>
-<% if (!tool) { %><script src="/tool.js?v=<%= assetVersion %>" defer></script><% } %>
+<% if (!tool) { %><script src="/tool.js?v=<%= assetVersion %>" defer></script><% } %><% if (page.script) { %>
+<script src="<%= page.script %>?v=<%= assetVersion %>" defer></script><% } %>
 </body>
 </html>
