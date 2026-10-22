@@ -5,6 +5,10 @@ const path = require('path');
 const { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS } = require('./content');
 const { GUIDE_PAGES } = require('./content/guides');
 const { CONFIRM_REVISE_PAGES } = require('./content/confirm-revise');
+// Pages published through the SEO agent (seo-ajani, adapter qm-pages), added 22 Oct 2026: new guides drawn with
+// views/how-to.ejs, and full rebuilds of trade pages drawn with views/profession.ejs. An entry adds its own route or
+// replaces its own page only; every other page renders exactly as before.
+const { SEO_PAGES, TRADE_FIELDS } = require('./content/seo-pages');
 const { PROFESSION_EXTRAS, SHORT_GUIDES } = require('./content/trades');
 const { PRESETS } = require('./content/presets');
 const { COUNTRIES, COUNTRY_FACTS_CHECKED } = require('./content/countries');
@@ -70,6 +74,18 @@ PROFESSIONS.forEach(p => {
     p.updated = UPDATED;
   }
 });
+// Trade pages rebuilt through the SEO agent: the entry replaces the page's own text and examples. The slug, label and
+// name stay, because every trade page lists the others by label.
+const SEO_TRADES = SEO_PAGES.filter(s => s.view === 'profession');
+SEO_TRADES.forEach(s => {
+  const p = PROFESSIONS.find(x => x.path === '/' + s.slug);
+  if (!p) return;
+  TRADE_FIELDS.forEach(k => { if (s[k] !== undefined) p[k] = s[k]; });
+  p.custom = true;
+});
+// Trades that have no page in PROFESSIONS get their own route; they are not added to the shared lists.
+const EXTRA_TRADES = SEO_TRADES.filter(s => !PROFESSIONS.some(x => x.path === '/' + s.slug))
+  .map(s => Object.assign({ name: s.name || s.h1, label: s.label || s.h1 }, s, { path: '/' + s.slug, custom: true }));
 
 const BLOG_POSTS = [
   { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance Rate: 9 Ways to Get More Quotes Accepted', h1: 'How to improve your quote acceptance rate', desc: 'How to work out your quote acceptance rate, and nine practical ways to get more quotes accepted: speed, specific line items, options, validity dates and follow-ups.', date: '2026-03-14', updated: '2026-10-08', category: 'Tips' },
@@ -98,11 +114,13 @@ const HOW_TO_PAGES = [
 HOW_TO_PAGES.forEach(p => withContent(p, HOWTO_CONTENT[p.slug]));
 // Self-contained pages (content, FAQ and any page-only presets live in the module).
 HOW_TO_PAGES.push(...CONFIRM_REVISE_PAGES);
+HOW_TO_PAGES.push(...SEO_PAGES.filter(s => s.view === 'how-to'));
 
 // Pages and their last meaningful update, for the sitemap.
 function sitemapEntries() {
   const e = [{ loc: '/', lastmod: UPDATED }, { loc: '/blog', lastmod: UPDATED }];
-  PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: UPDATED }));
+  PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: p.custom ? p.updated : UPDATED }));
+  EXTRA_TRADES.forEach(p => e.push({ loc: p.path, lastmod: p.updated }));
   GUIDE_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
   HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
@@ -139,9 +157,11 @@ app.get('/', (req, res) => {
     { key: 'auto-brakes', label: 'Auto repair' }, { key: 'web-designer', label: 'Web design' }, { key: 'consultant', label: 'Consulting' }] }) });
 });
 
-PROFESSIONS.forEach(p => {
+// A rebuilt trade page can carry its own example quotes; they are merged here so the shared PRESETS stay unchanged.
+const tradeTool = (res, p) => toolConfig(res, Object.assign({ presetButtons: p.presetButtons }, p.presets ? { presets: Object.assign({}, PRESETS, p.presets) } : {}));
+PROFESSIONS.concat(EXTRA_TRADES).forEach(p => {
   app.get(p.path, (req, res) => {
-    res.render('profession', { profession: p, professions: PROFESSIONS, tool: toolConfig(res, { presetButtons: p.presetButtons }) });
+    res.render('profession', { profession: p, professions: PROFESSIONS, tool: tradeTool(res, p) });
   });
 });
 
