@@ -12,16 +12,20 @@ var crumbs = [
   { '@type': 'ListItem', position: 2, name: 'Quote templates', item: siteUrl + '/#templates' },
   { '@type': 'ListItem', position: 3, name: p.name + ' quote template', item: siteUrl + p.path }
 ];
+var ld = [
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(function (f) { return { '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }; }) }
+];
+// a trade page rebuilt through the SEO agent (p.custom) also describes itself as an article
+if (p.custom) ld.unshift({ '@context': 'https://schema.org', '@type': 'Article', headline: p.h1, description: p.desc, datePublished: p.published || p.updated, dateModified: p.updated, mainEntityOfPage: siteUrl + p.path, image: siteUrl + '/og-image.png',
+  author: { '@type': 'Organization', name: 'GetQuotationMaker', url: siteUrl + '/' }, publisher: { '@type': 'Organization', name: 'GetQuotationMaker', url: siteUrl + '/' } });
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <%- include('partials/head', { meta: {
   title: p.title, desc: p.desc, path: p.path, tool: true,
-  jsonld: [
-    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs },
-    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(function (f) { return { '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }; }) }
-  ] } }) %>
+  jsonld: ld } }) %>
 </head>
 <body>
 <%- include('partials/nav') %>
@@ -62,7 +66,7 @@ var crumbs = [
 
 <main class="article">
   <div class="prose">
-    <% if (!p.downloads) { %>
+    <% if (!p.downloads && !p.custom) { %>
     <h2>What to include in a <%= lower %> quote</h2>
     <ul>
       <li>Your business name, address and contact details</li>
@@ -75,7 +79,7 @@ var crumbs = [
     </ul>
     <% } %>
     <%- p.guide %>
-    <% if (!p.downloads) { %>
+    <% if (!p.downloads && !p.custom) { %>
     <h2>How to use this <%= lower %> quote template</h2>
     <p>Press the example button above the form to load a sample <%= lower %> quote, then replace the details with your own. The preview updates as you type. When it looks right, press <strong>Download quote PDF</strong> and send it to your client with one of our <a href="/how-to-send-a-quote-to-a-client">quote email templates</a>.</p>
     <% } %>
