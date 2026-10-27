@@ -267,9 +267,9 @@ const REVISION_PRESETS = {
 
 const REVISED = {
   slug: 'revised-quotation',
-  title: 'Revised Quotation: Format, Numbering and Email Templates',
+  title: 'Revised Quotation: Meaning, Format and Email Templates',
   h1: 'How to write and send a revised quotation',
-  desc: 'A revised quotation replaces a quote you already sent. How to number and date it, show what changed, change the price fairly, and emails to send it with.',
+  desc: 'A revised quotation is a new version of a quote you already sent. What it means, how to number and date it, show what changes and email it.',
   lead: 'Change the quote without losing track of it: the same quote number with a revision, new dates, a line saying which version it replaces and a short list of what changed. Below: a worked example, emails you fill in once and copy, and the quote maker with both versions of the example.',
   breadcrumb: 'Revised quotation',
   published: '2026-10-17',

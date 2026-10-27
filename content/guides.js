@@ -321,8 +321,8 @@ Thanks again,
 
 const ACCEPTANCE = {
   slug: 'quote-acceptance-template',
-  title: 'Quote Acceptance Wording: How to Accept or Confirm a Quotation',
-  desc: 'Wording to accept a quote: "We accept quotation Q-1042 dated 2 October for the work described at £8,450 incl. VAT." Plus confirmation of quotation emails and letters.',
+  title: 'Quote Acceptance Wording: 9 Templates to Accept a Quotation',
+  desc: 'Copy-ready wording to accept a quote: an email reply, a formal letter, accepting part of it or with changes, extending the deadline, declining politely.',
   h1: 'Quote acceptance wording: how to accept or confirm a quotation',
   lead: 'Copy-ready wording for accepting a quote by email or letter, confirming a quotation, accepting only part of it or with changes, and declining politely. Further down: what a business should put on its quotes so a client’s yes is clear.',
   updated: '2026-10-08',

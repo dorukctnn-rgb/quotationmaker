@@ -53,3 +53,24 @@ test('SEO agent pages carry their title, description and FAQ', async () => {
     for (const f of p.faq || []) assert.ok(r.body.includes(f.q.replace(/&/g, '&amp;').replace(/'/g, '&#39;')) || r.body.includes(f.q), p.slug + ' FAQ question shown');
   }
 });
+
+// 27 Oct 2026 click-through fixes (Search Console, 28 days): the acceptance, confirmation and revision pages
+// keep a title of 60 characters or less and a description of 155 or less, and the acceptance-rate article
+// sends "confirm a quotation" readers to the confirmation guide and "email a quote" readers to the email guide.
+test('acceptance, revision and confirmation pages: search-result lengths and cross links', async () => {
+  const pages = {
+    '/blog/quote-acceptance-rate-tips': 'Quote Acceptance: Wording to Copy and 9 Ways to Win More',
+    '/quote-acceptance-template': 'Quote Acceptance Wording: 9 Templates to Accept a Quotation',
+    '/revised-quotation': 'Revised Quotation: Meaning, Format and Email Templates'
+  };
+  for (const [path, title] of Object.entries(pages)) {
+    const { body } = await get(path);
+    assert.ok(body.includes('<title>' + title + '</title>'), path + ' title');
+    assert.ok(title.length <= 60, path + ' title length');
+    const desc = (body.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
+    assert.ok(desc.length >= 70 && desc.length <= 155, path + ' description length ' + desc.length);
+  }
+  const post = (await get('/blog/quote-acceptance-rate-tips')).body;
+  assert.ok(post.includes('href="/quotation-confirmation"'), 'article links to the confirmation guide');
+  assert.ok(post.includes('href="/how-to-send-a-quote-to-a-client"'), 'article links to the email guide');
+});

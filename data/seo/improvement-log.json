@@ -37,13 +37,19 @@
     "keyword": "acceptance of quote wording",
     "targetPath": "/quote-acceptance-template",
     "status": "observing",
-    "nextReviewDate": "2026-10-21",
+    "nextReviewDate": "2026-11-10",
     "actions": [
       {
         "date": "2026-10-07",
         "rankAtAction": 6.9,
         "needs": "The client wording to accept/confirm a quotation",
         "done": "New dedicated page with 9 client templates + 2 seller templates, binding/acceptance facts with sources; blog post refocused on acceptance rate and cross-linked"
+      },
+      {
+        "date": "2026-10-27",
+        "rankAtAction": 4.9,
+        "needs": "GSC 28 days to 24 Oct: the acceptance-rate article took 134 of the 209 impressions for \"acceptance of quote wording\" (position 5.5, 0 clicks) and 87 for \"quote acceptance template\" (15.2) while this page sat at 4.9 and 52; its description repeated the one-line answer, so the snippet answered without a click. 555 impressions, 6 clicks, position 6.9",
+        "done": "Title \"Quote Acceptance Wording: 9 Templates to Accept a Quotation\"; description lists what the page holds (9 client templates). Article: title \"Quote Acceptance: Wording to Copy and 9 Ways to Win More\", answer box links \"confirm a quotation\" readers to /quotation-confirmation, one link to the email guide. Judge on 14-day CTR of /blog/quote-acceptance-rate-tips (baseline 1,907 impressions, 28 clicks, 1.5%) and this page (555, 6, 1.1%), not on position"
       }
     ]
   },
@@ -156,6 +162,34 @@
         "rankAtAction": null,
         "needs": "URL is unknown to Google; 201 words; 0 impressions in 16 months. Jobber, simPRO, Markel and BigChange explain the parts and quote uncited \"typical\" percentages; one tool page (invoicer.ai) has a calculator",
         "done": "Rewrote: formula answer, live job price calculator (materials with waste, labour, overheads, margin, markup check), worked example, markup vs margin table, billable-hours method for rate and overheads, pricing methods, checks; FAQ"
+      }
+    ]
+  },
+  {
+    "keyword": "revised quotation meaning",
+    "targetPath": "/revised-quotation",
+    "status": "observing",
+    "nextReviewDate": "2026-11-10",
+    "actions": [
+      {
+        "date": "2026-10-27",
+        "rankAtAction": 7.4,
+        "needs": "173 impressions, 1 click; \"revised quotation meaning\" and its variants 29 impressions at positions 8 to 10",
+        "done": "Title \"Revised Quotation: Meaning, Format and Email Templates\"; description says what a revised quotation is. Page text already defines it"
+      }
+    ]
+  },
+  {
+    "keyword": "confirm quotation",
+    "targetPath": "/quotation-confirmation",
+    "status": "observing",
+    "nextReviewDate": "2026-11-10",
+    "actions": [
+      {
+        "date": "2026-10-27",
+        "rankAtAction": 9.6,
+        "needs": "Page is from 17 Oct; 272 impressions, 0 clicks. About 115 impressions for \"confirm quotation\" queries landed on the acceptance-rate article (positions 11 to 22) instead of this guide",
+        "done": "Internal link from the article answer box; title and description unchanged (too young to judge)"
       }
     ]
   }
