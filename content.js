@@ -257,7 +257,7 @@ const HOWTO_CONTENT = {
 
 const BLOG_CONTENT = {
   'quote-acceptance-rate-tips': `
-<div class="answer"><p><strong>Quote acceptance wording:</strong> to accept or confirm a quotation, reply in writing with the quote number, its date and the total, for example: &ldquo;We accept quotation Q-1042 dated 2 October for the kitchen refit at &pound;8,450 including VAT, on the terms set out in the quotation. Please confirm the start date.&rdquo;</p><p>For confirmation of quotation emails, a formal acceptance letter and accepting with changes, copy the <a href="/quote-acceptance-template">quote acceptance wording templates</a>. This article covers the other side: getting more of the quotes you send accepted.</p></div>
+<div class="answer"><p><strong>Quote acceptance wording:</strong> to accept or confirm a quotation, reply in writing with the quote number, its date and the total, for example: &ldquo;We accept quotation Q-1042 dated 2 October for the kitchen refit at &pound;8,450 including VAT, on the terms set out in the quotation. Please confirm the start date.&rdquo;</p><p>For a formal acceptance letter and accepting with changes, copy the <a href="/quote-acceptance-template">quote acceptance wording templates</a>; for what happens once a quote is accepted, see <a href="/quotation-confirmation">how to confirm a quotation</a>. The rest of this article covers the other side: getting more of the quotes you send accepted.</p></div>
 <p>Your quote acceptance rate (also called a win rate or conversion rate) is the share of quotes you send that clients accept. It tells you whether your quoting process is working, and it is the number to watch when you change how you price, present or follow up.</p>
 <h2>How to work out your quote acceptance rate</h2>
 <p><strong>Acceptance rate = quotes accepted &divide; quotes sent &times; 100.</strong> If you sent 40 quotes last quarter and 18 were accepted, your rate is 45%.</p>
@@ -276,7 +276,7 @@ const BLOG_CONTENT = {
 <h3>6. Add a validity date</h3>
 <p>A date gives the client a reason to decide and protects you from honouring old prices. Thirty days is common; use less when material prices move.</p>
 <h3>7. Make accepting one step</h3>
-<p>Tell the client exactly how to say yes: reply "accepted", sign the PDF or pay the deposit. Put <a href="/quote-acceptance-template#seller-templates">acceptance wording on the quote</a> itself, and send the PDF as an attachment rather than asking the client to log in somewhere.</p>
+<p>Tell the client exactly how to say yes: reply "accepted", sign the PDF or pay the deposit. Put <a href="/quote-acceptance-template#seller-templates">acceptance wording on the quote</a> itself, and send the PDF as an attachment rather than asking the client to log in somewhere (<a href="/how-to-send-a-quote-to-a-client">emails for sending a quote to a client</a> have subject lines and wording for each situation).</p>
 <h3>8. Follow up on a schedule</h3>
 <p>Follow up three to five days after sending, again a week later with something useful, and once more before the quote expires. Our <a href="/how-to-send-a-quote-to-a-client#follow-up">follow-up email templates</a> have wording for each step.</p>
 <h3>9. Find out why quotes are lost</h3>
