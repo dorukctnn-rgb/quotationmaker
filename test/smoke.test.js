@@ -74,3 +74,22 @@ test('acceptance, revision and confirmation pages: search-result lengths and cro
   assert.ok(post.includes('href="/quotation-confirmation"'), 'article links to the confirmation guide');
   assert.ok(post.includes('href="/how-to-send-a-quote-to-a-client"'), 'article links to the email guide');
 });
+
+// 28 Oct 2026 Search Console tour: the web design page was rebuilt around the queries it is shown for ("web design quote
+// template", "web development quote template", "website quote sample") and carries three one-click example quotes;
+// the professional-quote guide answers "how to provide a quote for services" and "how to set up a quote template".
+test('web design page and professional-quote guide: titles, examples and answers', async () => {
+  const wd = await get('/quote-template-web-designer');
+  const title = 'Web Design and Development Quote Template (Free PDF)';
+  assert.ok(wd.body.includes('<title>' + title + '</title>') && title.length <= 60, 'web design title');
+  const desc = (wd.body.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
+  assert.ok(desc.length >= 70 && desc.length <= 155, 'web design description length ' + desc.length);
+  for (const key of ['web-designer', 'web-development', 'web-maintenance']) {
+    assert.ok(wd.body.includes('data-preset="' + key + '"'), 'preset button ' + key);
+    assert.ok(wd.body.includes('"' + key + '":{'), 'preset ' + key + ' is loaded into the tool');
+  }
+  assert.ok(wd.body.includes('web development quote'), 'web development wording is on the page');
+  const pro = await get('/blog/how-to-write-a-professional-quote');
+  for (const q of ['How do I provide a quote for services?', 'How do I set up a quote template?']) assert.ok(pro.body.includes(q), q);
+  assert.ok(pro.body.includes('href="/quote-template-web-designer"'), 'guide links to the web design template');
+});
