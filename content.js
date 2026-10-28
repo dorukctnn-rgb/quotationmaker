@@ -387,7 +387,8 @@ const BLOG_CONTENT = {
     related: [
       ['/how-to-convert-a-quote-to-an-invoice', 'How-to', 'How to convert a quote to an invoice'],
       ['/blog/what-is-a-quotation-in-business', 'Guide', 'What is a quotation in business?'],
-      ['/quote-template-contractor', 'Template', 'UK tradesman quote template']
+      ['/quote-template-contractor', 'Template', 'UK tradesman quote template'],
+      ['/blog/how-to-write-a-professional-quote', 'Guide', 'How to write a professional quote']
     ]
   },
 
@@ -682,13 +683,18 @@ const BLOG_CONTENT = {
       { q: 'Should I itemise a quote or give one price?', a: 'Itemise. A single figure gives the client nothing to check, so the only thing they can compare is the total. Priced lines show what the money buys and let the client drop or change one item instead of turning down the whole quote.' },
       { q: 'How long should a quote be valid for?', a: 'Choose a period that matches how quickly your costs move, such as 30 days, or 14 to 21 days if your material prices change often, and write the actual date on the quote.' },
       { q: 'Should I send a quote as a PDF or a Word document?', a: 'Send a PDF. It looks the same on every phone and computer and the client cannot change the figures by accident. Keep the editable version for yourself.' },
-      { q: 'How do I make a quote look professional?', a: 'Use your business name and contact details, a quote number, clear dates, a clean table of priced lines, and send it as a PDF rather than a Word file. Keep the wording plain and specific.' }
+      { q: 'How do I make a quote look professional?', a: 'Use your business name and contact details, a quote number, clear dates, a clean table of priced lines, and send it as a PDF rather than a Word file. Keep the wording plain and specific.' },
+      { q: 'How do I provide a quote for services?', a: 'Ask what the client needs done and by when, then price it from your time and costs. Write it up with a one-line scope, priced lines, what is not included, tax and the total, your terms and a valid-until date. Send it as a PDF with the total and the way to accept in the email itself, and follow up within a few days if you hear nothing.' },
+      { q: 'How do I write a quote for a job or for work?', a: 'Visit or ask enough questions to understand the job, then list each part of the work as a line with a quantity, a unit and a price. Add materials, labour and any travel or waste removal as their own lines, say what is excluded, and finish with the total, the timing and the payment terms. The eight parts above are in the order a client reads them.' },
+      { q: 'How do I set up a quote template?', a: 'Make one document that keeps the fixed parts the same every time: the word Quotation, a quote number, the date and a valid-until date, your details, a client block, a table of priced lines, tax and total, your standard exclusions, terms and the acceptance wording. Put the parts that change in square brackets, save the file as your master, and export a PDF for each client. Free templates in Word, Excel and PDF, and a quote maker that does the same online, are linked below.' }
     ],
     cta: { title: 'Write the quote in the quote maker', text: 'Free quotation maker: quote number, priced lines, VAT, a valid-until date and your terms, downloaded as a PDF. No signup.', href: '/#tool', label: 'Open the quote maker' },
     related: [
       ['/blog/what-is-a-quotation-in-business', 'Guide', 'What is a quotation in business?'],
       ['/blog/how-to-price-a-job-quote', 'Pricing', 'How to price a job quote'],
-      ['/how-to-send-a-quote-to-a-client', 'Templates', 'How to send a quote by email']
+      ['/how-to-send-a-quote-to-a-client', 'Templates', 'How to send a quote by email'],
+      ['/quote-template-contractor', 'Templates', 'Free contractor and tradesman quote template (Word, Excel, PDF)'],
+      ['/quote-template-web-designer', 'Templates', 'Web design and development quote template']
     ]
   }
 };

@@ -192,5 +192,33 @@
         "done": "Internal link from the article answer box; title and description unchanged (too young to judge)"
       }
     ]
+  },
+  {
+    "keyword": "web design quote template",
+    "targetPath": "/quote-template-web-designer",
+    "status": "observing",
+    "nextReviewDate": "2026-11-11",
+    "actions": [
+      {
+        "date": "2026-10-28",
+        "rankAtAction": 40.7,
+        "needs": "GSC 28 days to 25 Oct: 260 impressions, 0 clicks, position 40.7. Queries: \"web design quote template\" 41 (30.4), \"web development quote template\" 33 (40.1), \"web design quotation template\" 32 (29.1), \"website design quote template\", \"website quote format\", \"website quote sample\". The page was a 4,300-character generic template page with a five-line guide and no development, pricing or wording content",
+        "done": "Rebuilt as a full page: title and description name web design and web development; what a website quote includes, a worked five-page example with the payment split, pricing methods table and a buffer calculation, a development phase list, copyable wording (scope, content and revisions, payment and ownership), hosting and maintenance, eight FAQs, and two new one-click examples (custom development, monthly maintenance). Judge on impressions and position of the three template queries, not on clicks: the page ranks below position 30"
+      }
+    ]
+  },
+  {
+    "keyword": "how to provide a quote for services",
+    "targetPath": "/blog/how-to-write-a-professional-quote",
+    "status": "observing",
+    "nextReviewDate": "2026-11-11",
+    "actions": [
+      {
+        "date": "2026-10-28",
+        "rankAtAction": 48.2,
+        "needs": "GSC 28 days to 25 Oct: 111 impressions, 0 clicks, position 48.2. \"how to provide a quote for services\" 21 (80.6), \"how to set up a quote template\" 12 (76), \"how to write a quotation\" 7 (63.4) matched no heading or answer on the page",
+        "done": "Three FAQs answering those queries directly (FAQPage schema carries them), related links to the contractor and web design templates, link from the VAT guide (position 4.7). Title and description unchanged"
+      }
+    ]
   }
 ]

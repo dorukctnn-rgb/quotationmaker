@@ -315,6 +315,135 @@ ${load('panel-beating', 'Load a panel beating example')}
   ]
 };
 
+// Web design page, rebuilt 28 Oct 2026 from Search Console queries: "web design quote template", "web development quote
+// template", "web design quotation template", "website quote format", "website quote sample". Prices are examples.
+const WEB_DESIGNER = {
+  title: 'Web Design and Development Quote Template (Free PDF)',
+  desc: 'Free web design and web development quote template. Fill it in online, load a website quotation example with milestones and exclusions, and download a PDF.',
+  h1: 'Web design and web development quote template',
+  lead: 'A free website quote template for designers, developers and small agencies. Load an example, change the lines to match your project and download a PDF. It prices the work by milestone and says in plain words how many revisions are included, who supplies the content and what happens when the scope changes.',
+  updated: '2026-10-28',
+  published: '2026-05-06',
+  custom: true,
+  heroCta: { preset: 'web-designer', label: 'Load an example website quote' },
+  presetButtons: [
+    { key: 'web-designer', label: 'Small business website (5 pages)' },
+    { key: 'web-development', label: 'Custom web development' },
+    { key: 'web-maintenance', label: 'Monthly maintenance' }
+  ],
+  presets: {
+    'web-development': {
+      label: 'Web development quote (example prices)', currency: 'USD', taxRate: 0, taxLabel: 'Tax', validDays: 30,
+      items: [
+        ['Discovery, requirements and technical specification', 1, 1800],
+        ['UX design: wireframes and 8 screens, 2 rounds of revisions', 1, 3200],
+        ['Front-end build, responsive from phone to desktop', 1, 4200],
+        ['Back-end, database and admin area', 1, 5600],
+        ['Integrations: payments and transactional email', 1, 1500],
+        ['Testing, deployment and handover documentation', 1, 1400]
+      ],
+      notes: 'Payment: 30% to start, 40% when the front-end is approved, 30% before launch.\nAssumptions: the client supplies content, brand assets and third-party accounts by the dates agreed. Work outside this specification is priced as a change request.\nNot included: hosting, domain, third-party licences and fees (billed at cost), ongoing support.\nValid for 30 days.'
+    },
+    'web-maintenance': {
+      label: 'Website maintenance quote (example prices)', currency: 'USD', taxRate: 0, taxLabel: 'Tax', validDays: 30,
+      items: [
+        ['Monthly maintenance: core, theme and plugin updates, backups', 1, 90],
+        ['Content changes, per hour (2 hours a month included)', 2, 60],
+        ['Uptime and security monitoring', 1, 30]
+      ],
+      notes: 'Billed monthly in advance. Rolling contract, 30 days notice to cancel.\nNot included: new pages or features, redesigns, hosting fees. Extra hours are billed at the hourly rate above.\nValid for 30 days.'
+    }
+  },
+  guide: `
+<h2 id="what-to-include">What a website quote includes</h2>
+<p>A client reading a website quote wants to know what they will get, when, and what it will cost if something changes. These are the parts that answer those questions:</p>
+<ul>
+<li><strong>Project summary:</strong> one or two lines on the goal, for example a five-page site for a dental practice with online booking.</li>
+<li><strong>Pages and features:</strong> the number of page templates, plus each feature as its own line: contact forms, booking, shop, blog, multilingual pages.</li>
+<li><strong>Platform:</strong> WordPress, Webflow, Shopify or custom code, and who owns the accounts.</li>
+<li><strong>Content:</strong> who writes the copy and supplies photos and logos, and by which date. Late content is the usual reason a launch slips.</li>
+<li><strong>Design rounds:</strong> how many rounds of changes each stage includes, and your rate for extra ones.</li>
+<li><strong>Milestones and payments:</strong> a deposit, then payments tied to events the client can see, such as design sign-off and launch.</li>
+<li><strong>Timeline:</strong> a start date, the milestone dates and the launch date, all depending on content arriving on time.</li>
+<li><strong>Exclusions:</strong> domain, hosting, paid plugins and themes, stock photography, copywriting, SEO, training beyond what is listed.</li>
+<li><strong>Ongoing costs:</strong> hosting and maintenance as separate, optional lines.</li>
+<li><strong>Ownership:</strong> when the finished design and code pass to the client, usually on final payment.</li>
+<li><strong>Validity and acceptance:</strong> a valid-until date and one clear way to say yes.</li>
+</ul>
+
+<h2 id="example">Example website quote: a five-page business site</h2>
+<p>A fixed-fee quote for a small business website, built from the milestones above. Prices are examples only, not market rates.</p>
+<table>
+<thead><tr><th>Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead>
+<tbody>
+<tr><td>Discovery workshop and sitemap</td><td class="n">1</td><td class="n">$600</td><td class="n">$600</td></tr>
+<tr><td>Design: 5 page templates, 2 rounds of revisions</td><td class="n">1</td><td class="n">$2,400</td><td class="n">$2,400</td></tr>
+<tr><td>Development and CMS setup</td><td class="n">1</td><td class="n">$3,200</td><td class="n">$3,200</td></tr>
+<tr><td>Content upload (client supplies copy and images)</td><td class="n">1</td><td class="n">$450</td><td class="n">$450</td></tr>
+<tr><td>Launch and 1 hour training</td><td class="n">1</td><td class="n">$250</td><td class="n">$250</td></tr>
+<tr><td colspan="3"><strong>Total</strong></td><td class="n"><strong>$6,900</strong></td></tr>
+</tbody></table>
+<p>Payment in this example: 50% deposit ($3,450), 25% on design sign-off ($1,725) and 25% before launch ($1,725). Domain, hosting, paid plugins, copywriting and stock images are listed as not included.</p>
+${load('web-designer', 'Load this example into the quote maker')}
+
+<h2 id="pricing">How to price a website project</h2>
+<p>Pick one pricing method and show it on the quote. The line items should still list the work, so the client can see what each part of the fee covers.</p>
+<table>
+<thead><tr><th>Method</th><th>How it works</th><th>Good for</th></tr></thead>
+<tbody>
+<tr><td>Fixed fee per milestone</td><td>A set price for discovery, design, build and launch, each paid when it is done</td><td>Brochure sites and small shops with a clear scope</td></tr>
+<tr><td>Time and materials</td><td>Hours worked &times; your rate, usually with an estimate and a cap the client must approve before it is passed</td><td>Projects where the scope will change as you learn more</td></tr>
+<tr><td>Monthly retainer</td><td>A set monthly fee for a set number of hours or tasks</td><td>Maintenance, content updates and continuing work after launch</td></tr>
+</tbody></table>
+<p>To build a fixed fee, estimate the hours for each milestone, multiply by your hourly rate and add a buffer for revision rounds and client delays. For example, 80 hours at $75 is $6,000; a 15% buffer brings it to $6,900. Round to a clean figure and write the milestones next to it. Quote by milestone rather than by the hour for design work: clients compare the total, and open hours invite scope creep.</p>
+
+<h2 id="development">Web development quote: custom builds and web apps</h2>
+<p>Custom development carries more unknowns than a template site, so a development quote leans on written assumptions. Split the work into phases that can each be accepted on their own:</p>
+<ol>
+<li><strong>Discovery and specification:</strong> requirements, user flows, data model and a written spec. Price it separately so the client can stop after it.</li>
+<li><strong>Design:</strong> wireframes and screens, with a stated number of screens and revision rounds.</li>
+<li><strong>Front-end build:</strong> responsive layouts and the browsers and devices you test on.</li>
+<li><strong>Back-end:</strong> database, admin area, accounts and any API work.</li>
+<li><strong>Integrations:</strong> payments, email, analytics and other third-party services, with their fees billed at cost.</li>
+<li><strong>Testing, deployment and handover:</strong> the test pass, the launch, documentation and a short support window for fixes.</li>
+</ol>
+<p>State the assumptions that the price depends on, for example that the client supplies content and API access, that the spec is signed off before design starts, and that anything outside the spec is a change request. Load the development example to see the phases as quote lines.</p>
+${load('web-development', 'Load a custom web development example')}
+
+<h2 id="wording">Website quote wording to copy</h2>
+<p>Replace everything in square brackets. This is general wording, not legal advice; have a solicitor check terms for larger projects.</p>
+${tpl('wdscope', 'Scope and deliverables', `Scope: design and build of a [5]-page website on [WordPress] for [client name], with [a contact form and a booking page]. Pages: [Home, About, Services, Pricing, Contact].
+
+Deliverables: the finished website on the client's hosting, [a short training session], and login details for every account set up for the project.
+
+Not included: domain registration, hosting, paid plugins and themes, copywriting, stock photography and search engine optimisation. We can quote any of these separately.`)}
+${tpl('wdcontent', 'Content, revisions and changes', `Content: you supply all text, images and logos by [date]. If content arrives more than [10] working days late, the launch date moves by the same number of days.
+
+Revisions: each design stage includes [two] rounds of changes. Further rounds are billed at [$75] an hour.
+
+Changes: any work not described in this quotation is a change request. We will price it in writing and agree it with you before we start.`)}
+${tpl('wdterms', 'Payment, ownership and validity', `Payment: [50]% deposit to book the start date, [25]% when the design is approved and [25]% before launch. Invoices are due within [7] days.
+
+Ownership: the copyright in the finished design and code passes to you when the final invoice is paid. Themes, plugins and fonts licensed from third parties stay under their own licences.
+
+Validity: this quotation is valid until [date]. To accept, reply to the email it came with or sign and return it.`)}
+
+<h2 id="ongoing">Hosting and maintenance after launch</h2>
+<p>Quote what happens after launch as separate, optional lines so the project price stays comparable. Typical lines are hosting (at cost or with a stated markup), a monthly maintenance plan for updates and backups, and an hourly rate for changes outside the plan. The maintenance example shows how a retainer can be written.</p>
+${load('web-maintenance', 'Load a maintenance quote example')}
+<p>Once the quote is ready, send it with one of our <a href="/how-to-send-a-quote-to-a-client">quote email templates</a>, give the client <a href="/quote-acceptance-template">acceptance wording</a>, and see <a href="/blog/how-to-write-a-professional-quote">how to write a professional quote</a> for the order the parts should go in.</p>`,
+  faq: [
+    { q: 'What should a web design quote include?', a: 'The project summary, the number of pages and features, the platform, who supplies the content, the number of design revision rounds, milestones and payments, a timeline, what is not included (domain, hosting, paid plugins, copywriting, stock photos), any ongoing costs, when ownership passes to the client and a valid-until date.' },
+    { q: 'What is the difference between a web design quote and a web development quote?', a: 'A web design quote prices layouts, visuals and page templates. A web development quote prices building the site or app: front-end code, back-end, databases and integrations. Many projects are quoted together, with design and development as separate milestones.' },
+    { q: 'Should I quote a website as a fixed price or by the hour?', a: 'A fixed fee per milestone suits projects with a clear scope, and clients can compare it easily. Time and materials suits projects whose scope is likely to change; give an estimate and ask the client to approve any increase before it happens.' },
+    { q: 'How do I work out what to charge for a website?', a: 'Estimate the hours for each milestone, multiply by your hourly rate and add a buffer for revisions and delays. Then check the total against the value to the client and what similar projects cost you to deliver. The example prices on this page are illustrations, not market rates.' },
+    { q: 'How many revision rounds should a website quote include?', a: 'Two rounds per design stage is a common choice. Put the number on the quote and your rate for extra rounds, so a request for a third round is a priced change and not an argument.' },
+    { q: 'Should hosting and the domain be in the website quote?', a: 'List them even when they are not included, so the client knows they are separate costs. If you set them up for the client, say whether the accounts are in the client\'s name and whether you bill them at cost.' },
+    { q: 'How do I handle extra work after the client accepts the quote?', a: 'Write a change-request clause into the quote: work outside the described scope is priced in writing and agreed before you start. Send the price and the effect on the launch date each time.' },
+    { q: 'Is this website quote template free?', a: 'Yes. Fill it in online and download a PDF with no signup. The example website, development and maintenance quotes load in one click, and you can change every line.' }
+  ]
+};
+
 // Short trade-specific guides for profession pages that had only generic copy.
 const SHORT_GUIDES = {
   electrician: `
@@ -394,4 +523,4 @@ const SHORT_GUIDES = {
 </ul>`
 };
 
-module.exports = { PROFESSION_EXTRAS: { contractor: CONTRACTOR, painter: PAINTER, mechanic: MECHANIC }, SHORT_GUIDES };
+module.exports = { PROFESSION_EXTRAS: { contractor: CONTRACTOR, painter: PAINTER, mechanic: MECHANIC, 'web-designer': WEB_DESIGNER }, SHORT_GUIDES };
