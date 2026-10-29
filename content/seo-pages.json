@@ -1,4 +1,149 @@
 {
-  "_doc": "Written by the SEO agent (seo-ajani, adapter qm-pages) after each page passes its QA gate. Read by content/seo-pages.js.",
-  "pages": []
+ "_doc": "Written by the SEO agent (seo-ajani, adapter qm-pages) after each page passes its QA gate. Read by content/seo-pages.js.",
+ "pages": [
+  {
+   "view": "how-to",
+   "slug": "how-to-quote-a-job",
+   "title": "How to Quote a Job: Steps and a Worked Example",
+   "desc": "How to quote a job from first call to finished quote: what to ask, how to price it, what to write down, and a garden fence example you can edit.",
+   "h1": "How to quote a job, from first call to finished quote",
+   "lead": "Here is how to quote a job in the right order, from the first phone call to a quote the customer can accept. One garden fence job runs through every step.",
+   "published": "2026-10-22",
+   "updated": "2026-10-22",
+   "breadcrumb": "How to quote a job",
+   "answer": "<p>To quote a job, first find out exactly what the customer wants. Price the materials, your time, your overheads and your profit. Write one clear quote and send it the same day or the next morning. The quote needs a short scope, a total, what is not included, payment terms and a valid-until date. The finished example below loads into the quote maker, so you can change it.</p>",
+   "toc": [
+    [
+     "first-call",
+     "Get the details before you price anything"
+    ],
+    [
+     "quote-or-estimate",
+     "Decide between a fixed quote and an estimate"
+    ],
+    [
+     "price-the-job",
+     "Price the job in four parts"
+    ],
+    [
+     "worked-example",
+     "A worked example from first call to finished quote"
+    ],
+    [
+     "write-the-quote",
+     "Write the quote so it can be accepted"
+    ],
+    [
+     "send-and-follow-up",
+     "Send it and follow up"
+    ],
+    [
+     "checklist",
+     "Checklist before you press send"
+    ]
+   ],
+   "content": "<h2 id=\"first-call\">Get the details before you price anything</h2>\n<p>Do the asking before the pricing. A price built on a guess ends up too low for you or too high for the customer.</p>\n<p>On the first call, ask these questions and write down the answers.</p>\n<ul><li>What do you want done, in your own words?</li><li>Where is the job, and how easy is it to reach with tools and materials?</li><li>What is there now, and does all of it come out?</li><li>Does the work need a permit, or anyone&#39;s permission, such as a landlord or a neighbour?</li><li>Is anything still undecided, like colours, styles or finishes?</li><li>Is there a date you must hit, or a budget in mind?</li><li>Who decides, and who pays?</li><li>When can I come and look?</li></ul>\n<p>At the visit, measure everything and take photos of what is there. Look for anything that could cost extra, such as poor access, hard ground or old work that hides a problem. If you cannot visit, ask for photos and measurements, and give an estimate until you have seen the job.</p>\n<p>Then write the job in your own words and send it to the customer to confirm. Two or three lines are enough: what you will do and what you will not do. A misunderstanding caught now costs one message. Caught halfway through the job, it costs days.</p>\n<h2 id=\"quote-or-estimate\">Decide between a fixed quote and an estimate</h2>\n<p>In plain terms, a quote is a firm price and an estimate is your best guess. Rules for each differ from place to place, so check the ones where you work.</p>\n<ul><li>Give a fixed quote when you can see and measure the whole job. The customer gets one price, and you carry the risk if the work takes longer.</li><li>Give an estimate when you cannot know the size of the job until you start, as with fault-finding or repairs behind a wall. Say what could move the price.</li><li>Use a provisional sum when only one part of the job is unknown. Give it its own line, say what it covers, and settle it at the real cost once you know.</li><li>Offer options when the customer has not chosen between two ways of doing something. Price each option on its own line.</li></ul>\n<p>Whichever you choose, say so on the document. Put the word Quotation or Estimate at the top, and list anything that could change the price. A customer who was told the price could move is easier to deal with when it does.</p>\n<h2 id=\"price-the-job\">Price the job in four parts</h2>\n<p>Every job price has four parts. Work out each one, then add them up.</p>\n<ul><li>Materials: everything you need, at today&#39;s supplier prices, plus waste and delivery.</li><li>Labour: the hours the job takes at your hourly rate, including travel, setting up and clearing up.</li><li>Overheads: the cost of running your business that no customer pays for directly, such as your van, tools and insurance.</li><li>Profit: what is left for you once every cost is paid.</li></ul>\n<p>The sums are in our <a href=\"/blog/how-to-price-a-job-quote\">guide to pricing a job quote</a>, which has a calculator. Work out your price there, then come back to write the quote.</p>\n<p>The customer does not need to see your overheads or your profit. They can sit inside your rates, so the quote shows clear lines and still covers your costs.</p>\n<h2 id=\"worked-example\">A worked example from first call to finished quote</h2>\n<p>The job: replace 12 m (40 ft) of rotten garden fence with new panels on new posts. Here is how to make a quote for it, step by step.</p>\n<ol><li>First call. The customer says the old fence is falling down and wants the same height. You ask the questions above. You learn that the fence is theirs, that the side gate stays, and that they want the work done before December.</li><li>Site visit. You measure 12 m along the boundary and work out that the new fence needs 7 panels, each 1.83 m (6 ft) wide, and 8 posts. Six panels fall short, so the seventh is cut to fit. The ground is firm, but two old posts look as if they are set in concrete. You take photos of everything.</li><li>Scope. You write two lines: take down and remove 12 m of old fence, then set 8 new posts and hang 7 panels, 1.8 m (6 ft) high. The customer replies to confirm.</li><li>Fixed price or estimate. Everything is clear except those old post bases. You give a fixed quote, with a provisional sum on its own line for extra digging.</li><li>Price. You work out materials, labour, overheads and profit, then turn the result into a few clear lines.</li><li>Write and send. You number the quote, date it, add a valid-until date, a deposit and how to accept, then email the PDF the next morning.</li></ol>\n<p>This is the finished quote. The prices are examples to replace with your own.</p>\n<div class=\"doc\">\n<div class=\"doc-h\"><span><b>QUOTATION</b> Q-1042</span><span>22 October 2026, valid until 21 November 2026</span></div>\n<p class=\"qscope\">Replace 12 m of garden fence at the back of the house: 7 new panels on 8 new posts, and the old fence taken away.</p>\n<table><thead><tr><th>Description</th><th class=\"n\">Qty</th><th class=\"n\">Rate</th><th class=\"n\">Amount</th></tr></thead><tbody>\n<tr><td>Fence panels, 1.8 m (6 ft) high, treated timber</td><td class=\"n\">7</td><td class=\"n\">£42.00</td><td class=\"n\">£294.00</td></tr>\n<tr><td>Posts, 2.4 m (8 ft), with concrete mix</td><td class=\"n\">8</td><td class=\"n\">£28.00</td><td class=\"n\">£224.00</td></tr>\n<tr><td>Screws, brackets and fixings</td><td class=\"n\">1</td><td class=\"n\">£35.00</td><td class=\"n\">£35.00</td></tr>\n<tr><td>Delivery of materials</td><td class=\"n\">1</td><td class=\"n\">£40.00</td><td class=\"n\">£40.00</td></tr>\n<tr><td>Take down the old fence and take it away</td><td class=\"n\">1</td><td class=\"n\">£150.00</td><td class=\"n\">£150.00</td></tr>\n<tr><td>Labour to set the posts and hang the panels (two people, per day)</td><td class=\"n\">2</td><td class=\"n\">£380.00</td><td class=\"n\">£760.00</td></tr>\n<tr><td>Provisional sum: extra digging if old post bases are set in concrete</td><td class=\"n\">1</td><td class=\"n\">£120.00</td><td class=\"n\">£120.00</td></tr>\n<tr class=\"sub\"><td colspan=\"3\">Subtotal</td><td class=\"n\">£1,623.00</td></tr>\n<tr class=\"sub\"><td colspan=\"3\">VAT 20%</td><td class=\"n\">£324.60</td></tr>\n<tr class=\"tot\"><td colspan=\"3\">Total including VAT</td><td class=\"n\">£1,947.60</td></tr>\n</tbody></table>\n<div class=\"doc-f\"><p>Not included: painting or staining, replacing the gate, and moving plants.</p><p>Provisional sum: the total includes an allowance for extra digging. The final bill uses the real cost, up or down.</p><p>Payment: 30% deposit (£584.28 including VAT) by bank transfer to book the dates. The balance of £1,363.32 is due when the fence is finished, adjusted for the provisional sum.</p><p>Changes: any extra work is priced and agreed with you in writing before we do it.</p><p>To accept, reply &#39;accepted&#39; to the email this quote came with.</p></div>\n</div>\n<p><button type=\"button\" class=\"btn ghost\" data-preset=\"garden-fence-uk\" style=\"cursor:pointer;font-size:13px;padding:9px 16px\">Load this example into the quote maker</button></p>\n<p>Each line tells the customer something.</p>\n<ul><li>Panels and posts: the customer can see what they are buying and count it when it arrives.</li><li>Fixings and delivery: small costs are listed, so none of them turns up later as a surprise.</li><li>Taking down the old fence: the customer knows you will take it away.</li><li>Labour: two people for two days shows how long you expect to be there.</li><li>Provisional sum: an allowance for the one thing you cannot see. It is in the total, and the notes say it is settled at the real cost.</li><li>VAT and total: tax sits on its own line, so the customer sees the price before and after it.</li></ul>\n<p>Press <strong>Load this example into the quote maker</strong> under the quote. It opens in the quote maker on this page, where you can change any line and download the PDF. The <a href=\"/\">quote maker</a> is free and needs no signup. You choose the currency and type your own tax rate, so a US job can use dollars and your local sales tax. The notes are plain text, so the tool does not recalculate them. If you change a line, the currency or the tax, work out the deposit and the balance again and change them in the notes, along with the tax wording.</p>\n<h2 id=\"write-the-quote\">Write the quote so it can be accepted</h2>\n<p>A quote the customer can say yes to leaves nothing for them to ask. Put all of this on the page.</p>\n<ul><li>A quote number, the date and a valid-until date.</li><li>Your details, the customer&#39;s details and the address of the job.</li><li>One line on the scope, then itemised lines with a quantity, a rate and an amount.</li><li>Tax on its own line if you charge it, then the total.</li><li>What is not included, naming anything the customer might assume is in the price.</li><li>Payment terms: the deposit, when the balance is due and how to pay.</li><li>How changes are handled: extra work is priced and agreed before you do it.</li><li>How to accept, in one clear step.</li></ul>\n<p>Wording you can copy for each part is in our guide on <a href=\"/blog/how-to-write-a-professional-quote\">how to write a professional quote</a>. For the acceptance step, see our <a href=\"/quote-acceptance-template\">quote acceptance wording</a>.</p>\n<p>Choose the valid-until date with care. It should give the customer time to decide, and it should end before a rise in your material prices can hurt you. Ask for a deposit when you must buy materials or book dates, and write the amount on the quote.</p>\n<h2 id=\"send-and-follow-up\">Send it and follow up</h2>\n<p>Send the quote the same day, or the next morning at the latest, while the job is fresh in the customer&#39;s mind. Download it as a PDF and attach it to your own email, because QuotationMaker does not send emails.</p>\n<p>Keep the email short. Give the total, and say whether it includes VAT or tax. Add the valid-until date and how to accept. Email wording you can copy is in our guide on <a href=\"/how-to-send-a-quote-to-a-client\">sending a quote to a client</a>.</p>\n<p>If you hear nothing, send a short, polite message a few days later, and another before the valid-until date. After that, let the quote lapse.</p>\n<p>If the job changes before the customer accepts, send a <a href=\"/revised-quotation\">revised quotation</a> with a new date that says what changed. When the customer says yes, send a <a href=\"/quotation-confirmation\">quotation confirmation</a> with the start date, so you both have the same plan.</p>\n<p>A logo helps the customer recognise your business. The free PDF has a small &#39;Made with GetQuotationMaker.com&#39; line at the bottom of each page. Pro costs $9, paid once, and removes that line and adds your logo.</p>\n<h2 id=\"checklist\">Checklist before you press send</h2>\n<p>Read the quote once as the customer would, then check each of these.</p>\n<ul><li>The customer&#39;s name and the job address are right.</li><li>The customer has confirmed the scope in writing.</li><li>The scope says what you will do, in plain words.</li><li>Every line has a quantity, a rate and an amount, and the amounts add up.</li><li>Tax is shown on its own line, or the quote says none is charged.</li><li>Anything the customer might assume is included, but is not, is listed as not included.</li><li>Any unknown part has its own labelled line or a note.</li><li>The deposit, the balance and how to pay are written out.</li><li>The deposit and the balance in the notes match the total.</li><li>The quote has a number, today&#39;s date and a valid-until date.</li><li>It says how to accept.</li><li>Your phone number and email are on it, so the customer can ask a question.</li><li>You have noted a date to follow up if you hear nothing.</li></ul>",
+   "faq": [
+    {
+     "q": "What is the difference between a quote and an estimate?",
+     "a": "A quote is a firm price for a defined job. An estimate is your best guess and can change. Say which one you are giving at the top of the document, and check the rules where you work, because they differ from place to place."
+    },
+    {
+     "q": "How long should a quote be valid for?",
+     "a": "Long enough for the customer to decide, and short enough that a rise in material prices cannot hurt you. The example on this page uses 30 days. Use less time if your supplier's prices change often."
+    },
+    {
+     "q": "Do I show my profit and overheads on the quote?",
+     "a": "You do not have to. They can sit inside your rates and totals. Show lines the customer can check: materials with quantities, labour as days or hours, and any allowance on its own line."
+    },
+    {
+     "q": "How do I quote a job I cannot see?",
+     "a": "Ask the customer for photos and measurements, and give an estimate instead of a fixed quote. Say what you based it on, and offer to confirm the price after a visit."
+    },
+    {
+     "q": "What if the work changes after the customer says yes?",
+     "a": "Tell the customer before you do any extra work, and agree the new price in writing before you start it."
+    },
+    {
+     "q": "Do I need to sign up to make the quote?",
+     "a": "No. The quote maker is free and has no account. Your business name, email and address are remembered on your own device, so the next quote is faster. It does not send emails, so attach the PDF to your own message."
+    }
+   ],
+   "related": [
+    [
+     "/blog/how-to-price-a-job-quote",
+     "How to price a job quote"
+    ],
+    [
+     "/blog/how-to-write-a-professional-quote",
+     "How to write a professional quote"
+    ],
+    [
+     "/how-to-send-a-quote-to-a-client",
+     "How to send a quote by email"
+    ],
+    [
+     "/quote-acceptance-template",
+     "Quote acceptance wording"
+    ],
+    [
+     "/how-to-convert-a-quote-to-an-invoice",
+     "Turn an accepted quote into an invoice"
+    ],
+    [
+     "/quote-template-contractor",
+     "Contractor and tradesman quote template"
+    ]
+   ],
+   "preset": "garden-fence-uk",
+   "presetLabel": "Garden fence quote (example prices)",
+   "presets": {
+    "garden-fence-uk": {
+     "label": "Garden fence replacement, UK (example prices)",
+     "currency": "GBP",
+     "taxRate": 20,
+     "taxLabel": "VAT",
+     "validDays": 30,
+     "items": [
+      [
+       "Fence panels, 1.8 m (6 ft) high, treated timber",
+       7,
+       42
+      ],
+      [
+       "Posts, 2.4 m (8 ft), with concrete mix",
+       8,
+       28
+      ],
+      [
+       "Screws, brackets and fixings",
+       1,
+       35
+      ],
+      [
+       "Delivery of materials",
+       1,
+       40
+      ],
+      [
+       "Take down the old fence and take it away",
+       1,
+       150
+      ],
+      [
+       "Labour to set the posts and hang the panels (two people, per day)",
+       2,
+       380
+      ],
+      [
+       "Provisional sum: extra digging if old post bases are set in concrete",
+       1,
+       120
+      ]
+     ],
+     "notes": "Scope: replace 12 m of garden fence with 7 new panels on 8 new posts, and take the old fence away.\nNot included: painting or staining, replacing the gate, and moving plants.\nProvisional sum: the total includes an allowance for extra digging. The final bill uses the real cost, up or down.\nPayment: 30% deposit (£584.28 including VAT) by bank transfer to book the dates. The balance of £1,363.32 is due when the fence is finished, adjusted for the provisional sum.\nChanges: any extra work is priced and agreed with you in writing before we do it.\nPrices exclude VAT. VAT at 20% is added below and the total includes VAT.\nThis quote is valid for 30 days.\nTo accept, reply 'accepted' to the email this quote came with."
+    }
+   }
+  }
+ ]
 }
