@@ -15,6 +15,7 @@ const { COUNTRIES, COUNTRY_FACTS_CHECKED } = require('./content/countries');
 const { CURRENCIES } = require('./lib/currencies');
 const pdf = require('./lib/pdf');
 const pro = require('./lib/pro');
+const counter = require('./lib/counter');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -27,6 +28,7 @@ const ASSET_VERSION = '20261009b';
 const UPDATED = '2026-10-07';
 const PREVIOUS_UPDATE = '2026-09-24';
 const LEGAL_UPDATED = '2026-10-11';
+const PRIVACY_UPDATED = '2026-10-29';
 
 // -- Redirects (old URLs merged into stronger pages) ------------------------
 Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
@@ -125,14 +127,15 @@ function sitemapEntries() {
   COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
   HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   BLOG_POSTS.forEach(p => e.push({ loc: '/blog/' + p.slug, lastmod: p.updated }));
-  e.push({ loc: '/privacy', lastmod: LEGAL_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED });
+  e.push({ loc: '/privacy', lastmod: PRIVACY_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED });
   return e;
 }
 
 // -- Request locals ---------------------------------------------------------------
 app.use(async (req, res, next) => {
   try { res.locals.isPro = await pro.isPro(req); } catch (e) { res.locals.isPro = false; }
-  Object.assign(res.locals, { siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK, assetVersion: ASSET_VERSION });
+  // countOn: whether this page loads the page and Get Pro click counter (lib/counter.js); the pages that carry the search traffic do not
+  Object.assign(res.locals, { siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK, assetVersion: ASSET_VERSION, countOn: counter.isCounted(req.path), countVersion: counter.COUNT_VERSION });
   next();
 });
 
@@ -255,6 +258,7 @@ app.get('/robots.txt', (req, res) => {
 app.get('/google-verification', (req, res) => { res.type('text/html'); res.send('google-site-verification: SRbRrdv1CAaGtpC67I5g5htAbMp2LmyqfylqDAKWvK0'); });
 
 app.use((req, res) => {
+  res.locals.countOn = false;
   res.status(404).render('not-found', { professions: PROFESSIONS });
 });
 

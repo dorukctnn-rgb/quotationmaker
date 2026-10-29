@@ -3,3 +3,4 @@
 .gsc-credentials.json
 .vercel
 .env*
+.wrangler

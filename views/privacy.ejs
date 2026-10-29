@@ -7,8 +7,8 @@
 <%- include('partials/nav') %>
 <header class="hero">
   <h1>Privacy policy</h1>
-  <p class="lead">GetQuotationMaker has no accounts, no analytics and no advertising. This page lists the data the site handles, where it goes and why.</p>
-  <p class="meta">Last updated: 11 October 2026</p>
+  <p class="lead">GetQuotationMaker has no accounts and no advertising. It counts page visits and Get Pro clicks as daily totals, with no cookies and nothing that identifies you. This page lists the data the site handles, where it goes and why.</p>
+  <p class="meta">Last updated: 29 October 2026</p>
 </header>
 
 <main class="article">
@@ -24,6 +24,7 @@
     <ul>
       <li><strong>Your own details.</strong> Your business name, email address and postal address are saved in your browser's local storage, so they are filled in next time. They stay on your device until you clear this site's data in your browser settings.</li>
       <li><strong>The Pro cookie.</strong> If you activate Pro, your licence key is saved in a cookie called <code>qm_license</code> so that Pro stays on in that browser. The cookie lasts one year and is sent only to this site. The "Remove Pro from this browser" button on the Activate Pro page deletes it.</li>
+      <li><strong>The kind of site that sent you.</strong> One word such as <code>google</code> or <code>direct</code>, kept in this tab's session storage so that a Get Pro click can say where your visit began (see "Visit and Get Pro click counts"). It is deleted when you close the tab.</li>
     </ul>
     <p>The site sets no other cookies and uses none for tracking or advertising.</p>
 
@@ -32,6 +33,9 @@
 
     <h2>Buying Pro</h2>
     <p>Pro is sold through Gumroad. The Get Pro buttons open Gumroad's checkout, where you give your payment details to Gumroad, not to us. As the seller, we receive your email address and the details of your order from Gumroad, and we use them to answer questions about your purchase and to issue refunds.</p>
+
+    <h2>Visit and Get Pro click counts</h2>
+    <p>Most pages send one short note to a counter when they open, and another when you follow a Get Pro link. A note holds the page address (without anything after a ? or #), the part of the page the link was in, and one word for the kind of site that sent you, such as Google, social or direct. It holds no cookie, no IP address, no browser details and nothing that tells one visitor from another. The counter is a small program on Cloudflare that adds one to a daily total for that combination and keeps nothing else. Cloudflare receives the request as any host does, including your IP address, but the counter does not read or store it. Some pages send no notes.</p>
 
     <h2>Fonts</h2>
     <p>The site's fonts load from Google Fonts. To fetch them, your browser connects to Google's servers, which receive your IP address and browser details.</p>
@@ -49,16 +53,18 @@
         <tr><td>Vercel</td><td>Hosting the site and its server</td><td><a href="https://vercel.com/legal/privacy-notice" rel="noopener">vercel.com</a></td></tr>
         <tr><td>Gumroad</td><td>Checkout, payments and licence checks</td><td><a href="https://gumroad.com/privacy" rel="noopener">gumroad.com</a></td></tr>
         <tr><td>Google</td><td>Web fonts, and the Gmail inbox for our email</td><td><a href="https://policies.google.com/privacy" rel="noopener">policies.google.com</a></td></tr>
+        <tr><td>Cloudflare</td><td>Running the counter of page visits and Get Pro clicks</td><td><a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">cloudflare.com</a></td></tr>
         <tr><td>Forward Email</td><td>Forwarding mail sent to our address</td><td><a href="https://forwardemail.net/en/privacy" rel="noopener">forwardemail.net</a></td></tr>
       </tbody>
     </table>
-    <p>Vercel, Gumroad and Google are based in the United States, so your data may be processed there. We do not sell your data, and we do not share it with advertisers.</p>
+    <p>Vercel, Gumroad, Google and Cloudflare are based in the United States, so your data may be processed there. We do not sell your data, and we do not share it with advertisers.</p>
 
     <h2>How long data is kept</h2>
     <ul>
       <li>Quote details: only while the server builds your PDF.</li>
       <li>Details saved in your browser: until you clear them. The Pro cookie expires after one year.</li>
       <li>Licence check results: up to six hours in the server's memory.</li>
+      <li>Visit and Get Pro click counts: daily totals with no personal data, kept for up to 400 days.</li>
       <li>Hosting logs: kept by Vercel for a limited time under its own policy.</li>
       <li>Purchase records: kept by Gumroad under its own policy.</li>
       <li>Emails: until we delete them. Ask us and we will delete yours, unless we need it as a record of a payment or refund.</li>

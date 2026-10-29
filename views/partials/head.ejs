@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=<%= v %>">
+<link rel="stylesheet" href="/site.css?v=<%= v %>"><% if (typeof countOn !== 'undefined' && countOn) { %><script src="/count.js?v=<%= typeof countVersion !== 'undefined' ? countVersion : '1' %>" defer></script><% } %>
 <% if (m.tool) { %><link rel="stylesheet" href="/tool.css?v=<%= v %>"><% } %>
 <% (m.jsonld || []).forEach(function (obj) { %>
 <script type="application/ld+json"><%- JSON.stringify(obj).replace(/</g, '\\u003c') %></script>

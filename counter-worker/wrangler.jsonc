@@ -1,0 +1,26 @@
+// The page and Get Pro click counter of https://www.getquotationmaker.com: https://qm-counter.railer-iot.workers.dev
+// (Cloudflare account railer-iot, the account of the Peak Apps Tools counter "peak-funnel", which this does not touch).
+// NOT DEPLOYED. Deploy only after Doruk's approval sentence for the QuotationMaker counter pull request:
+//   cd counter-worker
+//   npx wrangler deploy
+//   node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(process.env.USERPROFILE+'/.claude/skills/store-deploy/secrets/qm-counter.json','utf8')).adminKey)" | npx wrangler secret put COUNTER_ADMIN_KEY
+// The admin key was made on 29 October 2026 and sits only in that secrets file (never print it). Then, from the repository root:
+//   node counter-worker/read.mjs --selftest      one test note in (page "/selftest"), read back: expects 204 and +1
+//   node counter-worker/read.mjs                 the report
+// Deploy the Worker BEFORE publishing the site: the pages ignore a failed send, but the first days of counts would be lost.
+// Rollback: npx wrangler delete qm-counter (the pages ignore a failed send; nothing on the site breaks).
+// The Workers Free plan is enough: one Worker, one SQLite Durable Object, no KV, no D1, no cron, no request logs.
+{
+  "name": "qm-counter",
+  "main": "index.js",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "durable_objects": { "bindings": [{ "name": "COUNTER", "class_name": "Counter" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Counter"] }],
+  // No request logs: a note carries nothing worth logging, and nothing about the visitor should sit in a log.
+  "observability": { "enabled": false },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://www.getquotationmaker.com,https://getquotationmaker.com"
+  }
+}

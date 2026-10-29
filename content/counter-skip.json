@@ -1,0 +1,15 @@
+{
+  "reason": "Pages that carry the site's search traffic stay exactly as they are (Doruk's rule of 15 Oct 2026, list: peak-durum/traffic-pages.json, site quotationmaker). They do not load the counter script, so their HTML is byte for byte what it was, and they are not counted. Take a path off this list only on a decision to change that page.",
+  "paths": [
+    "/",
+    "/blog/quote-acceptance-rate-tips",
+    "/quote-acceptance-template",
+    "/free-quote-generator-netherlands",
+    "/how-to-send-a-quote-to-a-client",
+    "/quote-template-contractor",
+    "/quote-template-painter",
+    "/quote-template-mechanic",
+    "/quote-template-consultant",
+    "/blog/vat-on-quotes-explained"
+  ]
+}
