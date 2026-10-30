@@ -144,6 +144,158 @@
      "notes": "Scope: replace 12 m of garden fence with 7 new panels on 8 new posts, and take the old fence away.\nNot included: painting or staining, replacing the gate, and moving plants.\nProvisional sum: the total includes an allowance for extra digging. The final bill uses the real cost, up or down.\nPayment: 30% deposit (£584.28 including VAT) by bank transfer to book the dates. The balance of £1,363.32 is due when the fence is finished, adjusted for the provisional sum.\nChanges: any extra work is priced and agreed with you in writing before we do it.\nPrices exclude VAT. VAT at 20% is added below and the total includes VAT.\nThis quote is valid for 30 days.\nTo accept, reply 'accepted' to the email this quote came with."
     }
    }
+  },
+  {
+   "view": "how-to",
+   "slug": "quotation-terms-and-conditions",
+   "title": "Quotation Terms and Conditions: Wording to Copy",
+   "desc": "Short quotation terms and conditions to copy: valid until, deposit, exclusions, changes and cancellation, plus a finished quote with the terms in place.",
+   "h1": "Quotation terms and conditions: wording to copy",
+   "lead": "These quotation terms and conditions are short blocks for the notes of a quote: how long the price holds, the deposit, what is left out, changes and cancellation. Each block says when to use it.",
+   "published": "2026-10-30",
+   "updated": "2026-10-30",
+   "breadcrumb": "Quotation terms and conditions",
+   "answer": "<p>Quotation terms and conditions are the short notes at the bottom of a quote. They tell the client how long the price holds, what they pay and when, what is left out, what happens if the job changes and what happens if they cancel. Copy the blocks on this page, replace the highlighted placeholders with your own details and paste them into the notes box of your quote. A large or risky job needs a written contract instead.</p>",
+   "toc": [
+    [
+     "what-to-put",
+     "What to put in the terms of a quote"
+    ],
+    [
+     "valid-until",
+     "Valid until: how long the price stays open"
+    ],
+    [
+     "deposit-and-payment",
+     "Deposit and payment terms"
+    ],
+    [
+     "exclusions-and-assumptions",
+     "Exclusions and assumptions"
+    ],
+    [
+     "changes",
+     "Changes to the job"
+    ],
+    [
+     "cancellation",
+     "Cancellation"
+    ],
+    [
+     "worked-example",
+     "A finished quote with terms in the notes box"
+    ],
+    [
+     "checklist",
+     "Checklist before you send"
+    ]
+   ],
+   "content": "<h2 id=\"what-to-put\">What to put in the terms of a quote</h2>\n<p>Terms on a quote should be short. The client reads them before saying yes, so they only need to cover what the client must know to decide. Five clauses answer the questions a client has at that point: valid until, deposit and payment, exclusions, changes and cancellation.</p>\n<p>Each section below has wording you can copy, with a note on when to use it. Think of the blocks as a quote terms and conditions template: copy what fits and delete the rest. Square brackets mark the parts you change. Put the finished clauses in the notes box under the line items of your quote. The price and the line items come first, and our guides on <a href=\"/how-to-quote-a-job\">how to quote a job</a> and <a href=\"/blog/how-to-write-a-professional-quote\">how to write a professional quote</a> cover them.</p>\n<p>These notes state your offer clearly. They do not replace a contract. A cap on liability, indemnity, ownership of designs, governing law and late-payment interest all belong in a written contract, and a lawyer is the right person to draft one. Use the blocks here for the notes of a one-page quote, and ask for a contract when the job is large or risky.</p>\n<h2 id=\"valid-until\">Valid until: how long the price stays open</h2>\n<p>The quote validity period is how long your price stays on offer. After the expiry date the price can change. Give the expiry as a date, such as 20 November 2026. Zigaflow gives the reason: a number of days leaves it open when the count starts, at issue, on receipt or on the day the email was opened. A client and a trader who read it differently tend to find out after prices have moved.</p>\n<p>For how long, ShiftFlow suggests starting with 14 to 30 days. For prices or schedules that move fast, it puts the figure at 7 to 14 days. It describes the range as a business decision, and no law or industry standard fixes it. Zigaflow adds that when you sell to another business, no law sets a default period, so your quote decides it.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-validity-h\">Valid until</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-validity\" aria-label=\"Copy: Valid until\">Copy</button></div><p class=\"tpl-note\">Use on most quotes. Change the date, and keep it as a calendar date.</p><div class=\"tpl-body\" id=\"tpl-validity\"><p>This quote is valid until <span class=\"ph\">[date]</span>. After that date the price may change. If you accept later, we will recheck the price and confirm it in writing first.</p></div></div>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-validity-materials-h\">Valid until, when material prices move</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-validity-materials\" aria-label=\"Copy: Valid until, when material prices move\">Copy</button></div><p class=\"tpl-note\">Use when the price depends on supplier costs that change often. Pick a shorter date.</p><div class=\"tpl-body\" id=\"tpl-validity-materials\"><p>Material prices change often. This quote is valid until <span class=\"ph\">[date]</span>. After that date we will recheck the cost of materials before we confirm the price.</p></div></div>\n<p>An expiry date on its own does not hold a start date for the client. ShiftFlow says the date only shows when you will look at your price and availability again. If you want to hold dates for the client, tie them to a step such as the deposit, and say so in the deposit wording below.</p>\n<p>If the date passes and the client then says yes, treat the old quote as closed. Recheck your costs and your availability, then send a <a href=\"/revised-quotation\">revised quotation</a> with a new date.</p>\n<p class=\"src\">Sources checked 30 October 2026: <a href=\"https://www.shiftflow.app/playbook/how-long-should-contractor-quote-be-valid\" rel=\"noopener\">ShiftFlow: How long should a contractor quote be valid?</a>; <a href=\"https://www.zigaflow.com/resources/glossary/quotation-validity\" rel=\"noopener\">Zigaflow: Quotation validity</a>.</p>\n<h2 id=\"deposit-and-payment\">Deposit and payment terms</h2>\n<p>Say how much you ask for up front, when the rest is due and how to pay. Write the deposit as an amount, so the client sees the sum they will transfer. Work it out from your own costs: it should cover the materials you must buy and the dates you hold.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-deposit-h\">Deposit and balance</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-deposit\" aria-label=\"Copy: Deposit and balance\">Copy</button></div><p class=\"tpl-note\">Use on short jobs where you buy materials or book dates. Change both amounts so they add up to the total.</p><div class=\"tpl-body\" id=\"tpl-deposit\"><p>Deposit: <span class=\"ph\">[deposit amount]</span> is due when you accept this quote. It books <span class=\"ph\">[start date]</span> and pays for the materials we order.</p><p>The balance of <span class=\"ph\">[balance amount]</span> is due <span class=\"ph\">[when, for example on completion]</span>.</p></div></div>\n<p>On a longer job, split the price into stages. Tie each stage to something the client can see, such as the delivery of materials or the end of the first week.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-stages-h\">Payment in stages</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-stages\" aria-label=\"Copy: Payment in stages\">Copy</button></div><p class=\"tpl-note\">Use on jobs that run for weeks. Name each stage by something the client can check.</p><div class=\"tpl-body\" id=\"tpl-stages\"><p>Payment is in <span class=\"ph\">[number]</span> stages.</p><p><span class=\"ph\">[Amount]</span> is due when you accept this quote. <span class=\"ph\">[Amount]</span> is due when <span class=\"ph\">[stage, for example the materials are delivered]</span>. The balance of <span class=\"ph\">[amount]</span> is due when the job is finished.</p></div></div>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-payment-due-h\">Payment due date and method</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-payment-due\" aria-label=\"Copy: Payment due date and method\">Copy</button></div><p class=\"tpl-note\">Put this after the deposit wording. Keep your bank details on the invoice.</p><div class=\"tpl-body\" id=\"tpl-payment-due\"><p>Invoices are due <span class=\"ph\">[number]</span> days after the invoice date. Pay by <span class=\"ph\">[method, for example bank transfer]</span> and use the invoice number as the reference.</p></div></div>\n<p>Once the client says yes, send a <a href=\"/quotation-confirmation\">quotation confirmation</a> that repeats the total, the deposit and the start date.</p>\n<h2 id=\"exclusions-and-assumptions\">Exclusions and assumptions</h2>\n<p>A client sees one total and reads it as the whole job. Tell them what is not in it. Name the things they might expect to find in the price, and add one sentence that closes the gap: anything not listed is not included.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-exclusions-h\">Exclusions</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-exclusions\" aria-label=\"Copy: Exclusions\">Copy</button></div><p class=\"tpl-note\">List what a client might assume is included. Delete the items that do not apply to this job.</p><div class=\"tpl-body\" id=\"tpl-exclusions\"><p>Not included: <span class=\"ph\">[item]</span>, <span class=\"ph\">[item]</span>.</p><p>Anything not listed in this quote is not included in the price.</p></div></div>\n<p>Then list what the price assumes. These are the conditions that must be true for your price to hold: access to the work area, working hours, materials the client supplies and the state of the existing work.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-assumptions-h\">Assumptions</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-assumptions\" aria-label=\"Copy: Assumptions\">Copy</button></div><p class=\"tpl-note\">Use when the price depends on conditions you do not control. Keep only the lines that are true for this job.</p><div class=\"tpl-body\" id=\"tpl-assumptions\"><p>The price assumes the following.</p><p>Access: we can reach the work area from <span class=\"ph\">[start time]</span> to <span class=\"ph\">[finish time]</span> on <span class=\"ph\">[days]</span>.<br>Materials: you supply <span class=\"ph\">[item]</span> and have it on site by <span class=\"ph\">[date]</span>.<br>Existing work: the <span class=\"ph\">[wall, floor or pipework]</span> is sound and needs no repair.<br>Services: power and water are on and free to use.</p></div></div>\n<h2 id=\"changes\">Changes to the job</h2>\n<p>Jobs change after the quote goes out. The client adds a socket or picks a dearer tile. You open a wall and find a problem. Write down in advance how this is handled: extra work is priced and agreed before it is done, and the total changes by the agreed amount.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-variations-h\">Changes and extra work</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-variations\" aria-label=\"Copy: Changes and extra work\">Copy</button></div><p class=\"tpl-note\">Use on every quote. It covers changes the client asks for.</p><div class=\"tpl-body\" id=\"tpl-variations\"><p>Changes: any extra work, or a change to the quantity or the specification above, is priced and agreed with you in writing before we do it. The total changes by the agreed amount.</p></div></div>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-hidden-problems-h\">Problems found during the work</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-hidden-problems\" aria-label=\"Copy: Problems found during the work\">Copy</button></div><p class=\"tpl-note\">Use on repairs, renovations and any job where part of the work is hidden. Change the examples to fit your trade.</p><div class=\"tpl-body\" id=\"tpl-hidden-problems\"><p>Hidden problems: if we find a problem that could not be seen when we quoted, such as <span class=\"ph\">[rot, damp or old wiring]</span>, we will stop that part of the work and tell you. We will send a price for the extra work and carry on once you agree.</p></div></div>\n<p>If the job changes before the client accepts, send a <a href=\"/revised-quotation\">revised quotation</a> that shows the new price and says what changed. After they accept, put the extra work in a short email and wait for a written yes before you start it.</p>\n<h2 id=\"cancellation\">Cancellation</h2>\n<p>Keep the cancellation clause short. Say what happens if the client cancels before the start date, and what happens once you have ordered materials or spent time on the job. Cancelling is the reverse of accepting, so keep the two clauses side by side. Wording for the acceptance side is in our <a href=\"/quote-acceptance-template\">quote acceptance wording</a>.</p>\n<p>One more thing matters when the client is a person buying work for their home. Citizens Advice tells customers in England that they have a 14-day cooling-off period to cancel building or decorating work they arranged by phone, online or away from the trader&#39;s premises, such as at their home. Inside those 14 days, the customer can cancel and get all their money back if the business has not started the work. The period starts the day after the customer gives the go-ahead. The page calls 14 days the absolute minimum a seller must give. It lists exceptions, such as specially made items, and urgent repairs or maintenance the customer asks for.</p>\n<p>If the customer asks for the work to start inside that period, and the business has given the cancellation details, the customer pays a part of the agreed price for the work done. If the work starts without the customer asking for it, the customer can cancel and get a full refund. The business must give the customer details of how to cancel. If it does not, the cooling-off period is extended by 14 days from the date the customer receives them, up to a maximum of 1 year. Rules differ in other places, so check the ones where you work.</p>\n<p>So give a home customer in England written details of how to cancel, with the quote. This covers a customer who agreed the work by phone, online or at their home. The page does not mention emailed quotes, so if the client accepts by replying to your email, treat that as agreeing online and give them the details too. Let your own cancellation charges apply only after the 14 days. Materials you order inside the 14 days are at your own risk. Even if the customer asked you to start sooner, they pay only for the part of the job completed when they cancel. The line &#39;This does not affect your legal rights&#39; is a reminder. It does not replace those details.</p>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-cooling-off-h\">Cooling-off period (home customers)</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-cooling-off\" aria-label=\"Copy: Cooling-off period (home customers)\">Copy</button></div><p class=\"tpl-note\">Use when the client is a home customer in England who agreed the work by phone, online or at their home. Send it with the quote and add your contact details. It follows the rule as Citizens Advice describes it for England, so check the rules where you work.</p><div class=\"tpl-body\" id=\"tpl-cooling-off\"><p>Cooling-off period: you have 14 days to cancel this work, starting the day after you give the go-ahead. If you cancel in that time and we have not started the work, you get all your money back.</p><p>If you ask us to start the work inside the 14 days and then cancel, you pay a part of the agreed price for the work done by then.</p><p>To cancel, contact us at <span class=\"ph\">[your contact details]</span>.</p></div></div>\n<div class=\"tpl\"><div class=\"tpl-h\"><h3 id=\"tpl-cancellation-h\">Cancelling before the work starts</h3><button type=\"button\" class=\"copy-btn\" data-copy=\"tpl-cancellation\" aria-label=\"Copy: Cancelling before the work starts\">Copy</button></div><p class=\"tpl-note\">Use on every job with a start date. The charges apply as written to business clients. For a home customer in England who agreed the work by phone, online or at their home, they apply only after the cooling-off period above. Fill in your hourly rate, or delete that sentence. The last sentence stays.</p><div class=\"tpl-body\" id=\"tpl-cancellation\"><p>Cancellation: you can cancel this quote at any time before work starts by telling us in writing. If we have already ordered materials for you that we cannot return, you pay for them. If we have spent time on your job, you pay for that time at <span class=\"ph\">[hourly rate]</span>. We refund the rest of your deposit. This does not affect your legal rights.</p></div></div>\n<p class=\"src\">Sources checked 30 October 2026: <a href=\"https://www.citizensadvice.org.uk/consumer/getting-home-improvements-done/cancelling-building-or-decorating-work/\" rel=\"noopener\">Citizens Advice: Cancelling building or decorating work</a>.</p>\n<h2 id=\"worked-example\">A finished quote with terms in the notes box</h2>\n<p>The job: strip the old tiles from the walls of a small bathroom, prepare the walls and tile about 8 m² of wall. The client is a home customer in England who accepts by replying to the email. The quote below holds all five clauses in its notes, with the cooling-off wording added. The prices are example prices to replace with your own.</p>\n<div class=\"doc\">\n<div class=\"doc-h\"><span><b>QUOTATION</b> Q-1068</span><span>30 October 2026, valid until 20 November 2026</span></div>\n<p class=\"qscope\">Strip the old wall tiles in a small bathroom, prepare the walls and tile about 8 m² of wall with new porcelain tiles.</p>\n<table><thead><tr><th>Description</th><th class=\"n\">Qty</th><th class=\"n\">Rate</th><th class=\"n\">Amount</th></tr></thead><tbody>\n<tr><td>Strip old wall tiles and take away the waste</td><td class=\"n\">1</td><td class=\"n\">£180.00</td><td class=\"n\">£180.00</td></tr>\n<tr><td>Prepare walls: patch, level and prime</td><td class=\"n\">1</td><td class=\"n\">£95.00</td><td class=\"n\">£95.00</td></tr>\n<tr><td>Porcelain wall tiles, per m², including waste (tile allowance)</td><td class=\"n\">9</td><td class=\"n\">£36.00</td><td class=\"n\">£324.00</td></tr>\n<tr><td>Tile adhesive, grout and sealant</td><td class=\"n\">1</td><td class=\"n\">£72.00</td><td class=\"n\">£72.00</td></tr>\n<tr><td>Delivery of materials</td><td class=\"n\">1</td><td class=\"n\">£35.00</td><td class=\"n\">£35.00</td></tr>\n<tr><td>Labour to tile the walls (one tiler, per day)</td><td class=\"n\">3</td><td class=\"n\">£185.00</td><td class=\"n\">£555.00</td></tr>\n<tr class=\"sub\"><td colspan=\"3\">Subtotal</td><td class=\"n\">£1,261.00</td></tr>\n<tr class=\"sub\"><td colspan=\"3\">VAT 20%</td><td class=\"n\">£252.20</td></tr>\n<tr class=\"tot\"><td colspan=\"3\">Total including VAT</td><td class=\"n\">£1,513.20</td></tr>\n</tbody></table>\n<div class=\"doc-f\"><p>Valid until the date shown at the top of this quote. After that date the price may change, and we will recheck it before you accept.</p><p>Not included: new bathroom fittings, floor tiling, plumbing or electrical work, and painting the ceiling. Anything not listed in this quote is not included in the price.</p><p>The price assumes: access from 8:00 to 17:00 on weekdays, power and water on, and walls that need only light patching. The tile allowance is £36 per m², so dearer tiles change the price.</p><p>Payment: a deposit of £520.00 including VAT is due when you accept. It books the start date and pays for the materials. The balance of £993.20 is due within 7 days of our invoice, which we send when the job is finished. Pay by bank transfer.</p><p>Changes: extra work, or a change to the tiles or the area, is priced and agreed with you in writing before we do it. If we find a hidden problem behind the old tiles, we will stop that part of the work, tell you and send a price for the repair.</p><p>Cooling-off period: you have 14 days to cancel this work, starting the day after you give the go-ahead. If you cancel in that time and we have not started the work, you get all your money back. If you ask us to start the work inside the 14 days and then cancel, you pay a part of the agreed price for the work done by then. To cancel, email us at the address on this quote.</p><p>Cancellation: after the cooling-off period, you can cancel before work starts by telling us in writing. If we have ordered materials we cannot return, you pay for them. If we have spent time on your job, you pay for that time at £23 an hour. We refund the rest of your deposit. This does not affect your legal rights.</p><p>Prices exclude VAT. VAT at 20% is shown in the totals above and the total includes VAT.</p><p>To accept, reply &#39;accepted&#39; to the email this quote came with.</p></div>\n</div>\n<p><button type=\"button\" class=\"btn ghost\" data-preset=\"bathroom-retile-uk\" style=\"cursor:pointer;font-size:13px;padding:9px 16px\">Load this example into the quote maker</button></p>\n<p>Here is where each clause sits.</p>\n<ul><li>Valid until: the notes point to the calendar date at the top of the quote, so there is one date and no count of days.</li><li>Exclusions and assumptions: the notes list what is left out and the conditions behind the price. The tile allowance is stated per m², so a dearer tile changes the price in a way the client can see.</li><li>Payment: the deposit and the balance are amounts, and they add up to the total of £1,513.20. The deposit is enough to cover the materials in the quote, VAT included.</li><li>Changes: extra work is agreed in writing first, and a hidden problem behind the old tiles has its own sentence.</li><li>Cancellation: the client gets all their money back if they cancel inside the 14-day cooling-off period before work starts. After that, they pay only for materials you cannot return and for time already spent.</li></ul>\n<p>Press <strong>Load this example into the quote maker</strong> under the quote. The terms open in the notes box, where you can change every line. You choose the currency and type your own tax rate and tax label, so the example works for a job in dollars with sales tax too. The notes are plain text, so the tool does not recalculate them. If you change a line, the currency or the tax, work out the deposit and the balance again and update the notes. The validity line points to the valid-until date at the top of the quote. If you also type a date into the notes, check that the two match. The cancellation line points to the email address on your quote, so type your email into the form before you download.</p>\n<h2 id=\"checklist\">Checklist before you send</h2>\n<p>Read the quote once as the client would, then check each of these.</p>\n<ul><li>The quote has a number and today&#39;s date.</li><li>The valid-until date is a calendar date, not a number of days.</li><li>The total is stated, and the quote says whether tax is included.</li><li>The deposit and the balance are written as amounts that add up to the total.</li><li>Exclusions and assumptions are listed.</li><li>Changes, extra work and cancellation each have a sentence, and home customers in England get the cooling-off wording.</li><li>The quote says how to accept, in one step.</li><li>Your phone number and email are on it.</li><li>The PDF opens and reads well.</li></ul>\n<p>Send the quote with a short email. Our guide to <a href=\"/how-to-send-a-quote-to-a-client\">sending a quote to a client</a> has wording for it.</p>\n<p>The <a href=\"/\">quote maker</a> is free and needs no signup. A free PDF has a small &#39;Made with GetQuotationMaker.com&#39; line at the bottom of each page. Pro costs $9, paid once, and removes that line, adds your logo and turns any quote into an invoice PDF.</p>",
+   "faq": [
+    {
+     "q": "What should the terms on a quote cover?",
+     "a": "Five things: how long the price holds, the deposit and when you are paid, what is not included, how changes are handled and what happens if the client cancels. Keep each one to a few sentences."
+    },
+    {
+     "q": "How long should a quote be valid?",
+     "a": "ShiftFlow suggests starting with 14 to 30 days, and 7 to 14 days for prices or schedules that move fast. It describes the length as a business decision, and no law or industry standard fixes it. Give the expiry as a calendar date."
+    },
+    {
+     "q": "What do I do when a quote has expired?",
+     "a": "Treat the old quote as closed. Recheck your costs and your availability, then send a revised quotation with a new date."
+    },
+    {
+     "q": "Does an expiry date hold a start date for the client?",
+     "a": "No. On its own the date only shows when you will look at your price and availability again. If you want to hold dates for the client, tie them to a step such as the deposit and say so in the deposit wording."
+    },
+    {
+     "q": "Does my cancellation clause replace a customer's cooling-off period?",
+     "a": "No. Citizens Advice calls 14 days the absolute minimum cooling-off period a seller must give for building or decorating work arranged by phone, online or away from the trader's premises, in England. Inside that period the customer can cancel and get all their money back if you have not started the work. Give a home customer in England written details of how to cancel with the quote, and let your own cancellation charges apply only after the 14 days."
+    },
+    {
+     "q": "Which clauses should I leave out of a quote?",
+     "a": "Leave out a cap on liability, indemnity, ownership of designs, governing law and late-payment interest. Those belong in a written contract, and a lawyer is the right person to draft one."
+    },
+    {
+     "q": "Do I need to sign up to use these terms in the quote maker?",
+     "a": "No. The quote maker is free and has no account. Load the example, edit the notes and download the PDF."
+    }
+   ],
+   "related": [
+    [
+     "/how-to-quote-a-job",
+     "How to quote a job"
+    ],
+    [
+     "/blog/how-to-write-a-professional-quote",
+     "How to write a professional quote"
+    ],
+    [
+     "/quote-acceptance-template",
+     "Quote acceptance wording"
+    ],
+    [
+     "/revised-quotation",
+     "Revised quotation"
+    ],
+    [
+     "/quotation-confirmation",
+     "Quotation confirmation"
+    ],
+    [
+     "/how-to-send-a-quote-to-a-client",
+     "How to send a quote by email"
+    ],
+    [
+     "/quote-template-builder",
+     "Builder quote template"
+    ]
+   ],
+   "preset": "bathroom-retile-uk",
+   "presetLabel": "Bathroom retile quote (example prices)",
+   "presets": {
+    "bathroom-retile-uk": {
+     "number": "Q-1068",
+     "label": "Bathroom wall retile, UK (example prices)",
+     "currency": "GBP",
+     "taxRate": 20,
+     "taxLabel": "VAT",
+     "validDays": 21,
+     "items": [
+      [
+       "Strip old wall tiles and take away the waste",
+       1,
+       180
+      ],
+      [
+       "Prepare walls: patch, level and prime",
+       1,
+       95
+      ],
+      [
+       "Porcelain wall tiles, per m², including waste (tile allowance)",
+       9,
+       36
+      ],
+      [
+       "Tile adhesive, grout and sealant",
+       1,
+       72
+      ],
+      [
+       "Delivery of materials",
+       1,
+       35
+      ],
+      [
+       "Labour to tile the walls (one tiler, per day)",
+       3,
+       185
+      ]
+     ],
+     "notes": "Valid until the date shown at the top of this quote. After that date the price may change, and we will recheck it before you accept.\nNot included: new bathroom fittings, floor tiling, plumbing or electrical work, and painting the ceiling. Anything not listed in this quote is not included in the price.\nThe price assumes: access from 8:00 to 17:00 on weekdays, power and water on, and walls that need only light patching. The tile allowance is £36 per m², so dearer tiles change the price.\nPayment: a deposit of £520.00 including VAT is due when you accept. It books the start date and pays for the materials. The balance of £993.20 is due within 7 days of our invoice, which we send when the job is finished. Pay by bank transfer.\nChanges: extra work, or a change to the tiles or the area, is priced and agreed with you in writing before we do it. If we find a hidden problem behind the old tiles, we will stop that part of the work, tell you and send a price for the repair.\nCooling-off period: you have 14 days to cancel this work, starting the day after you give the go-ahead. If you cancel in that time and we have not started the work, you get all your money back. If you ask us to start the work inside the 14 days and then cancel, you pay a part of the agreed price for the work done by then. To cancel, email us at the address on this quote.\nCancellation: after the cooling-off period, you can cancel before work starts by telling us in writing. If we have ordered materials we cannot return, you pay for them. If we have spent time on your job, you pay for that time at £23 an hour. We refund the rest of your deposit. This does not affect your legal rights.\nPrices exclude VAT. VAT at 20% is shown in the totals above and the total includes VAT.\nTo accept, reply 'accepted' to the email this quote came with."
+    }
+   }
   }
  ]
 }
