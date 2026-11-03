@@ -9,7 +9,10 @@
 <title><%= m.title %></title>
 <meta name="description" content="<%= m.desc %>">
 <% if (m.robots) { %><meta name="robots" content="<%= m.robots %>"><% } else { %><link rel="canonical" href="<%= url %>"><% } %>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="GetQuotationMaker">
 <meta property="og:type" content="<%= m.type || 'website' %>">
 <meta property="og:title" content="<%= m.ogTitle || m.title %>">
