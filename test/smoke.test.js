@@ -93,3 +93,29 @@ test('web design page and professional-quote guide: titles, examples and answers
   for (const q of ['How do I provide a quote for services?', 'How do I set up a quote template?']) assert.ok(pro.body.includes(q), q);
   assert.ok(pro.body.includes('href="/quote-template-web-designer"'), 'guide links to the web design template');
 });
+
+test('refund policy page: public, in the sitemap, linked from every footer with the terms, privacy and contact e-mail, and the terms name both resellers', async () => {
+  const sm = await get('/sitemap.xml');
+  assert.match(sm.body, /<loc>https:\/\/www\.getquotationmaker\.com\/refund<\/loc>/);
+  const refund = await get('/refund');
+  assert.strictEqual(refund.status, 200);
+  assert.match(refund.body, /<link rel="canonical" href="https:\/\/www\.getquotationmaker\.com\/refund">/);
+  assert.match(refund.body, /within 14 days of purchase and we will refund you/);
+  assert.match(refund.body, /mailto:info@peakappsstudio\.com/);
+  assert.match(refund.body, /Paddle\.com and Gumroad/);
+  assert.match(refund.body, /through the reseller you paid/);
+  assert.doesNotMatch(refund.body, /[—–→✓✅]/);
+  for (const p of ['/', '/terms', '/privacy', '/refund', '/blog']) {
+    const html = (await get(p)).body;
+    const footer = html.slice(html.indexOf('<footer'));
+    assert.match(footer, /<a href="\/refund">Refund policy<\/a>/, p + ': footer refund link');
+    assert.match(footer, /<a href="\/terms">Terms of use<\/a>/, p + ': footer terms link');
+    assert.match(footer, /<a href="\/privacy">Privacy policy<\/a>/, p + ': footer privacy link');
+    assert.match(footer, /mailto:info@peakappsstudio\.com/, p + ': footer contact e-mail');
+  }
+  const terms = (await get('/terms')).body;
+  assert.match(terms, /Our order process is conducted by our online resellers Paddle\.com and Gumroad\. They are the Merchant of Record for all our orders/);
+  assert.match(terms, /Refunds are paid back through the reseller you paid/);
+  assert.doesNotMatch(terms, /Refunds are paid back through Gumroad|Gumroad, which acts as the merchant of record/);
+  assert.match(terms, /<a href="\/refund">refund policy<\/a>/);
+});
