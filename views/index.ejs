@@ -6,7 +6,7 @@ var faqs = [
   ['Can I use it on my phone?', 'Yes. The form and preview work on phones and tablets, and the PDF downloads straight to your device so you can attach it to an email or WhatsApp message.'],
   ['Which currencies and taxes are supported?', 'Over twenty currencies, including US dollars, pounds, euros, Indian rupees, Canadian, Australian and New Zealand dollars, rand, dirhams and more. Set any tax rate and name it VAT, GST, sales tax or anything else.'],
   ['What is the difference between a quote and an invoice?', 'A quote (or quotation) is sent before the work to tell the client what it will cost. Once they accept and the work is done, you send an invoice to request payment. With Pro you can download any quote as a matching invoice.'],
-  ['Is Pro a subscription?', 'No. Pro is a one-time payment of $9 through Gumroad. After buying, enter the licence key from your Gumroad receipt on the Activate Pro page.']
+  ['Is Pro a subscription?', locals.paddleCheckout ? 'No. Pro is a one-time payment of $9. Paddle.com is the seller of record, and Pro turns on in your browser right after you pay.' : 'No. Pro is a one-time payment of $9 through Gumroad. After buying, enter the licence key from your Gumroad receipt on the Activate Pro page.']
 ];
 %>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@ var faqs = [
       applicationCategory: 'BusinessApplication', operatingSystem: 'Any (web browser)', browserRequirements: 'Requires JavaScript',
       offers: [
         { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'USD' },
-        { '@type': 'Offer', name: 'Pro (one-time payment)', price: '9.00', priceCurrency: 'USD', url: gumroadLink }
+        { '@type': 'Offer', name: 'Pro (one-time payment)', price: '9.00', priceCurrency: 'USD', url: locals.paddleCheckout ? siteUrl + '/#pricing' : gumroadLink }
       ] },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(function (f) { return { '@type': 'Question', name: f[0], acceptedAnswer: { '@type': 'Answer', text: f[1] } }; }) }
   ] } }) %>
@@ -130,7 +130,7 @@ var faqs = [
     <div class="plan pop">
       <div class="pname">Pro</div>
       <div class="pprice">$9</div>
-      <div class="pper">One-time payment via Gumroad</div>
+      <div class="pper"><% if (locals.paddleCheckout) { %>One-time payment. Paddle.com is the seller of record<% } else { %>One-time payment via Gumroad<% } %></div>
       <ul>
         <li>Everything in Free</li>
         <li>No &ldquo;Made with&rdquo; line on your PDFs</li>
@@ -151,8 +151,8 @@ var faqs = [
     </tbody>
   </table>
   <div class="objections">
-    <p><strong>Is it a subscription?</strong> No. You pay $9 once on Gumroad and keep Pro.</p>
-    <p><strong>How do I turn it on?</strong> Gumroad emails you a licence key. Paste it on the <a href="/activate">Activate Pro</a> page; you can use the same key on your other browsers.</p>
+    <p><strong>Is it a subscription?</strong> <% if (locals.paddleCheckout) { %>No. You pay $9 once and keep Pro. Paddle.com is the seller of record.<% } else { %>No. You pay $9 once on Gumroad and keep Pro.<% } %></p>
+    <p><strong>How do I turn it on?</strong> <% if (locals.paddleCheckout) { %>It turns on in this browser right after you pay. We also e-mail you a Pro link that turns it on in your other browsers.<% } else { %>Gumroad emails you a licence key. Paste it on the <a href="/activate">Activate Pro</a> page; you can use the same key on your other browsers.<% } %></p>
     <p><strong>Do I need Pro?</strong> Not to make and send quotes. Free quotes are complete and professional; Pro is for removing the credit line, adding your logo and invoicing from the same data.</p>
   </div>
 </section>

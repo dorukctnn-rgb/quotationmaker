@@ -15,6 +15,8 @@ const { COUNTRIES, COUNTRY_FACTS_CHECKED } = require('./content/countries');
 const { CURRENCIES } = require('./lib/currencies');
 const pdf = require('./lib/pdf');
 const pro = require('./lib/pro');
+// The Paddle checkout switch (off: every page renders as before; see lib/paddle.js).
+const paddle = require('./lib/paddle');
 const counter = require('./lib/counter');
 
 const app = express();
@@ -135,7 +137,9 @@ function sitemapEntries() {
 app.use(async (req, res, next) => {
   try { res.locals.isPro = await pro.isPro(req); } catch (e) { res.locals.isPro = false; }
   // countOn: whether this page loads the page and Get Pro click counter (lib/counter.js); the pages that carry the search traffic do not
-  Object.assign(res.locals, { siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK, assetVersion: ASSET_VERSION, countOn: counter.isCounted(req.path), countVersion: counter.COUNT_VERSION });
+  Object.assign(res.locals, { siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK, assetVersion: ASSET_VERSION, countOn: counter.isCounted(req.path), countVersion: counter.COUNT_VERSION,
+    paddleCheckout: paddle.enabled() });
+  if (res.locals.paddleCheckout) res.set('Content-Security-Policy', paddle.CSP);
   next();
 });
 
@@ -225,7 +229,7 @@ app.post('/generate-pdf', (req, res) => {
   }
 });
 
-// -- Pro activation (Gumroad licence key) -----------------------------------------
+// -- Pro activation (a Gumroad licence key, or a Paddle Pro key: see lib/pro.js) --------
 app.post('/activate-pro', async (req, res) => {
   const key = (req.body && (req.body.license_key || req.body.licenseKey)) || '';
   const result = await pro.verifyLicense(key, { increment: true });

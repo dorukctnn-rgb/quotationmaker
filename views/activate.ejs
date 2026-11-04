@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%- include('partials/head', { meta: { title: 'Activate Pro | GetQuotationMaker', desc: 'Activate GetQuotationMaker Pro with the licence key from your Gumroad receipt.', path: '/activate', robots: 'noindex, follow' } }) %>
+<%- include('partials/head', { meta: { title: 'Activate Pro | GetQuotationMaker', desc: locals.paddleCheckout ? 'Turn on GetQuotationMaker Pro with the Pro link from our e-mail, or with the licence key from your Gumroad receipt.' : 'Activate GetQuotationMaker Pro with the licence key from your Gumroad receipt.', path: '/activate', robots: 'noindex, follow' } }) %>
 <style>
 .act{max-width:520px;margin:40px auto;padding:0 16px}
 .act-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,.05)}
@@ -16,7 +16,12 @@
 .msg{margin-top:14px;padding:12px 14px;border-radius:9px;font-size:14px;line-height:1.5}
 .ok{background:#dcfce7;color:#166534}.err{background:#fee2e2;color:#b91c1c}
 .help{font-size:13px;color:#6b7280;margin-top:18px;line-height:1.6}
-.linkbtn{background:none!important;color:var(--blue)!important;border:1px solid var(--border)!important;margin-top:10px}
+.linkbtn{background:none!important;color:var(--blue)!important;border:1px solid var(--border)!important;margin-top:10px}<% if (locals.paddleCheckout) { %>
+.pp-mail{border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px}
+.pp-mail p{margin-bottom:10px}
+.act-card .pp-mail input{text-transform:none;letter-spacing:0}
+.pp-mail .linkbtn{margin-top:0}
+.pp-mail .msg{margin-top:12px}<% } %>
 </style>
 </head>
 <body>
@@ -30,19 +35,29 @@
     <button type="button" class="linkbtn" id="deact">Remove Pro from this browser</button>
   <% } else { %>
     <h1>Activate Pro</h1>
-    <p>Paste the licence key from your Gumroad receipt email. It looks like <code>ABCD1234-EF567890-12AB34CD-56EF78AB</code>.</p>
+    <% if (locals.paddleCheckout) { %><p>Pro turns on in your browser right after you pay. To turn it on in another browser, open the Pro link we e-mailed you.</p><% } else { %><p>Paste the licence key from your Gumroad receipt email. It looks like <code>ABCD1234-EF567890-12AB34CD-56EF78AB</code>.</p><% } %>
     <ul>
       <li>No &ldquo;Made with GetQuotationMaker.com&rdquo; line on your PDFs</li>
       <li>Your logo on every quote</li>
       <li>Download any quote as a matching invoice</li>
     </ul>
-    <form id="actForm" novalidate>
+    <% if (locals.paddleCheckout) { %><div class="pp-mail">
+      <p><strong>Bought Pro already?</strong> We can e-mail your Pro link to the address you paid with.</p>
+      <form id="ppRestore" novalidate>
+        <label for="ppEmail">Your e-mail address</label>
+        <input id="ppEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        <button type="submit" id="ppSend" class="linkbtn">E-mail my Pro link</button>
+      </form>
+      <div class="msg" id="ppNote" role="status" hidden></div>
+    </div>
+    <p>Bought Pro on Gumroad? Paste the licence key from your Gumroad receipt email. It looks like <code>ABCD1234-EF567890-12AB34CD-56EF78AB</code>.</p>
+    <% } %><form id="actForm" novalidate>
       <label for="key">Licence key</label>
       <input id="key" name="license_key" autocomplete="off" spellcheck="false" required placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX">
       <button type="submit" id="actBtn">Activate Pro</button>
     </form>
     <div class="msg" id="msg" role="status" hidden></div>
-    <p class="help">Don&rsquo;t have Pro yet? <a href="<%= gumroadLink %>" target="_blank" rel="noopener">Get it for $9, one-time</a>. Can&rsquo;t find your key? Open your Gumroad receipt or your Gumroad library. If the receipt has no key, reply to the receipt email and we will sort it out. You can use the same key on your other browsers and devices.</p>
+    <p class="help">Don&rsquo;t have Pro yet? <a href="<%= gumroadLink %>" target="_blank" rel="noopener">Get it for $9, one-time</a>.<% if (locals.paddleCheckout) { %> Paddle.com is the seller of record, and Pro turns on right after you pay. Can&rsquo;t find your Gumroad key? Open your Gumroad receipt or your Gumroad library.<% } else { %> Can&rsquo;t find your key? Open your Gumroad receipt or your Gumroad library.<% } %> If the receipt has no key, reply to the receipt email and we will sort it out. You can use the same key on your other browsers and devices.</p>
   <% } %>
   </div>
 </main>
@@ -55,7 +70,7 @@
     var key = document.getElementById('key').value.trim();
     var msg = document.getElementById('msg'), btn = document.getElementById('actBtn');
     if (!key) { msg.hidden = false; msg.className = 'msg err'; msg.textContent = 'Please paste your licence key.'; return; }
-    btn.disabled = true; btn.textContent = 'Checking with Gumroad...';
+    btn.disabled = true; btn.textContent = '<%= locals.paddleCheckout ? 'Checking your key...' : 'Checking with Gumroad...' %>';
     try {
       var r = await fetch('/activate-pro', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ license_key: key }) });
       var d = await r.json();
