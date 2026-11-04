@@ -320,5 +320,6 @@ test('the script is served from the site, and the privacy page says what the cou
   assert.ok(!/no analytics/i.test(pr), 'the old "no analytics" line is gone');
   const sm = (await get('/sitemap.xml')).body;
   assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/privacy<\/loc><lastmod>2026-10-29<\/lastmod>/);
-  assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/terms<\/loc><lastmod>2026-10-11<\/lastmod>/, 'the terms did not change');
+  assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/terms<\/loc><lastmod>2026-11-04<\/lastmod>/, 'the terms changed on 4 November 2026');
+  assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/refund<\/loc><lastmod>2026-11-04<\/lastmod>/);
 });
