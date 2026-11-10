@@ -35,6 +35,8 @@ const PRIVACY_UPDATED = '2026-10-29';
 // -- Redirects (old URLs merged into stronger pages) ------------------------
 Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
 
+// Self-hosted web fonts (Sora and DM Sans, latin and latin-ext): a file never changes under its name, so it is cached for a year.
+app.use('/fonts', express.static(path.join(__dirname, 'public', 'fonts'), { maxAge: '365d', immutable: true }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '2mb' }));
 app.use(bodyParser.json({ limit: '2mb' }));
@@ -258,6 +260,37 @@ app.get('/sitemap.xml', (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send('User-agent: *\nAllow: /\n\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
+});
+
+// llms.txt (llmstxt.org): a plain-text map of the site for assistants and agents, built from the same lists as the sitemap,
+// so a new page appears in it without anyone editing a file.
+const oneLine = t => String(t || '').replace(/\s+/g, ' ').trim();
+function llmsTxt() {
+  const link = (loc, title, desc) => '- [' + oneLine(title).replace(/[\[\]]/g, '') + '](' + SITE_URL + loc + ')' + (desc ? ': ' + oneLine(desc) : '');
+  const L = [
+    '# GetQuotationMaker',
+    '',
+    '> GetQuotationMaker is a free online quotation maker. You fill in a quote in the browser (line items, tax or VAT, discount, validity date, terms) and download it as a PDF. There is no account and no card. Free PDFs carry a small "Made with GetQuotationMaker.com" line; Pro is a one-time payment of $9 that removes the line, adds a logo and turns any quote into a matching invoice.',
+    '',
+    'The site also holds quote templates by trade (Word, Excel and PDF downloads for several), guides with wording to copy, and quote generators set up for eleven countries. Prices, tax rates and rules on the country pages carry a "last checked" date and a link to the official source.',
+    '',
+    '## Tool',
+    link('/', 'Free online quotation maker', 'Create a quote PDF with line items, tax, discount and a validity date.'),
+    '',
+    '## Quote templates by trade'
+  ];
+  PROFESSIONS.concat(EXTRA_TRADES).forEach(p => L.push(link(p.path, p.title, p.desc)));
+  L.push('', '## Guides and wording to copy');
+  GUIDE_PAGES.forEach(p => L.push(link('/' + p.slug, p.title, p.desc)));
+  HOW_TO_PAGES.forEach(p => L.push(link('/' + p.slug, p.title, p.desc)));
+  BLOG_POSTS.forEach(p => L.push(link('/blog/' + p.slug, p.title, p.desc)));
+  L.push('', '## Quote generators by country');
+  COUNTRIES.forEach(c => L.push(link('/free-quote-generator-' + c.slug, c.title, c.desc)));
+  L.push('', '## Optional', link('/blog', 'All guides'), link('/privacy', 'Privacy policy'), link('/terms', 'Terms of use'), link('/refund', 'Refund policy'), '');
+  return L.join('\n');
+}
+app.get('/llms.txt', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=3600').type('text/plain').send(llmsTxt());
 });
 
 app.get('/google-verification', (req, res) => { res.type('text/html'); res.send('google-site-verification: SRbRrdv1CAaGtpC67I5g5htAbMp2LmyqfylqDAKWvK0'); });
