@@ -128,7 +128,7 @@ function sitemapEntries() {
   PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: p.custom ? p.updated : UPDATED }));
   EXTRA_TRADES.forEach(p => e.push({ loc: p.path, lastmod: p.updated }));
   GUIDE_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
-  COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
+  COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: c.updated || UPDATED }));
   HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   BLOG_POSTS.forEach(p => e.push({ loc: '/blog/' + p.slug, lastmod: p.updated }));
   e.push({ loc: '/privacy', lastmod: PRIVACY_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED }, { loc: '/refund', lastmod: LEGAL_UPDATED });
@@ -177,7 +177,8 @@ PROFESSIONS.concat(EXTRA_TRADES).forEach(p => {
 COUNTRIES.forEach(c => {
   app.get('/free-quote-generator-' + c.slug, (req, res) => {
     res.render('country', { country: c, countries: COUNTRIES, professions: PROFESSIONS, factsChecked: COUNTRY_FACTS_CHECKED,
-      tool: toolConfig(res, { currency: c.currency, taxRate: c.taxRate, taxLabel: c.tax }) });
+      tool: toolConfig(res, Object.assign({ currency: c.currency, taxRate: c.taxRate, taxLabel: c.tax },
+        c.presets ? { presets: Object.assign({}, PRESETS, c.presets), presetButtons: c.presetButtons } : {})) });
   });
 });
 

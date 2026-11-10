@@ -158,4 +158,9 @@ const COUNTRIES = [
   }
 ];
 
+// Rebuilt pages (10 Nov 2026): a worked example, local rules and a FAQ for every country except the Netherlands, which is a
+// protected traffic page. See content/country-pages.js.
+const { COUNTRY_PAGES } = require('./country-pages');
+COUNTRIES.forEach(c => { if (COUNTRY_PAGES[c.slug]) Object.assign(c, COUNTRY_PAGES[c.slug]); });
+
 module.exports = { COUNTRIES, COUNTRY_FACTS_CHECKED: '7 October 2026' };
