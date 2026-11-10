@@ -232,6 +232,26 @@ const T = {
       { heading: 'Acceptance', sign: ACCEPT }
     ]
   },
+  labour: {
+    file: 'labour-quotation-template', docTitle: 'Labour quotation template', subtitle: 'Labour-only quotation format (any currency)',
+    taxNumber: 'Tax / registration no.: [if applicable]', url: 'getquotationmaker.com/labour-quotation-format', currency: '', taxName: 'Tax', taxRate: 0,
+    xlsx: { heads: ['Task (labour only)', 'Qty', 'Unit', 'Rate', 'Amount'], example: ['Example: Floor tiling, labour only', 38, 'sq m', 24], exampleSub: 912, blank: 9 },
+    blocks: [
+      { kv: QUOTE_DETAILS },
+      { heading: 'Scope of labour', hint: 'The tasks in plain words, the area or rooms, and the planned start date. Say this quotation is for labour only.', lines: 2 },
+      { heading: 'Labour price', items: { cols: [{ h: 'Task (labour only)', w: 0.5 }, { h: 'Qty', w: 0.09, right: 1 }, { h: 'Unit', w: 0.11 }, { h: 'Rate', w: 0.14, right: 1 }, { h: 'Amount', w: 0.16, right: 1 }],
+        example: ['Example: Floor tiling, labour only', '38', 'sq m', '24.00', '912.00'], blank: 6, totals: ['Subtotal', 'Tax at [__]% (only if registered)', 'Total'] } },
+      { heading: 'Terms', terms: [
+        ['Materials and tools', 'Labour only. Materials, consumables, scaffolding, power and water are supplied by [the client] and must be on site before work starts.'],
+        ['Quantities', 'Quantities are estimated from [the drawings / a site visit]. The final bill uses measured quantities at the rates above.'],
+        ['Working time', '[8] hours a day, [Monday to Saturday]. Overtime and Sunday work at [1.5] times the rate. Number of workers: [ ].'],
+        ['Waiting time', 'If work is held up because materials or access are not ready, waiting time is charged at the day rate of [ ].'],
+        ['Not included', '[Hidden defects, work by other trades, work at height above [ ] metres, extra visits.] Extra work is priced and agreed in writing before it starts.'],
+        ['Payment', '[20]% in advance, running bills for work measured to date, the balance on completion.'],
+        ['Validity', 'This quotation is valid for [30] days from the date above.']] },
+      { heading: 'Acceptance', sign: ACCEPT }
+    ]
+  },
   itsupport: {
     file: 'it-support-quote-template', docTitle: 'IT support quote template', subtitle: 'IT support quote template: projects and monthly support (prices in GBP)',
     taxNumber: 'VAT reg. no.: [if registered]', url: 'getquotationmaker.com/quote-template-it-support', currency: '£', taxName: 'VAT', taxRate: 0.2,

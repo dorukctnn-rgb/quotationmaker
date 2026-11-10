@@ -6,6 +6,7 @@ const app = require('../server');
 const { COUNTRIES } = require('../content/countries');
 const { COUNTRY_PAGES } = require('../content/country-pages');
 const { PLUMBER, BUILDER, IT_SUPPORT } = require('../content/trade-pages');
+const { LABOUR_PAGES } = require('../content/labour-quotation');
 
 const SITE = 'https://www.getquotationmaker.com';
 let server;
@@ -165,4 +166,49 @@ test('protected traffic pages: the home page title and the Netherlands page titl
   assert.ok(/<title>[^<]*Quotation Maker[^<]*<\/title>/i.test(home.body), 'home title still names the tool');
   const nl = COUNTRIES.find(c => c.slug === 'netherlands');
   assert.ok(titleOf((await get('/free-quote-generator-netherlands')).body) === nl.title, 'Netherlands title is the original');
+});
+
+// /labour-quotation-format (10 Nov 2026): the labour-only topic that Copilot cited from the old contractor page. A new page, so the
+// protected contractor page, the home page and the /blog list are not touched; it is linked from pages that are not protected.
+test('labour quotation page: content, examples that load, working template files, FAQ markup, canonical', async () => {
+  const def = LABOUR_PAGES[0];
+  const { status, body } = await get('/' + def.slug);
+  assert.strictEqual(status, 200);
+  assert.ok(words(body) >= 1500, 'real content, words: ' + words(body));
+  assert.ok(body.includes('<title>' + def.title + '</title>') && def.title.length <= 60, 'title length ' + def.title.length);
+  assert.ok(def.desc.length >= 70 && def.desc.length <= 155, 'description length ' + def.desc.length);
+  assert.ok(body.includes('<link rel="canonical" href="' + SITE + '/' + def.slug + '">'), 'self canonical');
+  for (const b of def.presetButtons) {
+    assert.ok(body.includes('data-preset="' + b.key + '"'), 'button ' + b.key);
+    assert.ok(body.includes('"' + b.key + '":{'), 'preset ' + b.key + ' is loaded into the tool');
+  }
+  for (const href of ['/templates/labour-quotation-template.docx', '/templates/labour-quotation-template.xlsx']) {
+    const f = await fetch(base + href);
+    assert.strictEqual(f.status, 200, href);
+    assert.ok((await f.arrayBuffer()).byteLength > 4000, href + ' is a real file');
+    assert.ok(body.includes('href="' + href + '"'), 'page links ' + href);
+  }
+  assert.ok(body.includes('10 November 2026'), 'rules are dated');
+  assert.ok(/<a href="https:\/\/www\.gov\.uk\/[^"]+" rel="nofollow noopener"/.test(body) && body.includes('tax.gov.ae') && body.includes('pib.gov.in'), 'official sources for the UK, the UAE and India');
+  const ld = jsonld(body);
+  const faq = ld.find(x => x['@type'] === 'FAQPage');
+  assert.ok(faq && faq.mainEntity.length >= 5, 'FAQ markup');
+  for (const q of faq.mainEntity) assert.ok(body.includes('<summary>' + q.name.replace(/'/g, '&#39;') + '</summary>') || body.includes('<summary>' + q.name + '</summary>'), 'FAQ shown: ' + q.name.slice(0, 40));
+  const art = ld.find(x => x['@type'] === 'Article');
+  assert.strictEqual(art.dateModified, '2026-11-10', 'dateModified matches the visible date');
+  assert.ok(body.includes('Updated 10 November 2026'), 'visible updated date');
+  assert.doesNotMatch(body, /AI/, 'no AI wording');
+  const sm = (await get('/sitemap.xml')).body;
+  assert.ok(sm.includes('<loc>' + SITE + '/' + def.slug + '</loc>'), 'in the sitemap');
+  assert.ok((await get('/llms.txt')).body.includes(SITE + '/' + def.slug), 'in llms.txt');
+});
+
+test('labour quotation page is linked from the builder, plumber and three country pages, and the protected pages stay as they were', async () => {
+  const slug = '/labour-quotation-format';
+  for (const p of ['/quote-template-builder', '/quote-template-plumber', '/free-quote-generator-uk', '/free-quote-generator-uae', '/free-quote-generator-india']) {
+    assert.ok((await get(p)).body.includes('href="' + slug + '"'), p + ' links the labour quotation page');
+  }
+  for (const p of ['/', '/blog', '/quote-template-contractor', '/free-quote-generator-netherlands']) {
+    assert.ok(!(await get(p)).body.includes('href="' + slug + '"'), p + ' is protected and does not link it yet');
+  }
 });

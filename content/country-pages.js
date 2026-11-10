@@ -56,7 +56,7 @@ ${loadBtn(ex.key, 'Load this UK example into the quote maker')}
 </ul>
 
 <h2 id="uk-words">Words your UK client expects</h2>
-<p>Tradespeople say "quote" for a fixed price and "estimate" for a guide, and homeowners know the difference from Citizens Advice, linked above. "Tender" is used for larger or public jobs. Put your VAT number on the quote if you are registered, your Gas Safe number on gas work, and say whether the price includes VAT. For trade-specific wording see the <a href="/quote-template-plumber">plumber</a>, <a href="/quote-template-builder">builder</a> and <a href="/quote-template-electrician">electrician</a> quote templates.</p>
+<p>Tradespeople say "quote" for a fixed price and "estimate" for a guide, and homeowners know the difference from Citizens Advice, linked above. "Tender" is used for larger or public jobs. Put your VAT number on the quote if you are registered, your Gas Safe number on gas work, and say whether the price includes VAT. For trade-specific wording see the <a href="/quote-template-plumber">plumber</a>, <a href="/quote-template-builder">builder</a> and <a href="/quote-template-electrician">electrician</a> quote templates, and the <a href="/labour-quotation-format">labour quotation format</a> if you quote labour only.</p>
 ${NEXT}`,
     faq: [
       { q: 'Do I have to charge VAT on a quote in the UK?', a: 'Only if you are VAT registered. Registration is required once taxable turnover goes over £90,000 in the last 12 months. If you are registered, show each line before VAT, the VAT and the total including VAT; if you are not, set the VAT rate to 0 and do not mention VAT.' },
@@ -256,7 +256,7 @@ ${loadBtn(ex.key, 'Load this Indian example into the quote maker')}
 </ul>
 
 <h2 id="in-words">Words your Indian client expects</h2>
-<p>A quotation (or "estimate") is not a tax invoice: the tax invoice follows once the work or supply is done. It is usual to show your GSTIN and the client's GSTIN, the validity period (15 days is common), and a total in rupees. In some trades the HSN or SAC code and the amount in words are also customary; confirm what your clients and accountant require. For trade wording see the <a href="/quote-template-contractor#labour-only">labour contractor quotation format</a> and the <a href="/quote-template-painter">painting quote template</a>.</p>
+<p>A quotation (or "estimate") is not a tax invoice: the tax invoice follows once the work or supply is done. It is usual to show your GSTIN and the client's GSTIN, the validity period (15 days is common), and a total in rupees. In some trades the HSN or SAC code and the amount in words are also customary; confirm what your clients and accountant require. For labour contractors the full <a href="/labour-quotation-format">labour quotation format</a> has the fields, per-unit pricing and a template; for other trades see the <a href="/quote-template-contractor#labour-only">contractor template</a> and the <a href="/quote-template-painter">painting quote template</a>.</p>
 ${NEXT}`,
     faq: [
       { q: 'What GST rate goes on a quotation in India?', a: 'The rate depends on the goods or service. The standard rate is 18% and the merit rate is 5%, from 22 September 2025, with a special 40% rate for a small set of goods. Check the rate for your goods or service, or ask your accountant.' },
@@ -291,7 +291,7 @@ ${loadBtn(ex.key, 'Load this UAE example into the quote maker')}
 </ul>
 
 <h2 id="ae-words">Words your UAE client expects</h2>
-<p>In commercial work the buyer often answers a quotation with a Local Purchase Order, or LPO, so ask for the LPO number and quote it on the invoice. Show your TRN if you are VAT registered, state the validity (7 to 30 days is common), and give the price before VAT, the VAT and the total in AED. Many clients also ask for your trade licence number. For trade wording see the <a href="/quote-template-hvac">HVAC quote template</a> and the <a href="/quote-template-contractor">contractor quote template</a>.</p>
+<p>In commercial work the buyer often answers a quotation with a Local Purchase Order, or LPO, so ask for the LPO number and quote it on the invoice. Show your TRN if you are VAT registered, state the validity (7 to 30 days is common), and give the price before VAT, the VAT and the total in AED. Many clients also ask for your trade licence number. For trade wording see the <a href="/quote-template-hvac">HVAC quote template</a>, the <a href="/quote-template-contractor">contractor quote template</a> and, for labour-only fit-out and maintenance work, the <a href="/labour-quotation-format">labour quotation format</a>.</p>
 ${NEXT}`,
     faq: [
       { q: 'Do I need a TRN on a quotation in the UAE?', a: 'If you are VAT registered, put your Tax Registration Number on it so the client sees you charge VAT, and carry it onto the tax invoice, where the Federal Tax Authority requires it.' },

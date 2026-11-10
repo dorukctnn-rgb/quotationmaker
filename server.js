@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS } = require('./content');
 const { GUIDE_PAGES } = require('./content/guides');
+const { LABOUR_PAGES } = require('./content/labour-quotation');
 const { CONFIRM_REVISE_PAGES } = require('./content/confirm-revise');
 // Pages published through the SEO agent (seo-ajani, adapter qm-pages), added 22 Oct 2026: new guides drawn with
 // views/how-to.ejs, and full rebuilds of trade pages drawn with views/profession.ejs. An entry adds its own route or
@@ -120,6 +121,7 @@ const HOW_TO_PAGES = [
 HOW_TO_PAGES.forEach(p => withContent(p, HOWTO_CONTENT[p.slug]));
 // Self-contained pages (content, FAQ and any page-only presets live in the module).
 HOW_TO_PAGES.push(...CONFIRM_REVISE_PAGES);
+HOW_TO_PAGES.push(...LABOUR_PAGES);
 HOW_TO_PAGES.push(...SEO_PAGES.filter(s => s.view === 'how-to'));
 
 // Pages and their last meaningful update, for the sitemap.
@@ -187,7 +189,7 @@ GUIDE_PAGES.forEach(page => {
 });
 
 app.get('/blog', (req, res) => {
-  res.render('blog-index', { posts: BLOG_POSTS, howTo: HOW_TO_PAGES, guides: GUIDE_PAGES });
+  res.render('blog-index', { posts: BLOG_POSTS, howTo: HOW_TO_PAGES.filter(p => p.inBlogIndex !== false), guides: GUIDE_PAGES });
 });
 
 BLOG_POSTS.forEach(post => {

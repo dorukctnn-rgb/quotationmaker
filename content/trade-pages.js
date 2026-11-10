@@ -100,6 +100,7 @@ ${load('plumber-bathroom', 'Load this bathroom example into the quote maker')}
 <tr><td>Hourly rate plus parts</td><td>Hours at your rate, parts at cost or with a stated handling margin</td><td>Fault finding and repairs where the cause is not yet known</td></tr>
 <tr><td>Day rate</td><td>A set price per day on site, with a day count estimate</td><td>Larger refits where the work runs over several days</td></tr>
 </tbody></table>
+<p>If the customer buys the fittings and you only fit them, the quote is labour only: see the <a href="/labour-quotation-format">labour quotation format</a>.</p>
 <p>To build a fixed price, estimate the hours, multiply by your rate and add the parts. A repair of 3.5 hours at &pound;55 is &pound;192.50 of labour. Add &pound;120 of parts at cost and a 15% handling margin on them (&pound;18) and the price is &pound;330.50 before VAT. For emergency repairs where the cause is unknown, quote the call-out and the first hour firmly and say you will price the repair once you have seen the fault.</p>
 ${load('plumber-callout', 'Load the emergency repair example')}
 
@@ -185,6 +186,7 @@ const BUILDER = {
 <li><strong>Payment schedule:</strong> tied to stages the client can see, never a large sum far ahead of the work.</li>
 <li><strong>Variations:</strong> priced and agreed in writing before the work is done, with the effect on the end date.</li>
 </ul>
+<p>Quoting only the labour of a trade, with the client buying the materials? Use the <a href="/labour-quotation-format">labour quotation format</a>: it has the fields, per-unit and day-rate pricing, and a free Word and Excel file.</p>
 
 <h2 id="example">Example: single-storey rear extension</h2>
 <p>A quote for a rear extension, laid out by stage. Prices are examples only.</p>
