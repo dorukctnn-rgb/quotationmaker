@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const { PROFESSION_GUIDES, HOWTO_CONTENT, BLOG_CONTENT, REDIRECTS } = require('./content');
 const { GUIDE_PAGES } = require('./content/guides');
+const { LABOUR_PAGES } = require('./content/labour-quotation');
 const { CONFIRM_REVISE_PAGES } = require('./content/confirm-revise');
 // Pages published through the SEO agent (seo-ajani, adapter qm-pages), added 22 Oct 2026: new guides drawn with
 // views/how-to.ejs, and full rebuilds of trade pages drawn with views/profession.ejs. An entry adds its own route or
@@ -35,6 +36,8 @@ const PRIVACY_UPDATED = '2026-10-29';
 // -- Redirects (old URLs merged into stronger pages) ------------------------
 Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));
 
+// Self-hosted web fonts (Sora and DM Sans, latin and latin-ext): a file never changes under its name, so it is cached for a year.
+app.use('/fonts', express.static(path.join(__dirname, 'public', 'fonts'), { maxAge: '365d', immutable: true }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '2mb' }));
 app.use(bodyParser.json({ limit: '2mb' }));
@@ -92,7 +95,7 @@ const EXTRA_TRADES = SEO_TRADES.filter(s => !PROFESSIONS.some(x => x.path === '/
   .map(s => Object.assign({ name: s.name || s.h1, label: s.label || s.h1 }, s, { path: '/' + s.slug, custom: true }));
 
 const BLOG_POSTS = [
-  { slug: 'quote-acceptance-rate-tips', title: 'Quote Acceptance: Wording to Copy and 9 Ways to Win More', h1: 'How to improve your quote acceptance rate', desc: 'Wording to accept or confirm a quote, plus how to work out your acceptance rate and nine ways to win more quotes: speed, line items, options, follow-ups.', date: '2026-03-14', updated: '2026-10-08', category: 'Tips' },
+  { slug: 'quote-acceptance-rate-tips', title: 'Improve Your Quote Acceptance Rate: 9 Ways to Win More', h1: 'How to improve your quote acceptance rate', desc: 'Wording to accept or confirm a quote, plus how to work out your acceptance rate and nine ways to win more quotes: speed, line items, options, follow-ups.', date: '2026-03-14', updated: '2026-10-08', category: 'Tips' },
   { slug: 'how-to-write-a-professional-quote', title: 'How to Write a Professional Quote: Steps and Wording to Copy', h1: 'How to write a professional quote', desc: 'Write a quote a client can say yes to: the eight parts in order, wording to copy for scope, exclusions, changes, payment and acceptance, and a before-and-after example.', date: '2026-01-10', updated: '2026-10-28', category: 'Guide' },
   { slug: 'how-to-price-a-job-quote', title: 'How to Price a Job Quote: Formula, Calculator and Example', h1: 'How to price a job quote', desc: 'Price a job from materials, labour, overheads and profit: a calculator that shows markup and margin, a worked example, and how to set an hourly rate that covers your costs.', date: '2026-01-26', updated: '2026-10-09', category: 'Pricing' },
   { slug: 'what-is-a-quotation-in-business', title: 'What Is a Quotation in Business? Meaning, Example and Types', h1: 'What is a quotation in business?', desc: 'A quotation is a written offer to supply work or goods at a stated price. See an annotated example, quote vs estimate vs pro forma vs invoice, and when it binds.', date: '2026-02-03', updated: '2026-10-09', category: 'Guide' },
@@ -118,6 +121,7 @@ const HOW_TO_PAGES = [
 HOW_TO_PAGES.forEach(p => withContent(p, HOWTO_CONTENT[p.slug]));
 // Self-contained pages (content, FAQ and any page-only presets live in the module).
 HOW_TO_PAGES.push(...CONFIRM_REVISE_PAGES);
+HOW_TO_PAGES.push(...LABOUR_PAGES);
 HOW_TO_PAGES.push(...SEO_PAGES.filter(s => s.view === 'how-to'));
 
 // Pages and their last meaningful update, for the sitemap.
@@ -126,7 +130,7 @@ function sitemapEntries() {
   PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: p.custom ? p.updated : UPDATED }));
   EXTRA_TRADES.forEach(p => e.push({ loc: p.path, lastmod: p.updated }));
   GUIDE_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
-  COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: UPDATED }));
+  COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: c.updated || UPDATED }));
   HOW_TO_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   BLOG_POSTS.forEach(p => e.push({ loc: '/blog/' + p.slug, lastmod: p.updated }));
   e.push({ loc: '/privacy', lastmod: PRIVACY_UPDATED }, { loc: '/terms', lastmod: LEGAL_UPDATED }, { loc: '/refund', lastmod: LEGAL_UPDATED });
@@ -175,7 +179,8 @@ PROFESSIONS.concat(EXTRA_TRADES).forEach(p => {
 COUNTRIES.forEach(c => {
   app.get('/free-quote-generator-' + c.slug, (req, res) => {
     res.render('country', { country: c, countries: COUNTRIES, professions: PROFESSIONS, factsChecked: COUNTRY_FACTS_CHECKED,
-      tool: toolConfig(res, { currency: c.currency, taxRate: c.taxRate, taxLabel: c.tax }) });
+      tool: toolConfig(res, Object.assign({ currency: c.currency, taxRate: c.taxRate, taxLabel: c.tax },
+        c.presets ? { presets: Object.assign({}, PRESETS, c.presets), presetButtons: c.presetButtons } : {})) });
   });
 });
 
@@ -184,7 +189,7 @@ GUIDE_PAGES.forEach(page => {
 });
 
 app.get('/blog', (req, res) => {
-  res.render('blog-index', { posts: BLOG_POSTS, howTo: HOW_TO_PAGES, guides: GUIDE_PAGES });
+  res.render('blog-index', { posts: BLOG_POSTS, howTo: HOW_TO_PAGES.filter(p => p.inBlogIndex !== false), guides: GUIDE_PAGES });
 });
 
 BLOG_POSTS.forEach(post => {
@@ -258,6 +263,37 @@ app.get('/sitemap.xml', (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send('User-agent: *\nAllow: /\n\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
+});
+
+// llms.txt (llmstxt.org): a plain-text map of the site for assistants and agents, built from the same lists as the sitemap,
+// so a new page appears in it without anyone editing a file.
+const oneLine = t => String(t || '').replace(/\s+/g, ' ').trim();
+function llmsTxt() {
+  const link = (loc, title, desc) => '- [' + oneLine(title).replace(/[\[\]]/g, '') + '](' + SITE_URL + loc + ')' + (desc ? ': ' + oneLine(desc) : '');
+  const L = [
+    '# GetQuotationMaker',
+    '',
+    '> GetQuotationMaker is a free online quotation maker. You fill in a quote in the browser (line items, tax or VAT, discount, validity date, terms) and download it as a PDF. There is no account and no card. Free PDFs carry a small "Made with GetQuotationMaker.com" line; Pro is a one-time payment of $9 that removes the line, adds a logo and turns any quote into a matching invoice.',
+    '',
+    'The site also holds quote templates by trade (Word, Excel and PDF downloads for several), guides with wording to copy, and quote generators set up for eleven countries. Prices, tax rates and rules on the country pages carry a "last checked" date and a link to the official source.',
+    '',
+    '## Tool',
+    link('/', 'Free online quotation maker', 'Create a quote PDF with line items, tax, discount and a validity date.'),
+    '',
+    '## Quote templates by trade'
+  ];
+  PROFESSIONS.concat(EXTRA_TRADES).forEach(p => L.push(link(p.path, p.title, p.desc)));
+  L.push('', '## Guides and wording to copy');
+  GUIDE_PAGES.forEach(p => L.push(link('/' + p.slug, p.title, p.desc)));
+  HOW_TO_PAGES.forEach(p => L.push(link('/' + p.slug, p.title, p.desc)));
+  BLOG_POSTS.forEach(p => L.push(link('/blog/' + p.slug, p.title, p.desc)));
+  L.push('', '## Quote generators by country');
+  COUNTRIES.forEach(c => L.push(link('/free-quote-generator-' + c.slug, c.title, c.desc)));
+  L.push('', '## Optional', link('/blog', 'All guides'), link('/privacy', 'Privacy policy'), link('/terms', 'Terms of use'), link('/refund', 'Refund policy'), '');
+  return L.join('\n');
+}
+app.get('/llms.txt', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=3600').type('text/plain').send(llmsTxt());
 });
 
 app.get('/google-verification', (req, res) => { res.type('text/html'); res.send('google-site-verification: SRbRrdv1CAaGtpC67I5g5htAbMp2LmyqfylqDAKWvK0'); });

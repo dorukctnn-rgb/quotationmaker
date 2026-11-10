@@ -37,7 +37,7 @@
     "keyword": "acceptance of quote wording",
     "targetPath": "/quote-acceptance-template",
     "status": "observing",
-    "nextReviewDate": "2026-11-10",
+    "nextReviewDate": "2026-11-24",
     "actions": [
       {
         "date": "2026-10-07",
@@ -50,6 +50,12 @@
         "rankAtAction": 4.9,
         "needs": "GSC 28 days to 24 Oct: the acceptance-rate article took 134 of the 209 impressions for \"acceptance of quote wording\" (position 5.5, 0 clicks) and 87 for \"quote acceptance template\" (15.2) while this page sat at 4.9 and 52; its description repeated the one-line answer, so the snippet answered without a click. 555 impressions, 6 clicks, position 6.9",
         "done": "Title \"Quote Acceptance Wording: 9 Templates to Accept a Quotation\"; description lists what the page holds (9 client templates). Article: title \"Quote Acceptance: Wording to Copy and 9 Ways to Win More\", answer box links \"confirm a quotation\" readers to /quotation-confirmation, one link to the email guide. Judge on 14-day CTR of /blog/quote-acceptance-rate-tips (baseline 1,907 impressions, 28 clicks, 1.5%) and this page (555, 6, 1.1%), not on position"
+      },
+      {
+        "date": "2026-11-10",
+        "rankAtAction": null,
+        "needs": "Technical audit 10 Nov (90 days): three pages answer one intent. The article (poz 5.9, 267 impressions) still takes most impressions for \"acceptance of quote wording\" while /quote-acceptance-template (poz 4.7, 49) and /quotation-confirmation (poz 46.7, 75) share the rest; 51 of the site's 92 clicks come from this cluster at 1.1-1.3% CTR.",
+        "done": "Article title only: \"Improve Your Quote Acceptance Rate: 9 Ways to Win More\" (matches its H1, drops the wording promise so /quote-acceptance-template owns that query). Bodies of all three pages untouched. Judge on 14 days of impressions split for \"acceptance of quote wording\" between the article and the template page."
       }
     ]
   },

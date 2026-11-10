@@ -523,4 +523,7 @@ const SHORT_GUIDES = {
 </ul>`
 };
 
-module.exports = { PROFESSION_EXTRAS: { contractor: CONTRACTOR, painter: PAINTER, mechanic: MECHANIC, 'web-designer': WEB_DESIGNER }, SHORT_GUIDES };
+// Plumber, builder and IT support pages, rebuilt 10 Nov 2026 (technical audit): content/trade-pages.js
+const { PLUMBER, BUILDER, IT_SUPPORT } = require('./trade-pages');
+
+module.exports = { PROFESSION_EXTRAS: { contractor: CONTRACTOR, painter: PAINTER, mechanic: MECHANIC, 'web-designer': WEB_DESIGNER, plumber: PLUMBER, builder: BUILDER, 'it-support': IT_SUPPORT }, SHORT_GUIDES };

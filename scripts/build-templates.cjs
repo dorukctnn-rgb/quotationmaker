@@ -188,6 +188,91 @@ const T = {
         ['Validity and warranty', 'Valid for [14] days; parts prices may change after that. Warranty: [parts x months, labour x months].']] },
       { heading: 'Authorization', who: 'Customer', sign: 'I authorize the repairs listed above for the estimated total shown.' }
     ]
+  },
+  plumber: {
+    file: 'plumber-quote-template', docTitle: 'Plumber quote template (UK)', subtitle: 'Plumber quote template, UK (prices in GBP)',
+    taxNumber: 'VAT reg. no.: [if registered]   Gas Safe no.: [gas work only]', url: 'getquotationmaker.com/quote-template-plumber', currency: '£', taxName: 'VAT', taxRate: 0.2,
+    xlsx: { heads: ['Description', 'Qty', 'Unit', 'Rate', 'Amount'], example: ['Example: Labour, replace kitchen mixer tap (fixed price)', 1, 'job', 140], exampleSub: 140, blank: 9 },
+    blocks: [
+      { kv: QUOTE_DETAILS },
+      { heading: 'Scope of work', hint: 'What you will do and where: the room, the fittings you will replace or connect, and the finish you leave behind.', lines: 2 },
+      { heading: 'Price', items: { cols: [{ h: 'Description', w: 0.5 }, { h: 'Qty', w: 0.09, right: 1 }, { h: 'Unit', w: 0.11 }, { h: 'Rate (£)', w: 0.14, right: 1 }, { h: 'Amount (£)', w: 0.16, right: 1 }],
+        example: ['Example: Labour, replace kitchen mixer tap (fixed price)', '1', 'job', '140.00', '140.00'], blank: 6,
+        totals: ['Subtotal (excluding VAT)', 'VAT at 20% (only if VAT registered)', 'Total including VAT'] } },
+      { heading: 'Terms', terms: [
+        ['Call-out fee', '[£45] call-out fee, deducted from the price above if you accept this quote within [14] days.'],
+        ['Parts', 'Fittings and fixtures are listed above. Items the client supplies are fitted but not guaranteed by us.'],
+        ['Not included', '[Making good to tiles, plaster and decoration; removal of asbestos-containing material; electrical work.] Hidden faults found once pipes are exposed will be priced and agreed with you before any extra work.'],
+        ['Gas work', 'Gas work is done by a Gas Safe registered engineer. Registration number: [ ]. Certificates are given on completion where the law requires them.'],
+        ['Guarantee', '[12] months on workmanship from the completion date. Manufacturer guarantees apply to parts.'],
+        ['Payment and validity', 'Payment [on completion] by bank transfer or card. Valid for [30] days from the date above.']] },
+      { heading: 'Acceptance', sign: ACCEPT }
+    ]
+  },
+  builder: {
+    file: 'builder-quote-template', docTitle: 'Builder quote template (UK)', subtitle: 'Builder and building work quote template, UK (prices in GBP)',
+    taxNumber: 'VAT reg. no.: [if registered]   CIS / UTR: [if applicable]', url: 'getquotationmaker.com/quote-template-builder', currency: '£', taxName: 'VAT', taxRate: 0.2,
+    xlsx: { heads: ['Stage / description', 'Qty', 'Unit', 'Rate', 'Amount'], example: ['Example: Groundworks and foundations', 1, 'sum', 7800], exampleSub: 7800, blank: 9 },
+    blocks: [
+      { kv: QUOTE_DETAILS },
+      { heading: 'Project summary', hint: 'What is being built, where, the planned start date, the length of the job and who handles planning and building control.', lines: 2 },
+      { heading: 'Price by stage', items: { cols: [{ h: 'Stage / description', w: 0.5 }, { h: 'Qty', w: 0.09, right: 1 }, { h: 'Unit', w: 0.11 }, { h: 'Rate (£)', w: 0.14, right: 1 }, { h: 'Amount (£)', w: 0.16, right: 1 }],
+        example: ['Example: Groundworks and foundations', '1', 'sum', '7,800.00', '7,800.00'], blank: 6,
+        totals: ['Subtotal (excluding VAT)', 'VAT at [20]% (see the VAT term below)', 'Total including VAT'] } },
+      { heading: 'Provisional and prime cost sums', items: { cols: [{ h: 'Allowance (P = provisional, PC = prime cost)', w: 0.6 }, { h: 'Type', w: 0.1 }, { h: 'Allowance (£)', w: 0.15, right: 1 }, { h: 'Final price', w: 0.15, right: 1 }],
+        example: ['Example: Drainage alterations, subject to survey', 'P', '1,500.00', 'to be confirmed'], blank: 2 } },
+      { heading: 'Payment schedule', items: { cols: [{ h: 'Stage', w: 0.5 }, { h: '% of total', w: 0.16, right: 1 }, { h: 'Amount (£)', w: 0.17, right: 1 }, { h: 'Due', w: 0.17 }],
+        example: ['Example: On acceptance, to book the start date', '10%', '780.00', 'On acceptance'], blank: 4 } },
+      { heading: 'Terms', terms: [
+        ['Not included', '[Planning and building control fees, structural engineer, party wall costs, kitchen and bathroom supply, decoration.]'],
+        ['Variations', 'Any change to the work above is priced and agreed in writing before it is carried out, with the effect on the end date.'],
+        ['VAT', 'VAT is shown at the rate that applies to this work. Where the domestic reverse charge for building services applies, we do not charge VAT and the invoice says so.'],
+        ['Start and duration', 'Start: [date]. Expected duration: [x weeks], depending on weather, access and decisions on provisional and prime cost items.'],
+        ['Validity', 'Valid for [30] days from the date above.']] },
+      { heading: 'Acceptance', sign: ACCEPT }
+    ]
+  },
+  labour: {
+    file: 'labour-quotation-template', docTitle: 'Labour quotation template', subtitle: 'Labour-only quotation format (any currency)',
+    taxNumber: 'Tax / registration no.: [if applicable]', url: 'getquotationmaker.com/labour-quotation-format', currency: '', taxName: 'Tax', taxRate: 0,
+    xlsx: { heads: ['Task (labour only)', 'Qty', 'Unit', 'Rate', 'Amount'], example: ['Example: Floor tiling, labour only', 38, 'sq m', 24], exampleSub: 912, blank: 9 },
+    blocks: [
+      { kv: QUOTE_DETAILS },
+      { heading: 'Scope of labour', hint: 'The tasks in plain words, the area or rooms, and the planned start date. Say this quotation is for labour only.', lines: 2 },
+      { heading: 'Labour price', items: { cols: [{ h: 'Task (labour only)', w: 0.5 }, { h: 'Qty', w: 0.09, right: 1 }, { h: 'Unit', w: 0.11 }, { h: 'Rate', w: 0.14, right: 1 }, { h: 'Amount', w: 0.16, right: 1 }],
+        example: ['Example: Floor tiling, labour only', '38', 'sq m', '24.00', '912.00'], blank: 6, totals: ['Subtotal', 'Tax at [__]% (only if registered)', 'Total'] } },
+      { heading: 'Terms', terms: [
+        ['Materials and tools', 'Labour only. Materials, consumables, scaffolding, power and water are supplied by [the client] and must be on site before work starts.'],
+        ['Quantities', 'Quantities are estimated from [the drawings / a site visit]. The final bill uses measured quantities at the rates above.'],
+        ['Working time', '[8] hours a day, [Monday to Saturday]. Overtime and Sunday work at [1.5] times the rate. Number of workers: [ ].'],
+        ['Waiting time', 'If work is held up because materials or access are not ready, waiting time is charged at the day rate of [ ].'],
+        ['Not included', '[Hidden defects, work by other trades, work at height above [ ] metres, extra visits.] Extra work is priced and agreed in writing before it starts.'],
+        ['Payment', '[20]% in advance, running bills for work measured to date, the balance on completion.'],
+        ['Validity', 'This quotation is valid for [30] days from the date above.']] },
+      { heading: 'Acceptance', sign: ACCEPT }
+    ]
+  },
+  itsupport: {
+    file: 'it-support-quote-template', docTitle: 'IT support quote template', subtitle: 'IT support quote template: projects and monthly support (prices in GBP)',
+    taxNumber: 'VAT reg. no.: [if registered]', url: 'getquotationmaker.com/quote-template-it-support', currency: '£', taxName: 'VAT', taxRate: 0.2,
+    xlsx: { heads: ['Service', 'Qty', 'Unit', 'Rate', 'Amount'], example: ['Example: Monthly support, per user per month', 12, 'month', 25], exampleSub: 300, blank: 9 },
+    blocks: [
+      { kv: [['Quote no.', 'Q-[0001]'], ['Date', '[DD/MM/YYYY]'], ['Client', '[Company name]'], ['Valid until', '[DD/MM/YYYY]'], ['Contact', '[Name, email]'], ['Number of users / devices', '[ ] users, [ ] devices']] },
+      { heading: 'Scope', hint: 'What is covered: the systems, the sites and the users. Say what the client has now and what changes.', lines: 2 },
+      { heading: 'One-off work and licences', items: { cols: [{ h: 'Service', w: 0.5 }, { h: 'Qty', w: 0.09, right: 1 }, { h: 'Unit', w: 0.11 }, { h: 'Rate (£)', w: 0.14, right: 1 }, { h: 'Amount (£)', w: 0.16, right: 1 }],
+        example: ['Example: Set up a new laptop, install, configure, migrate data', '6', 'device', '85.00', '510.00'], blank: 4,
+        totals: ['Subtotal (excluding VAT)', 'VAT at 20% (only if VAT registered)', 'Total including VAT'] } },
+      { heading: 'Monthly support', items: { cols: [{ h: 'Service', w: 0.5 }, { h: 'Qty', w: 0.09, right: 1 }, { h: 'Unit', w: 0.11 }, { h: 'Rate (£)', w: 0.14, right: 1 }, { h: 'Per month (£)', w: 0.16, right: 1 }],
+        example: ['Example: Support per user, remote help desk and monitoring', '12', 'user', '25.00', '300.00'], blank: 2 } },
+      { heading: 'Support terms', terms: [
+        ['Support hours', '[Monday to Friday, 9:00 to 17:30, excluding public holidays]. Out-of-hours work is billed at [1.5] times the hourly rate.'],
+        ['Response times', 'Urgent (a user or system is down): within [1 hour]. Normal: within [4 working hours]. Request: within [1 working day].'],
+        ['Included', '[Remote help desk, patching, backups checked weekly, account changes for joiners and leavers.]'],
+        ['Not included', '[On-site visits, new hardware, project work, problems caused by third-party software the client chooses to install.] These are quoted separately.'],
+        ['Licences', 'Software and cloud licences are billed [at cost / with a handling fee of x%] and stay in the client\'s name.'],
+        ['Term', '[12]-month term, then rolling monthly. [30] days notice to cancel after the first term.']] },
+      { heading: 'Acceptance', sign: ACCEPT }
+    ]
   }
 };
 
@@ -260,20 +345,20 @@ async function buildXlsx(key, cfg) {
     set('E' + r, 15, { font: f(), fill: INPUT, border: box, numFmt: money }); const sh = r; r++;
     subRefs = ['E' + ps, 'E' + ls, 'E' + sh];
   } else {
-    const heads = key === 'painting' ? ['Room / area and surfaces', 'Qty', 'Coats', 'Rate', 'Amount'] : ['Description', 'Qty', 'Unit', 'Rate', 'Amount'];
-    const ex = key === 'tradesman' ? ['Example: Labour, install new kitchen units', 3, 'day', 320]
+    const heads = cfg.xlsx ? cfg.xlsx.heads : key === 'painting' ? ['Room / area and surfaces', 'Qty', 'Coats', 'Rate', 'Amount'] : ['Description', 'Qty', 'Unit', 'Rate', 'Amount'];
+    const ex = cfg.xlsx ? cfg.xlsx.example : key === 'tradesman' ? ['Example: Labour, install new kitchen units', 3, 'day', 320]
       : key === 'painting' ? ['Example: Living room, walls and ceiling, matt', 1, 2, 420]
         : ['Example: Drywall supply, hang and finish (sq ft)', 640, 'sq ft', 2.75];
-    const [a1, a2] = itemBlock(key === 'painting' ? 'Areas, surfaces and materials' : 'Price', heads, ex, 11);
+    const [a1, a2] = itemBlock(key === 'painting' ? 'Areas, surfaces and materials' : 'Price', heads, ex, cfg.xlsx ? cfg.xlsx.blank : 11);
     subRefs = ['SUM(E' + a1 + ':E' + a2 + ')'];
   }
   r++;
-  const exampleSub = key === 'auto' ? 275 : key === 'tradesman' ? 960 : key === 'painting' ? 420 : 1760;
-  const subRow = totalRow(key === 'tradesman' ? 'Subtotal (excl. VAT)' : 'Subtotal', subRefs.length > 1 ? subRefs.join('+') : subRefs[0], exampleSub);
-  set('B' + r, key === 'tradesman' ? 'VAT rate (0% if not VAT registered)' : cfg.taxName + ' rate', { font: f({ size: 9 }), alignment: { horizontal: 'right' } });
+  const exampleSub = cfg.xlsx ? cfg.xlsx.exampleSub : key === 'auto' ? 275 : key === 'tradesman' ? 960 : key === 'painting' ? 420 : 1760;
+  const subRow = totalRow(cfg.taxName === 'VAT' ? 'Subtotal (excl. VAT)' : 'Subtotal', subRefs.length > 1 ? subRefs.join('+') : subRefs[0], exampleSub);
+  set('B' + r, cfg.taxName === 'VAT' ? 'VAT rate (0% if not VAT registered)' : cfg.taxName + ' rate', { font: f({ size: 9 }), alignment: { horizontal: 'right' } });
   set('C' + r, cfg.taxRate, { font: f(), fill: INPUT, border: box, numFmt: '0%' });
   const taxRow = totalRow(cfg.taxName, 'E' + subRow + '*C' + r, exampleSub * cfg.taxRate);
-  totalRow(key === 'tradesman' ? 'Total incl. VAT' : 'Total', 'E' + subRow + '+E' + taxRow, exampleSub * (1 + cfg.taxRate), { bold: true });
+  totalRow(cfg.taxName === 'VAT' ? 'Total incl. VAT' : 'Total', 'E' + subRow + '+E' + taxRow, exampleSub * (1 + cfg.taxRate), { bold: true });
   r++;
 
   const terms = (cfg.blocks.find(b => b.terms) || {}).terms || [];
@@ -293,7 +378,10 @@ async function buildXlsx(key, cfg) {
 }
 
 (async () => {
+  // node scripts/build-templates.cjs plumber builder: build only the named templates (no names: build all)
+  const only = process.argv.slice(2);
   for (const [key, cfg] of Object.entries(T)) {
+    if (only.length && !only.includes(key)) continue;
     const buf = await Packer.toBuffer(buildDocx(cfg));
     fs.writeFileSync(path.join(OUT, cfg.file + '.docx'), buf);
     await buildXlsx(key, cfg);

@@ -1,18 +1,21 @@
 <%
 var c = country;
 var path = '/free-quote-generator-' + c.slug;
+var ld = [
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Quote generators by country', item: siteUrl + '/#templates' },
+    { '@type': 'ListItem', position: 3, name: c.fullName, item: siteUrl + path } ] }
+];
+// A rebuilt country page (c.local, c.faq: content/country-pages.js) also carries its FAQ as structured data.
+if (c.faq) ld.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: c.faq.map(function (f) { return { '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }; }) });
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <%- include('partials/head', { meta: {
   title: c.title, desc: c.desc, path: path, tool: true,
-  jsonld: [
-    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
-      { '@type': 'ListItem', position: 2, name: 'Quote generators by country', item: siteUrl + '/#templates' },
-      { '@type': 'ListItem', position: 3, name: c.fullName, item: siteUrl + path } ] }
-  ] } }) %>
+  jsonld: ld } }) %>
 </head>
 <body>
 <%- include('partials/nav') %>
@@ -39,6 +42,10 @@ var path = '/free-quote-generator-' + c.slug;
     </table>
     <p class="src">Last checked <%= factsChecked %>. Tax rules change and can depend on what you sell; check with the tax authority or an accountant for your situation.</p>
     <%- c.tips %>
+    <%_ if (c.local) { _%>
+    <%- c.local %>
+    <p class="src">The rules in this section were checked on <%= c.checked %> on the official pages linked beside them. Tax rules change and can depend on what you sell; check with the tax authority or an accountant for your situation.</p>
+    <%_ } _%>
     <h2>What to include on your quote</h2>
     <ul>
       <li>Your business name, address and contact details, and your tax or registration number if you have one</li>
@@ -51,6 +58,13 @@ var path = '/free-quote-generator-' + c.slug;
     <p>Then send it with one of our <a href="/how-to-send-a-quote-to-a-client">quote email templates</a>.</p>
   </div>
 </main>
+
+<%_ if (c.faq) { _%>
+<section class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Frequently asked questions</h2>
+  <% c.faq.forEach(function (f) { %><details><summary><%= f.q %></summary><p><%= f.a %></p></details><% }) %>
+</section>
+<%_ } _%>
 
 <section class="links-sec">
   <h2>Quote generators for other countries</h2>
