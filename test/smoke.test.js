@@ -59,7 +59,7 @@ test('SEO agent pages carry their title, description and FAQ', async () => {
 // sends "confirm a quotation" readers to the confirmation guide and "email a quote" readers to the email guide.
 test('acceptance, revision and confirmation pages: search-result lengths and cross links', async () => {
   const pages = {
-    '/blog/quote-acceptance-rate-tips': 'Quote Acceptance: Wording to Copy and 9 Ways to Win More',
+    '/blog/quote-acceptance-rate-tips': 'Improve Your Quote Acceptance Rate: 9 Ways to Win More',
     '/quote-acceptance-template': 'Quote Acceptance Wording: 9 Templates to Accept a Quotation',
     '/revised-quotation': 'Revised Quotation: Meaning, Format and Email Templates'
   };
