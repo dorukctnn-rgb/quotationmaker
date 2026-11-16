@@ -175,13 +175,19 @@
     "keyword": "revised quotation meaning",
     "targetPath": "/revised-quotation",
     "status": "observing",
-    "nextReviewDate": "2026-11-10",
+    "nextReviewDate": "2026-11-30",
     "actions": [
       {
         "date": "2026-10-27",
         "rankAtAction": 7.4,
         "needs": "173 impressions, 1 click; \"revised quotation meaning\" and its variants 29 impressions at positions 8 to 10",
         "done": "Title \"Revised Quotation: Meaning, Format and Email Templates\"; description says what a revised quotation is. Page text already defines it"
+      },
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 8.7,
+        "needs": "GSC 17 Oct-13 Nov: 1,059 impressions, 6 clicks, position 7.2 (\"revised quotation meaning\" 151 at 8.7, \"revised quotation\" 143 at 8.4, \"revised quote\" 104 at 6.9)",
+        "done": "Title now answers the meaning query (\"Revised Quotation: What It Means and How to Send One\"), description defines it, H1 and first sentence say what a revised quotation is. Judge on 14 days of CTR for these queries (28 Nov), not rank"
       }
     ]
   },
@@ -224,6 +230,104 @@
         "rankAtAction": 48.2,
         "needs": "GSC 28 days to 25 Oct: 111 impressions, 0 clicks, position 48.2. \"how to provide a quote for services\" 21 (80.6), \"how to set up a quote template\" 12 (76), \"how to write a quotation\" 7 (63.4) matched no heading or answer on the page",
         "done": "Three FAQs answering those queries directly (FAQPage schema carries them), related links to the contractor and web design templates, link from the VAT guide (position 4.7). Title and description unchanged"
+      }
+    ]
+  },
+  {
+    "keyword": "confirmed quotation",
+    "targetPath": "/quotation-confirmation",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 8.1,
+        "needs": "GSC: \"confirmed quotation\" 29 at 8.1, \"confirmation of quotation\" 29 at 10.9, \"confirm quotation\" 27 at 11.1, 0 clicks; the title said \"Quotation Confirmation\"",
+        "done": "Title and H1 lead with \"Confirmed quotation: meaning and how to confirm\"; description gives the definition. Page body untouched"
+      }
+    ]
+  },
+  {
+    "keyword": "do quotes include vat",
+    "targetPath": "/blog/vat-on-quotes-explained",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 4.8,
+        "needs": "GSC: 921 impressions, 13 clicks (1.4%) at position 4.8",
+        "done": "Title \"Do Quotes Include VAT? UK Rules and How to Show VAT\"; description now opens with the answer (silent price is VAT-inclusive, VAT Act 1994 s.19(2)). Body untouched"
+      }
+    ]
+  },
+  {
+    "keyword": "hvac quote template",
+    "targetPath": "/quote-template-hvac",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 21.5,
+        "needs": "GSC: \"hvac quote template\" 86 at 21.5, \"hvac quote template pdf\" 35 at 25.7, 0 clicks; title and description were the same boilerplate on every trade page",
+        "done": "Own title (\"HVAC Quote Template: Free PDF with Example Quote\"), own description from what the example holds, H1 names the example"
+      }
+    ]
+  },
+  {
+    "keyword": "electrical quote template",
+    "targetPath": "/quote-template-electrician",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 18.9,
+        "needs": "GSC: \"electrical quote template\" 65 at 18.9, \"electrical quotation template\" 35 at 29.7; the page said \"electrician\" only",
+        "done": "Title, H1 and description use \"electrical quote template\" and say what the example itemises"
+      }
+    ]
+  },
+  {
+    "keyword": "graphic design quote template",
+    "targetPath": "/quote-template-graphic-designer",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 18.5,
+        "needs": "GSC: \"graphic design quote template\" 32 at 18.5, \"graphic design quotation sample\" 23 at 19.2, \"graphic design quotation format\" 22 at 15.5",
+        "done": "Title, H1 and description add \"sample quotation\" and \"format\" and say what the example holds"
+      }
+    ]
+  },
+  {
+    "keyword": "flooring quote template",
+    "targetPath": "/quote-template-flooring",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 13.9,
+        "needs": "GSC: \"flooring quote template\" 43 at 13.9, 0 clicks",
+        "done": "Own title and description (measured area, underlay, subfloor preparation, uplift); H1 names the example"
+      }
+    ]
+  },
+  {
+    "keyword": "cleaning quote template free",
+    "targetPath": "/quote-template-cleaner",
+    "status": "observing",
+    "nextReviewDate": "2026-11-30",
+    "actions": [
+      {
+        "date": "2026-11-16",
+        "rankAtAction": 7.6,
+        "needs": "GSC: \"cleaning quote template free\" 14 at 7.6, \"cleaning quote template pdf\" 3 at 5.7, 0 clicks",
+        "done": "Title and H1 start with \"Free cleaning quote template\" and say it is for cleaning services; description lists the pricing bases"
       }
     ]
   }

@@ -49,17 +49,27 @@ const PROFESSIONS = [
   { slug: 'painter', label: 'Painters & decorators', name: 'Painting' },
   { slug: 'mechanic', label: 'Auto repair & mechanics', name: 'Auto Repair' },
   { slug: 'plumber', label: 'Plumbers', name: 'Plumber', intro: 'Quote plumbing jobs with the call-out fee, labour, parts and any VAT on separate lines, plus a guarantee and validity date.' },
-  { slug: 'electrician', label: 'Electricians', name: 'Electrician', intro: 'Quote electrical work point by point, with testing and certification, making good and exclusions spelled out.' },
+  { slug: 'electrician', label: 'Electricians', name: 'Electrician', intro: 'Quote electrical work point by point, with testing and certification, making good and exclusions spelled out.',
+    title: 'Electrical Quote Template for Electricians (Free PDF)', seoH1: 'Electrical quote template for electricians',
+    seoDesc: 'Free electrical quote template: itemise testing and certification, making good and exclusions. Load the example, edit it online and download a PDF.', seoUpdated: '2026-11-16' },
   { slug: 'builder', label: 'Builders', name: 'Builder', intro: 'Quote building and extension work by stage, with provisional sums, exclusions and a stage payment schedule.' },
   { slug: 'consultant', label: 'Consultants', name: 'Consulting', intro: 'Quote consulting work by deliverable, with day rates or fixed fees, expenses, assumptions and payment terms.',
     title: 'Consulting Quote Template & Sample Quotation (Free PDF)' },
   { slug: 'web-designer', label: 'Web designers', name: 'Web Design', intro: 'Quote web projects by milestone: discovery, design rounds, development, content and launch, with exclusions and ongoing costs.' },
   { slug: 'photographer', label: 'Photographers', name: 'Photography', intro: 'Quote shoots with coverage hours, editing, deliverables, licence terms, travel and the booking fee.' },
-  { slug: 'graphic-designer', label: 'Graphic designers', name: 'Graphic Design', intro: 'Quote design projects with deliverables, concepts, revision rounds, file formats and usage rights.' },
+  { slug: 'graphic-designer', label: 'Graphic designers', name: 'Graphic Design', intro: 'Quote design projects with deliverables, concepts, revision rounds, file formats and usage rights.',
+    title: 'Graphic Design Quote Template and Sample Quotation', seoH1: 'Graphic design quote template and sample quotation',
+    seoDesc: 'Graphic design quotation sample and format: deliverables, concepts, revision rounds, file formats and usage rights. Edit online and download a PDF.', seoUpdated: '2026-11-16' },
   { slug: 'landscaper', label: 'Landscapers', name: 'Landscaping', intro: 'Quote landscaping with materials by quantity, labour, machinery, waste removal and aftercare.' },
-  { slug: 'cleaner', label: 'Cleaning services', name: 'Cleaning', intro: 'Quote one-off and regular cleans by the hour, per visit or per area, with frequency, supplies and cancellation terms.' },
-  { slug: 'hvac', label: 'HVAC technicians', name: 'HVAC', intro: 'Quote HVAC installs and repairs with equipment model and capacity, installation, permits, warranties and maintenance options.' },
-  { slug: 'flooring', label: 'Flooring installers', name: 'Flooring', intro: 'Quote flooring by measured area, with materials, underlay, subfloor preparation, finishing and uplift of the old floor.' },
+  { slug: 'cleaner', label: 'Cleaning services', name: 'Cleaning', intro: 'Quote one-off and regular cleans by the hour, per visit or per area, with frequency, supplies and cancellation terms.',
+    title: 'Free Cleaning Quote Template for Cleaning Services (PDF)', seoH1: 'Free cleaning quote template for cleaning services',
+    seoDesc: 'Free cleaning quote template: quote one-off and regular cleans by the hour, visit or area, with supplies and cancellation terms. Download a PDF.', seoUpdated: '2026-11-16' },
+  { slug: 'hvac', label: 'HVAC technicians', name: 'HVAC', intro: 'Quote HVAC installs and repairs with equipment model and capacity, installation, permits, warranties and maintenance options.',
+    title: 'HVAC Quote Template: Free PDF with Example Quote', seoH1: 'HVAC quote template with an example quote',
+    seoDesc: 'Free HVAC quote template with an example: equipment model and capacity, installation, permits, warranty and maintenance. Edit online, download a PDF.', seoUpdated: '2026-11-16' },
+  { slug: 'flooring', label: 'Flooring installers', name: 'Flooring', intro: 'Quote flooring by measured area, with materials, underlay, subfloor preparation, finishing and uplift of the old floor.',
+    title: 'Flooring Quote Template: Free Example and PDF Download', seoH1: 'Flooring quote template with an example quote',
+    seoDesc: 'Free flooring quote template: price by measured area, with materials, underlay, subfloor preparation and uplift of the old floor. Edit and download a PDF.', seoUpdated: '2026-11-16' },
   { slug: 'it-support', label: 'IT support', name: 'IT Support', intro: 'Quote IT setup, migrations and monthly support per user or device, with licences and support hours stated.' },
   { slug: 'architect', label: 'Architects', name: 'Architecture', intro: 'Quote architectural fees stage by stage, with deliverables, revision rounds and third-party fees excluded.' },
   { slug: 'wedding-planner', label: 'Wedding planners', name: 'Wedding Planning', intro: 'Quote wedding planning packages with meetings, supplier management, on-the-day staff and a retainer schedule.' },
@@ -71,14 +81,14 @@ PROFESSIONS.forEach(p => {
   Object.assign(p, extra || {});
   p.path = '/quote-template-' + p.slug;
   if (!extra) {
-    p.h1 = p.name + ' quote template';
+    p.h1 = p.seoH1 || p.name + ' quote template';
     p.title = p.title || p.name + ' Quote Template (Free PDF, No Signup)';
-    p.desc = 'Free ' + p.name.toLowerCase() + ' quote template: fill it in online with a ready-made example, add tax and terms, and download a professional PDF. No signup.';
+    p.desc = p.seoDesc || 'Free ' + p.name.toLowerCase() + ' quote template: fill it in online with a ready-made example, add tax and terms, and download a professional PDF. No signup.';
     p.lead = p.intro + ' Load the example below, change the details and download a PDF.';
     p.guide = (PROFESSION_GUIDES[p.slug] || '') + (SHORT_GUIDES[p.slug] || '');
     p.presetButtons = PRESETS[p.slug] ? [{ key: p.slug, label: 'Example ' + p.name.toLowerCase() + ' quote' }] : [];
     p.heroCta = PRESETS[p.slug] ? { preset: p.slug, label: 'Load an example ' + p.name.toLowerCase() + ' quote' } : null;
-    p.updated = UPDATED;
+    p.updated = p.seoUpdated || UPDATED;
   }
 });
 // Trade pages rebuilt through the SEO agent: the entry replaces the page's own text and examples. The slug, label and
@@ -99,7 +109,7 @@ const BLOG_POSTS = [
   { slug: 'how-to-write-a-professional-quote', title: 'How to Write a Professional Quote: Steps and Wording to Copy', h1: 'How to write a professional quote', desc: 'Write a quote a client can say yes to: the eight parts in order, wording to copy for scope, exclusions, changes, payment and acceptance, and a before-and-after example.', date: '2026-01-10', updated: '2026-10-28', category: 'Guide' },
   { slug: 'how-to-price-a-job-quote', title: 'How to Price a Job Quote: Formula, Calculator and Example', h1: 'How to price a job quote', desc: 'Price a job from materials, labour, overheads and profit: a calculator that shows markup and margin, a worked example, and how to set an hourly rate that covers your costs.', date: '2026-01-26', updated: '2026-10-09', category: 'Pricing' },
   { slug: 'what-is-a-quotation-in-business', title: 'What Is a Quotation in Business? Meaning, Example and Types', h1: 'What is a quotation in business?', desc: 'A quotation is a written offer to supply work or goods at a stated price. See an annotated example, quote vs estimate vs pro forma vs invoice, and when it binds.', date: '2026-02-03', updated: '2026-10-09', category: 'Guide' },
-  { slug: 'vat-on-quotes-explained', title: 'Do Quotes Include VAT? How to Show VAT on a UK Quote', h1: 'VAT on quotes: when to add it and how to show it', desc: 'If a quote does not mention VAT, the price counts as including it. When to add VAT, how to show it on a UK quote, and wording to copy.', date: '2026-03-06', updated: '2026-10-09', category: 'Tax' }
+  { slug: 'vat-on-quotes-explained', title: 'Do Quotes Include VAT? UK Rules and How to Show VAT', h1: 'VAT on quotes: when to add it and how to show it', desc: 'A quote that says nothing about VAT is read as VAT-inclusive (VAT Act 1994, s.19(2)). When to add VAT, how to show it on a UK quote, and wording to copy.', date: '2026-03-06', updated: '2026-10-09', category: 'Tax' }
 ];
 // Content is either an HTML string or an object with content plus answer, toc, faq, cta and related.
 const withContent = (p, c) => { if (typeof c === 'string') p.content = c; else Object.assign(p, c || {}, { content: (c && c.content) || '' }); };
@@ -127,7 +137,7 @@ HOW_TO_PAGES.push(...SEO_PAGES.filter(s => s.view === 'how-to'));
 // Pages and their last meaningful update, for the sitemap.
 function sitemapEntries() {
   const e = [{ loc: '/', lastmod: UPDATED }, { loc: '/blog', lastmod: UPDATED }];
-  PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: p.custom ? p.updated : UPDATED }));
+  PROFESSIONS.forEach(p => e.push({ loc: p.path, lastmod: p.seoUpdated || (p.custom ? p.updated : UPDATED) }));
   EXTRA_TRADES.forEach(p => e.push({ loc: p.path, lastmod: p.updated }));
   GUIDE_PAGES.forEach(p => e.push({ loc: '/' + p.slug, lastmod: p.updated }));
   COUNTRIES.forEach(c => e.push({ loc: '/free-quote-generator-' + c.slug, lastmod: c.updated || UPDATED }));
