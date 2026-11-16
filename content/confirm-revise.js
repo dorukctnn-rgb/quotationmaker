@@ -21,13 +21,13 @@ function fillBox(id, label, fields) {
 
 const CONFIRMATION = {
   slug: 'quotation-confirmation',
-  title: 'Quotation Confirmation: Meaning, Steps and Email Templates',
-  h1: 'How to confirm a quotation, and what happens next',
-  desc: 'What a confirmed quotation means for buyer and supplier, the steps from accepted quote to confirmed order, and confirmation emails to fill in and copy.',
+  title: 'Confirmed Quotation: Meaning and How to Confirm a Quote',
+  h1: 'Confirmed quotation: what it means and how to confirm one',
+  desc: 'A confirmed quotation is a quote the customer accepted in writing and the supplier acknowledged as an order. The steps, and emails to fill in and copy.',
   lead: 'A quotation is confirmed when the customer has accepted it in writing and the supplier has confirmed the order on the quoted terms. This guide covers both sides: what each message should say, purchase orders, confirming part of a quote or with conditions, and emails you fill in once and copy.',
   breadcrumb: 'Quotation confirmation',
   published: '2026-10-17',
-  updated: '2026-10-17',
+  updated: '2026-11-16',
   jump: ['templates', 'Fill in a confirmation email'],
   script: '/fill-templates.js',
   answer: `<p><strong>The short answer:</strong> a confirmed quotation is a quote the customer has accepted in writing and the supplier has acknowledged as an order. The customer confirms by replying to the quote, signing it or sending a purchase order that names the quote number, its date and the total. The supplier then sends an order confirmation that repeats those details and gives the next step, such as the deposit invoice or the start date. From then on the quote is the agreed price and scope, and any change is priced and agreed separately.</p>
@@ -267,13 +267,13 @@ const REVISION_PRESETS = {
 
 const REVISED = {
   slug: 'revised-quotation',
-  title: 'Revised Quotation: Meaning, Format and Email Templates',
-  h1: 'How to write and send a revised quotation',
-  desc: 'A revised quotation is a new version of a quote you already sent. What it means, how to number and date it, show what changes and email it.',
-  lead: 'Change the quote without losing track of it: the same quote number with a revision, new dates, a line saying which version it replaces and a short list of what changed. Below: a worked example, emails you fill in once and copy, and the quote maker with both versions of the example.',
+  title: 'Revised Quotation: What It Means and How to Send One',
+  h1: 'Revised quotation: what it means and how to write one',
+  desc: 'A revised quotation is an updated version of a quote you already sent, with the same number plus a revision. Numbering, an example and emails to copy.',
+  lead: 'A revised quotation updates a quote you have already sent. Keep the same quote number and add a revision, new dates, a line saying which version it replaces and a short list of what changed. Below: a worked example, emails you fill in once and copy, and the quote maker with both versions of the example.',
   breadcrumb: 'Revised quotation',
   published: '2026-10-17',
-  updated: '2026-10-17',
+  updated: '2026-11-16',
   jump: ['templates', 'Fill in a revised quotation email'],
   heroLabel: 'Open the revised example in the quote maker',
   heroHref: '?preset=revision-v2#qtTool',

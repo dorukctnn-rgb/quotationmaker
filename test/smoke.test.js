@@ -61,7 +61,14 @@ test('acceptance, revision and confirmation pages: search-result lengths and cro
   const pages = {
     '/blog/quote-acceptance-rate-tips': 'Improve Your Quote Acceptance Rate: 9 Ways to Win More',
     '/quote-acceptance-template': 'Quote Acceptance Wording: 9 Templates to Accept a Quotation',
-    '/revised-quotation': 'Revised Quotation: Meaning, Format and Email Templates'
+    '/revised-quotation': 'Revised Quotation: What It Means and How to Send One',
+    '/quotation-confirmation': 'Confirmed Quotation: Meaning and How to Confirm a Quote',
+    '/blog/vat-on-quotes-explained': 'Do Quotes Include VAT? UK Rules and How to Show VAT',
+    '/quote-template-hvac': 'HVAC Quote Template: Free PDF with Example Quote',
+    '/quote-template-electrician': 'Electrical Quote Template for Electricians (Free PDF)',
+    '/quote-template-graphic-designer': 'Graphic Design Quote Template and Sample Quotation',
+    '/quote-template-flooring': 'Flooring Quote Template: Free Example and PDF Download',
+    '/quote-template-cleaner': 'Free Cleaning Quote Template for Cleaning Services (PDF)'
   };
   for (const [path, title] of Object.entries(pages)) {
     const { body } = await get(path);
