@@ -73,7 +73,9 @@ const PROFESSIONS = [
   { slug: 'it-support', label: 'IT support', name: 'IT Support', intro: 'Quote IT setup, migrations and monthly support per user or device, with licences and support hours stated.' },
   { slug: 'architect', label: 'Architects', name: 'Architecture', intro: 'Quote architectural fees stage by stage, with deliverables, revision rounds and third-party fees excluded.' },
   { slug: 'wedding-planner', label: 'Wedding planners', name: 'Wedding Planning', intro: 'Quote wedding planning packages with meetings, supplier management, on-the-day staff and a retainer schedule.' },
-  { slug: 'personal-trainer', label: 'Personal trainers', name: 'Personal Training', intro: 'Quote training blocks with session length, assessments, programmes, rescheduling policy and payment.' }
+  { slug: 'personal-trainer', label: 'Personal trainers', name: 'Personal Training', intro: 'Quote training blocks with session length, assessments, programmes, rescheduling policy and payment.' },
+  // 17 Nov 2026: the page text comes from content/seo-pages.json (seo-ajani ticket qm-handyman-quote-template); the entry here puts it in the shared trade lists
+  { slug: 'handyman', label: 'Handymen', name: 'Handyman', intro: 'Quote odd jobs by the job, by the hour or by the day, with materials, a call-out minimum and what is not included.' }
 ];
 const PRESET_FOR = { contractor: 'tradesman-uk', painter: 'painting-interior-uk', mechanic: 'auto-brakes' };
 PROFESSIONS.forEach(p => {
