@@ -75,7 +75,9 @@ const PROFESSIONS = [
   { slug: 'wedding-planner', label: 'Wedding planners', name: 'Wedding Planning', intro: 'Quote wedding planning packages with meetings, supplier management, on-the-day staff and a retainer schedule.' },
   { slug: 'personal-trainer', label: 'Personal trainers', name: 'Personal Training', intro: 'Quote training blocks with session length, assessments, programmes, rescheduling policy and payment.' },
   // 17 Nov 2026: the page text comes from content/seo-pages.json (seo-ajani ticket qm-handyman-quote-template); the entry here puts it in the shared trade lists
-  { slug: 'handyman', label: 'Handymen', name: 'Handyman', intro: 'Quote odd jobs by the job, by the hour or by the day, with materials, a call-out minimum and what is not included.' }
+  { slug: 'handyman', label: 'Handymen', name: 'Handyman', intro: 'Quote odd jobs by the job, by the hour or by the day, with materials, a call-out minimum and what is not included.' },
+  // 18 Nov 2026: the page text comes from content/seo-pages.json (seo-ajani ticket qm-carpentry-quote-template); the entry here puts it in the shared trade lists
+  { slug: 'carpentry', label: 'Carpenters', name: 'Carpentry', intro: 'Quote carpentry and joinery by the item, the metre or the day, with who supplies the timber and hardware, the finish and what is not included.' }
 ];
 const PRESET_FOR = { contractor: 'tradesman-uk', painter: 'painting-interior-uk', mechanic: 'auto-brakes' };
 PROFESSIONS.forEach(p => {
