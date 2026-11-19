@@ -187,6 +187,27 @@ test('a note is only ever one of the five short fields, with no ? or # in the pa
   assert.strictEqual(odd.notes()[0].p, '', 'an address that is not plain letters, digits and - _ . / is sent empty');
 });
 
+test('the quote tool\'s four notes go out through track(): the same five fields, the word as the place, and no other event name gets through', () => {
+  const r = load({ referrer: 'https://www.google.com/', pathname: '/free-quote-generator-uk' });
+  assert.strictEqual(typeof r.api.track, 'function');
+  for (const [e, w] of [['pdf_download', 'free'], ['pdf_download', 'pro'], ['logo_upload', 'free'], ['paywall_shown', 'dialog'], ['paywall_pro_click', 'bar']]) r.api.track(e, w);
+  r.api.track('paywall_shown');                 // no word: sent with an empty place
+  r.api.track('pdf_download', 'Buy Pro now!');  // free text is not a place word: sent empty
+  for (const bad of ['view', 'click', 'purchase', '', undefined, '__proto__', 'PDF_DOWNLOAD ']) r.api.track(bad, 'x');
+  const notes = r.notes().slice(1);              // the first is the page view
+  assert.deepStrictEqual(notes.map(n => [n.e, n.w]), [['pdf_download', 'free'], ['pdf_download', 'pro'], ['logo_upload', 'free'], ['paywall_shown', 'dialog'], ['paywall_pro_click', 'bar'], ['paywall_shown', ''], ['pdf_download', '']]);
+  for (const n of notes) {
+    assert.deepStrictEqual(Object.keys(n), ['e', 't', 'p', 'w', 's']);
+    assert.deepStrictEqual([n.t, n.p, n.s], ['quotationmaker', '/free-quote-generator-uk', 'google']);
+  }
+  assert.strictEqual(r.cookieReads(), 0);
+});
+test('the quote tool\'s notes are as silent as the others: not from another host, not under automation, and a failing send never throws', () => {
+  for (const host of ['localhost', 'evil.example', 'www.getquotationmaker.com.evil.example']) { const r = load({ host }); r.api.track('pdf_download', 'free'); assert.strictEqual(r.calls.length, 0, host); }
+  const bot = load({ webdriver: true }); bot.api.track('pdf_download', 'free'); assert.strictEqual(bot.calls.length, 0);
+  for (const net of ['fetch-throws', 'fetch-rejects', 'none']) assert.doesNotThrow(() => load({ net }).api.track('logo_upload', 'free'), net);
+});
+
 test('nothing is sent from another host, from a browser under automation, or from a page that is only prerendered or hidden until it is shown', () => {
   for (const host of ['localhost', '127.0.0.1', 'evil.example', 'www.getquotationmaker.com.evil.example', 'notgetquotationmaker.com', 'peakappsstudio.com']) {
     const r = load({ host });
@@ -244,8 +265,10 @@ test('the Worker\'s own note check accepts every note the script sends, unchange
   const r = load({ referrer: 'https://www.pinterest.com/' });
   clickOn(r, link(PRO, { box: { tagName: 'SECTION', id: 'pricing' } }));
   const direct = load({ referrer: 'https://www.getquotationmaker.com/x' });
-  const all = [...r.notes(), ...direct.notes()];
-  assert.strictEqual(all.length, 3);
+  const tool = load({ referrer: 'https://www.bing.com/' });
+  for (const [e, w] of [['pdf_download', 'free'], ['pdf_download', 'pro'], ['logo_upload', 'pro'], ['paywall_shown', 'after'], ['paywall_pro_click', 'invoice'], ['paywall_pro_click', 'dialog']]) tool.api.track(e, w);
+  const all = [...r.notes(), ...direct.notes(), ...tool.notes()];
+  assert.strictEqual(all.length, 3 + 7);
   for (const n of all) assert.deepStrictEqual(cleanNote(n), n, JSON.stringify(n));
 });
 test('the script, the Worker and its deploy file point at each other', () => {
@@ -319,7 +342,7 @@ test('the script is served from the site, and the privacy page says what the cou
   assert.match(pr, /kept for up to 400 days/);
   assert.ok(!/no analytics/i.test(pr), 'the old "no analytics" line is gone');
   const sm = (await get('/sitemap.xml')).body;
-  assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/privacy<\/loc><lastmod>2026-10-29<\/lastmod>/);
+  assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/privacy<\/loc><lastmod>2026-11-19<\/lastmod>/);
   assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/terms<\/loc><lastmod>2026-11-04<\/lastmod>/, 'the terms changed on 4 November 2026');
   assert.match(sm, /<loc>https:\/\/www\.getquotationmaker\.com\/refund<\/loc><lastmod>2026-11-04<\/lastmod>/);
 });

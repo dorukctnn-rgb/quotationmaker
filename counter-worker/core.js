@@ -1,9 +1,12 @@
 // The counting rules of the QuotationMaker counter (the Worker "qm-counter"). No cookies, no personal data, no IP address: the
 // only thing ever stored is a daily total for one combination of
-//   e  what happened   view (a page opened) or click (a Get Pro link was followed)
+//   e  what happened   view (a page opened), click (a Get Pro link was followed), or one of the quote tool's four notes:
+//                      pdf_download (a PDF was made; w is free or pro), logo_upload (a logo was chosen; w is free or pro),
+//                      paywall_shown (a Pro offer was on screen; w is dialog, after, bar, invoice or logo) and
+//                      paywall_pro_click (the Get Pro button of that offer was pressed; w the same word)
 //   t  the site        quotationmaker (and "selftest", the read script's own test note)
 //   p  the page        the address path only, never a query or a #
-//   w  where           which part of the page the button was in (empty for a view)
+//   w  where           which part of the page the button was in (empty for a view), or the one word the tool's notes carry
 //   s  the kind of site that sent the visitor: one of eight words, or empty when it is not known; never an address
 // These are the counting rules of the Pro-click counter of Peak Apps Tools (peak-tools funnel-worker/core.js) with a shorter event
 // list, a fixed list of sites and its own table name; the rest is the same, so a fix to one can be carried to the other.
@@ -11,7 +14,9 @@
 // CounterCore runs inside one Durable Object (SQLite) in production and on node:sqlite in the tests.
 // exec(sql, ...params) returns an array of row objects; txn(fn) runs fn atomically and returns its result.
 
-export const EVENTS = ['view', 'click'];
+// 19 Nov 2026: the last four are new. A Worker deployed before that answers them with 400 and counts nothing, so deploy this
+// file before the site that sends them (see the header of wrangler.jsonc).
+export const EVENTS = ['view', 'click', 'pdf_download', 'logo_upload', 'paywall_shown', 'paywall_pro_click'];
 export const SITES = ['quotationmaker', 'selftest']; // "selftest" is the read script's own test note, kept apart from the real counts
 export const SOURCES = ['google', 'bing', 'other-search', 'ai-assistant', 'pinterest', 'social', 'referral', 'direct'];
 export const MAX_BODY = 600;          // bytes of one note

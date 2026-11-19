@@ -9,7 +9,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { DatabaseSync } from 'node:sqlite';
 import { fileURLToPath } from 'node:url';
-import { windowOf, readCounter, readSales, isSale, isQuotationMakerPro, classOf, buildReport, formatReport } from '../read-lib.mjs';
+import { windowOf, readCounter, readSales, isSale, isQuotationMakerPro, classOf, buildReport, formatReport, funnelOf, TOOL_EVENTS } from '../read-lib.mjs';
 import { CounterCore, cleanNote } from '../core.js';
 import { handle } from '../handler.js';
 
@@ -95,6 +95,62 @@ test('the report puts views, clicks and the split by kind of site side by side p
   assert.equal(rep.gumroad, null);
 });
 
+// the quote tool's notes: views -> downloads -> offers shown -> offers pressed
+const TOOL_ROWS = [
+  { e: 'view', t: 'quotationmaker', p: '/free-quote-generator-uk', w: '', s: 'google', n: 200 },
+  { e: 'view', t: 'quotationmaker', p: '/quote-template-plumber', w: '', s: 'bing', n: 100 },
+  { e: 'pdf_download', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'free', s: 'google', n: 30 },
+  { e: 'pdf_download', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'pro', s: 'direct', n: 2 },
+  { e: 'pdf_download', t: 'quotationmaker', p: '/quote-template-plumber', w: 'free', s: 'bing', n: 10 },
+  { e: 'paywall_shown', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'dialog', s: 'google', n: 20 },
+  { e: 'paywall_shown', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'bar', s: 'google', n: 8 },
+  { e: 'paywall_shown', t: 'quotationmaker', p: '/quote-template-plumber', w: 'dialog', s: 'bing', n: 12 },
+  { e: 'paywall_shown', t: 'quotationmaker', p: '/quote-template-plumber', w: 'invoice', s: 'bing', n: 2 },
+  { e: 'paywall_pro_click', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'dialog', s: 'google', n: 3 },
+  { e: 'paywall_pro_click', t: 'quotationmaker', p: '/quote-template-plumber', w: 'bar', s: 'bing', n: 1 },
+  { e: 'logo_upload', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'free', s: 'google', n: 5 },
+  { e: 'click', t: 'quotationmaker', p: '/free-quote-generator-uk', w: 'dialog', s: 'google', n: 3 },
+  { e: 'click', t: 'quotationmaker', p: '/quote-template-plumber', w: 'nav', s: 'bing', n: 2 },
+  { e: 'pdf_download', t: 'selftest', p: '/selftest', w: 'free', s: 'direct', n: 99 },
+];
+test('the funnel: views, downloads (free and pro), offers shown by kind, offers pressed, logos; test notes are left out', () => {
+  assert.deepEqual(TOOL_EVENTS, ['pdf_download', 'logo_upload', 'paywall_shown', 'paywall_pro_click']);
+  const rep = buildReport({ rows: TOOL_ROWS, window: WIN });
+  const t = rep.total;
+  assert.deepEqual([t.views, t.downloads, t.shown, t.proClicks, t.logos, t.clicks], [300, 42, 42, 4, 5, 5]);
+  assert.deepEqual(t.downloadsBy, { free: 40, pro: 2 });
+  assert.deepEqual(t.shownBy, { dialog: 32, bar: 8, invoice: 2 });
+  assert.deepEqual(t.proClicksBy, { dialog: 3, bar: 1 });
+  const by = Object.fromEntries(rep.pages.map((p) => [p.page, p]));
+  assert.deepEqual([by['/free-quote-generator-uk'].views, by['/free-quote-generator-uk'].downloads, by['/free-quote-generator-uk'].shown, by['/free-quote-generator-uk'].proClicks], [200, 32, 28, 3]);
+  assert.deepEqual([by['/quote-template-plumber'].views, by['/quote-template-plumber'].downloads, by['/quote-template-plumber'].shown, by['/quote-template-plumber'].proClicks], [100, 10, 14, 1]);
+  assert.equal(by['/selftest'], undefined);
+  const f = funnelOf(t);
+  assert.deepEqual(f.map((x) => x.step), ['views', 'PDF downloads', 'Pro offers shown', 'Pro pressed on an offer']);
+  assert.equal(f[0].rate, null);
+  assert.ok(Math.abs(f[1].rate - 42 / 300) < 1e-9 && Math.abs(f[2].rate - 1) < 1e-9 && Math.abs(f[3].rate - 4 / 42) < 1e-9);
+  // the first six numbers of the report are unchanged by the new events: views and clicks count only views and clicks
+  assert.deepEqual([by['/free-quote-generator-uk'].clicks, by['/quote-template-plumber'].clicks], [3, 2]);
+});
+test('the funnel in the text report: the steps with their rates and kinds, the old Get Pro line, logos, and a table by page; none of it when there is nothing', () => {
+  const text = formatReport(buildReport({ rows: TOOL_ROWS, window: WIN }));
+  assert.match(text, /Quote tool funnel \(counted pages only; each rate is of the step above\):/);
+  assert.match(text, /\n  views\s+300\n/);
+  assert.match(text, /PDF downloads\s+42\s+14\.0%\s+free 40, pro 2/);
+  assert.match(text, /Pro offers shown\s+42\s+100\.0%\s+dialog 32, bar 8, invoice 2/);
+  assert.match(text, /Pro pressed on an offer\s+4\s+9\.5%\s+dialog 3, bar 1/);
+  assert.match(text, /Get Pro links, all places\s+5\s+1\.7%/);
+  assert.match(text, /logos chosen\s+5\s+free 5/);
+  assert.match(text, /Funnel by page:/);
+  assert.match(text.split('\n').find((l) => l.startsWith('/free-quote-generator-uk') && /\s32\s+28\s+3$/.test(l)) || '', /200\s+32\s+28\s+3$/);
+  assert.match(text.split('\n').find((l) => l.startsWith('/quote-template-plumber') && /\s10\s+14\s+1$/.test(l)) || '', /100\s+10\s+14\s+1$/);
+  // no tool notes at all (the Worker without them, or a quiet week): the funnel is zeros and the by-page table is left out
+  const quiet = formatReport(buildReport({ rows: ROWS, window: WIN }));
+  assert.match(quiet, /PDF downloads\s+0\s+0\.0%/);
+  assert.ok(!/Funnel by page:/.test(quiet));
+  assert.match(formatReport(buildReport({ rows: [], window: WIN })), /views\s+0\n/);
+});
+
 test('Gumroad sales in the window are counted for QuotationMaker Pro only; refunds, tests, other products and other days are left out', () => {
   const sales = [
     { at: '2026-11-08T10:00:00Z', cents: 900, refunded: false, permalink: 'cjogv', product: 'QuotationMaker Pro' },
@@ -153,12 +209,18 @@ test('read.mjs --selftest writes one test note and reads it back; the report pri
     assert.match(self.stdout, /answered 204.*\+1/);
     w.core.note(cleanNote({ e: 'view', t: 'quotationmaker', p: '/quote-template-plumber', w: '', s: 'bing' }));
     w.core.note(cleanNote({ e: 'click', t: 'quotationmaker', p: '/quote-template-plumber', w: 'nav', s: 'bing' }));
+    w.core.note(cleanNote({ e: 'pdf_download', t: 'quotationmaker', p: '/quote-template-plumber', w: 'free', s: 'bing' }));
+    w.core.note(cleanNote({ e: 'paywall_shown', t: 'quotationmaker', p: '/quote-template-plumber', w: 'dialog', s: 'bing' }));
     const rep = await cli(['--no-gumroad', '--days', '7', '--source'], { COUNTER_URL: w.url, COUNTER_ADMIN_KEY: 'cli-key' });
     assert.equal(rep.code, 0, rep.stderr);
     assert.match(rep.stdout, /QuotationMaker counter, last 7 days/);
     assert.match(rep.stdout, /\/quote-template-plumber\s+1\s+1\s+100\.0%\s+nav 1/);
     assert.ok(!rep.stdout.includes('/selftest'), 'the test note is not in the report');
     assert.match(rep.stdout, /views\/clicks by kind of site: organic 1\/1/);
+    assert.match(rep.stdout, /Quote tool funnel/);
+    assert.match(rep.stdout, /PDF downloads\s+1\s+100\.0%\s+free 1/);
+    assert.match(rep.stdout, /Pro offers shown\s+1\s+100\.0%\s+dialog 1/);
+    assert.match(rep.stdout, /\/quote-template-plumber\s+1\s+1\s+1\s+0$/m);
     assert.match(rep.stdout, /Not counted: 10 pages are left exactly as they were/);
     const one = await cli(['--no-gumroad', '--days', '7', '--page', '/privacy'], { COUNTER_URL: w.url, COUNTER_ADMIN_KEY: 'cli-key' });
     assert.match(one.stdout, /total\s+0\s+0/);

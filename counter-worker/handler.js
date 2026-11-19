@@ -54,7 +54,7 @@ export async function handle(request, env) {
     return json({ days, by, rows: await stubOf(env).rows({ days, by }) });
   }
   if (url.pathname === '/' && request.method === 'GET') {
-    return new Response('qm-counter: daily totals of page opens and Get Pro clicks for getquotationmaker.com. No cookies, no personal data, no IP address kept.\n', { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
+    return new Response('qm-counter: daily totals of page opens, Get Pro clicks and quote tool steps (downloads, logo, Pro offer) for getquotationmaker.com. No cookies, no personal data, no IP address kept.\n', { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
   }
   return new Response('not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

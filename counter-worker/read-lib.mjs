@@ -1,5 +1,5 @@
-// The pieces of the QuotationMaker counter report (read.mjs): totals from the counter, sales from Gumroad, put side by side per
-// page. Pure functions plus two small readers that take their fetch as an argument, so the tests run on fixtures.
+// The pieces of the QuotationMaker counter report (read.mjs): totals from the counter, the quote tool's funnel (views, PDF downloads,
+// Pro offers shown, Pro offers pressed), sales from Gumroad, put side by side per page. Pure functions plus two small readers that take their fetch as an argument, so the tests run on fixtures.
 // Nothing here writes anywhere.
 
 const DAY = 864e5;
@@ -57,18 +57,28 @@ export const isSale = (s) => s.cents > 0 && !s.refunded;
 // ---------------------------------------------------------------- the report
 // rows: counter rows [{e, p, w, s, n}] for one window (t is always quotationmaker; test notes, t "selftest", are left out);
 // sales: readSales() output or null when Gumroad was not asked
+// The quote tool's notes (public/tool.js through count.js): a PDF made (w free or pro), a logo chosen (w free or pro), a Pro offer on
+// screen (paywall_shown) and its Get Pro button pressed (paywall_pro_click); w says which offer: dialog, after, bar, invoice, logo.
+export const TOOL_EVENTS = ['pdf_download', 'logo_upload', 'paywall_shown', 'paywall_pro_click'];
+const bump = (obj, k, n) => { obj[k || '(unknown)'] = (obj[k || '(unknown)'] || 0) + n; };
+
 export function buildReport({ rows, sales = null, window: win, skipped = [] }) {
   const pages = new Map();
-  const blank = () => ({ views: 0, clicks: 0, byPlace: {}, byWord: {}, view: { organic: 0, referral: 0, direct: 0, unknown: 0 }, click: { organic: 0, referral: 0, direct: 0, unknown: 0 } });
+  const blank = () => ({ views: 0, clicks: 0, byPlace: {}, byWord: {}, view: { organic: 0, referral: 0, direct: 0, unknown: 0 }, click: { organic: 0, referral: 0, direct: 0, unknown: 0 },
+    downloads: 0, downloadsBy: {}, logos: 0, logosBy: {}, shown: 0, shownBy: {}, proClicks: 0, proClicksBy: {} });
   const get = (p) => { if (!pages.has(p)) pages.set(p, { page: p || '(unknown)', ...blank() }); return pages.get(p); };
   const total = blank();
   for (const r of rows) {
     if (r.t !== undefined && r.t !== 'quotationmaker') continue;
-    if (r.e !== 'view' && r.e !== 'click') continue;
+    if (r.e !== 'view' && r.e !== 'click' && !TOOL_EVENTS.includes(r.e)) continue;
     const cls = classOf(r.s);
     const word = r.s || '(unknown)';
     for (const t of [get(r.p || ''), total]) {
-      if (r.e === 'view') { t.views += r.n; t.view[cls] += r.n; }
+      if (r.e === 'pdf_download') { t.downloads += r.n; bump(t.downloadsBy, r.w, r.n); }
+      else if (r.e === 'logo_upload') { t.logos += r.n; bump(t.logosBy, r.w, r.n); }
+      else if (r.e === 'paywall_shown') { t.shown += r.n; bump(t.shownBy, r.w, r.n); }
+      else if (r.e === 'paywall_pro_click') { t.proClicks += r.n; bump(t.proClicksBy, r.w, r.n); }
+      else if (r.e === 'view') { t.views += r.n; t.view[cls] += r.n; }
       else {
         t.clicks += r.n; t.click[cls] += r.n;
         t.byPlace[r.w || '(unknown)'] = (t.byPlace[r.w || '(unknown)'] || 0) + r.n;
@@ -76,7 +86,8 @@ export function buildReport({ rows, sales = null, window: win, skipped = [] }) {
       }
     }
   }
-  const list = [...pages.values()].sort((a, b) => b.clicks - a.clicks || b.views - a.views || a.page.localeCompare(b.page));
+  // pages that only have tool notes (a page whose views are not in the rows) still show, with views 0
+  const list = [...pages.values()].sort((a, b) => b.clicks - a.clicks || b.views - a.views || b.downloads - a.downloads || a.page.localeCompare(b.page));
   let gumroad = null;
   if (sales) {
     const mine = sales.filter((s) => isQuotationMakerPro(s) && isSale(s) && s.at.slice(0, 10) >= win.from && s.at.slice(0, 10) <= win.to);
@@ -89,6 +100,17 @@ const money = (c) => `$${(c / 100).toFixed(2)}`;
 const pct = (a, b) => (b > 0 ? `${((a / b) * 100).toFixed(1)}%` : '-');
 const pad = (s, n, right = false) => (right ? String(s).padStart(n) : String(s).padEnd(n));
 const top = (obj, n = 4) => Object.entries(obj).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, n).map(([k, v]) => `${k} ${v}`).join(', ');
+
+// The funnel of one set of totals: views -> PDF downloads -> Pro offers shown -> Get Pro pressed on an offer. Each rate is that step over
+// the one before it. Views of pages that are not counted (content/counter-skip.json) are not in it, and neither are their tool notes.
+export function funnelOf(t) {
+  return [
+    { step: 'views', n: t.views, rate: null },
+    { step: 'PDF downloads', n: t.downloads, rate: t.views > 0 ? t.downloads / t.views : null, by: t.downloadsBy },
+    { step: 'Pro offers shown', n: t.shown, rate: t.downloads > 0 ? t.shown / t.downloads : null, by: t.shownBy },
+    { step: 'Pro pressed on an offer', n: t.proClicks, rate: t.shown > 0 ? t.proClicks / t.shown : null, by: t.proClicksBy },
+  ];
+}
 
 export function formatReport(rep, { source = false, words = false } = {}) {
   const w = rep.window;
@@ -108,6 +130,16 @@ export function formatReport(rep, { source = false, words = false } = {}) {
   lines.push('', 'By kind of site (views / Pro clicks):');
   for (const c of CLASSES) lines.push(`  ${pad(c, 9)}${pad(t.view[c], 8, true)} / ${pad(t.click[c], 5)}${c === 'unknown' ? '  (the visit began on a page that is not counted)' : ''}`);
   if (words && t.clicks) lines.push(`  Pro click words: ${top(t.byWord, 8)}`);
+  lines.push('', 'Quote tool funnel (counted pages only; each rate is of the step above):');
+  for (const f of funnelOf(t)) lines.push(`  ${pad(f.step, 26)}${pad(f.n, 7, true)}  ${pad(f.rate == null ? '' : `${(f.rate * 100).toFixed(1)}%`, 6, true)}${f.by && f.n ? '   ' + top(f.by, 5) : ''}`);
+  lines.push(`  ${pad('Get Pro links, all places', 26)}${pad(t.clicks, 7, true)}  ${pad(pct(t.clicks, t.views), 6, true)}   (of views, the old counter)`);
+  lines.push(`  ${pad('logos chosen', 26)}${pad(t.logos, 7, true)}${t.logos ? '          ' + top(t.logosBy, 3) : ''}`);
+  const tool = rep.pages.filter((p) => p.downloads || p.shown || p.proClicks || p.logos);
+  if (tool.length) {
+    lines.push('', 'Funnel by page:');
+    lines.push(pad('page', width) + pad('views', 8, true) + pad('downloads', 11, true) + pad('offers', 8, true) + pad('pressed', 9, true));
+    for (const p of tool) lines.push(pad(p.page, width) + pad(p.views, 8, true) + pad(p.downloads, 11, true) + pad(p.shown, 8, true) + pad(p.proClicks, 9, true));
+  }
   if (rep.gumroad) lines.push('', `Gumroad: ${rep.gumroad.sales} QuotationMaker Pro sale${rep.gumroad.sales === 1 ? '' : 's'} in these days (${money(rep.gumroad.cents)})${rep.gumroad.days.length ? `, on ${rep.gumroad.days.join(', ')}` : ''}`);
   return lines.map((l) => l.trimEnd()).join('\n');
 }

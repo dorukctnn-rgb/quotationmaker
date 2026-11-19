@@ -7,7 +7,7 @@
 <%- include('partials/nav') %>
 <header class="hero">
   <h1>Privacy policy</h1>
-  <p class="lead">GetQuotationMaker has no accounts and no advertising. It counts page visits and Get Pro clicks as daily totals, with no cookies and nothing that identifies you. This page lists the data the site handles, where it goes and why.</p>
+  <p class="lead">GetQuotationMaker has no accounts and no advertising. It counts page visits, Get Pro clicks and a few quote tool steps as daily totals, with no cookies and nothing that identifies you. This page lists the data the site handles, where it goes and why.</p>
   <p class="meta">Last updated: 5 November 2026</p>
 </header>
 
@@ -25,6 +25,8 @@
       <li><strong>Your own details.</strong> Your business name, email address and postal address are saved in your browser's local storage, so they are filled in next time. They stay on your device until you clear this site's data in your browser settings.</li>
       <li><strong>The Pro cookie.</strong> If you activate Pro, your licence key is saved in a cookie called <code>qm_license</code> so that Pro stays on in that browser. The cookie lasts one year and is sent only to this site. The "Remove Pro from this browser" button on the Activate Pro page deletes it.</li>
       <li><strong>The kind of site that sent you.</strong> One word such as <code>google</code> or <code>direct</code>, kept in this tab's session storage so that a Get Pro click can say where your visit began (see "Visit and Get Pro click counts"). It is deleted when you close the tab.</li>
+      <li><strong>The download choice.</strong> A short note in this tab's session storage that the choice between the free and the Pro PDF has already been shown, so that it is shown once per visit and not again. It is deleted when you close the tab.</li>
+      <li><strong>Your quote while you pay.</strong> If you press a Get Pro button while your quote has something in it, the form is kept in this tab's session storage so that it is still there when the page reloads with Pro on. It stays in your browser and is not sent to us. It is deleted when the page puts it back, or when you close the tab.</li>
     </ul>
     <p>The site sets no other cookies and uses none for tracking or advertising.</p>
 
@@ -37,7 +39,7 @@
     <p>Before November 2026, Pro was sold through Gumroad. Those purchases keep working with their licence key; for them, we received your email address and the details of your order from Gumroad.</p>
 
     <h2>Visit and Get Pro click counts</h2>
-    <p>Most pages send one short note to a counter when they open, and another when you follow a Get Pro link. A note holds the page address (without anything after a ? or #), the part of the page the link was in, and one word for the kind of site that sent you, such as Google, social or direct. It holds no cookie, no IP address, no browser details and nothing that tells one visitor from another. The counter is a small program on Cloudflare that adds one to a daily total for that combination and keeps nothing else. Cloudflare receives the request as any host does, including your IP address, but the counter does not read or store it. Some pages send no notes.</p>
+    <p>Most pages send one short note to a counter when they open, and another when you follow a Get Pro link. A note holds the page address (without anything after a ? or #), the part of the page the link was in, and one word for the kind of site that sent you, such as Google, social or direct. It holds no cookie, no IP address, no browser details and nothing that tells one visitor from another. The counter is a small program on Cloudflare that adds one to a daily total for that combination and keeps nothing else. Cloudflare receives the request as any host does, including your IP address, but the counter does not read or store it. The quote tool sends four more notes of the same kind: when a PDF has been made (free or Pro), when a logo has been chosen, when an offer to buy Pro was shown and when its Get Pro button was pressed. Each carries the page address, one word such as free or dialog, and the kind of site, and never the quote, the logo or anything you typed. Some pages send no notes.</p>
 
     <h2>Fonts</h2>
     <p>The site's fonts load from Google Fonts. To fetch them, your browser connects to Google's servers, which receive your IP address and browser details.</p>
