@@ -1,0 +1,32 @@
+{
+  "reason": "The pages that carry the site's search traffic: the QuotationMaker part of peak-durum/traffic-pages.json as it stood on 16 Nov 2026 (rule: clicks > 0 or impressions >= 100 in the last 90 days). Doruk's rule of 15 Oct 2026: they stay exactly as they are. Nothing that is not a decision about the page itself (extra links in the footer, a link group, a test of a box) is added to them: lib/frozen.js is what keeps the shared footer and templates from reaching them. A page on this list gets a box only through content/lead-cta.js.",
+  "source": "peak-durum/traffic-pages.json, written 2026-11-16T16:08:44Z, window 2026-08-16 to 2026-11-13",
+  "paths": [
+    "/",
+    "/blog",
+    "/blog/how-to-price-a-job-quote",
+    "/blog/how-to-write-a-professional-quote",
+    "/blog/quote-acceptance-rate-tips",
+    "/blog/vat-on-quotes-explained",
+    "/free-quote-generator-netherlands",
+    "/how-to-convert-a-quote-to-an-invoice",
+    "/how-to-send-a-quote-to-a-client",
+    "/quotation-confirmation",
+    "/quote-acceptance-template",
+    "/quote-template-architect",
+    "/quote-template-cleaner",
+    "/quote-template-consultant",
+    "/quote-template-contractor",
+    "/quote-template-electrician",
+    "/quote-template-flooring",
+    "/quote-template-graphic-designer",
+    "/quote-template-hvac",
+    "/quote-template-landscaper",
+    "/quote-template-mechanic",
+    "/quote-template-painter",
+    "/quote-template-photographer",
+    "/quote-template-web-designer",
+    "/quote-template-wedding-planner",
+    "/revised-quotation"
+  ]
+}

@@ -74,7 +74,7 @@ if (c.faq) ld.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainE
   </div>
   <h2>Free quote templates by trade</h2>
   <div class="sgrid">
-    <% professions.slice(0, 10).forEach(function (o) { %><a href="<%= o.path %>" class="sl"><%= o.label %></a><% }) %>
+    <% professions.slice(0, locals.moreLinks ? professions.length : 10).forEach(function (o) { %><a href="<%= o.path %>" class="sl"><%= o.label %></a><% }) %>
   </div>
 </section>
 <%- include('partials/footer') %>

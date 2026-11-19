@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="/lead-cta.css?v=20261119">
+<aside class="lead-cta" aria-label="Open the quote maker">
+  <div class="lead-cta-b">
+    <p class="lead-cta-t"><%= cta.title %></p>
+    <p class="lead-cta-s"><%= cta.text %></p>
+  </div>
+  <a class="btn" href="<%= cta.href %>"<% if (cta.inPage) { %> data-preset="<%= cta.example %>"<% } %>><%= cta.label %></a>
+</aside>

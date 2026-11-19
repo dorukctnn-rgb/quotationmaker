@@ -168,3 +168,5 @@ a.logo:hover{text-decoration:none}
 .site-footer .flinks{display:flex;justify-content:center;gap:8px 20px;flex-wrap:wrap;margin-bottom:12px}
 .site-footer a{color:#cbd5e1}
 .site-footer p{margin-top:6px}
+.site-footer .fcountries{margin:0 auto 12px;max-width:920px}
+.site-footer .fcountries span{color:#9ca3af}

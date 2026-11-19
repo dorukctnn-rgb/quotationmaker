@@ -1,0 +1,11 @@
+/* The box under the intro of the top guide pages (views/partials/lead-cta.ejs, content/lead-cta.js). Uses the site's own colours and fonts. */
+.lead-cta{display:flex;align-items:center;gap:16px 20px;background:#eef5fb;border:1px solid #c3d9f0;border-radius:12px;padding:14px 18px;margin:0 0 22px}
+.lead-cta-b{flex:1;min-width:0}
+.lead-cta-t{font:700 16px/1.35 'Sora',system-ui,sans-serif;color:var(--dark,#0d1117);margin:0 0 3px}
+.lead-cta-s{font-size:14px;line-height:1.55;color:#334155;margin:0}
+.lead-cta .btn{flex:none;white-space:nowrap}
+.lead-cta .btn:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+@media (max-width:640px){
+  .lead-cta{flex-direction:column;align-items:stretch;padding:14px}
+  .lead-cta .btn{justify-content:center;white-space:normal;text-align:center}
+}
