@@ -38,6 +38,9 @@
 </div>
 <main class="article">
   <% if (post.answer) { %><div class="answer prose"><%- post.answer %></div><% } %>
+  <%_ if (leadCta) { _%>
+  <%- include('partials/lead-cta', { cta: leadCta }) %>
+  <%_ } _%>
   <% if (post.toc && post.toc.length) { %>
   <nav class="toc" aria-label="On this page"><strong>On this page</strong>
     <ol><% post.toc.forEach(function (t) { %><li><a href="#<%= t[0] %>"><%= t[1] %></a></li><% }) %></ol>

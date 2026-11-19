@@ -297,14 +297,18 @@ test('which pages count: every page but the skipped ones, however the address is
   assert.strictEqual(counter.isCounted('/quote-template-plumber'), true);
   assert.strictEqual(counter.isCounted('/privacy'), true);
   assert.strictEqual(counter.isCounted('/blog'), true, 'the guides index is not a skipped page');
-  for (const p of ['/', '/quote-template-painter', '/Quote-Template-Painter/', '/blog/vat-on-quotes-explained?utm_source=x', '/BLOG/quote-acceptance-rate-tips/', '/quote-acceptance-template#top']) assert.strictEqual(counter.isCounted(p), false, p);
-  assert.strictEqual(counter.SKIP_PATHS.length, 10);
+  for (const p of ['/', '/quote-template-painter', '/Quote-Template-Painter/', '/quote-template-consultant?utm_source=x', '/FREE-QUOTE-GENERATOR-NETHERLANDS/', '/how-to-send-a-quote-to-a-client#top']) assert.strictEqual(counter.isCounted(p), false, p);
+  // 19 Nov 2026: three pages came off the list by decision (each got one box under its intro and this counter, nothing else)
+  for (const p of ['/blog/vat-on-quotes-explained', '/blog/vat-on-quotes-explained?utm_source=x', '/BLOG/quote-acceptance-rate-tips/', '/quote-acceptance-template#top']) assert.strictEqual(counter.isCounted(p), true, p);
+  assert.strictEqual(counter.SKIP_PATHS.length, 7);
 });
 const TRAFFIC = process.env.TRAFFIC_PAGES || path.join(os.homedir(), 'peak-durum', 'traffic-pages.json');
 test('the skip list is the QuotationMaker part of the traffic pages list (when this machine has it)', { skip: !fs.existsSync(TRAFFIC) && 'peak-durum/traffic-pages.json is not on this machine' }, () => {
   const j = JSON.parse(fs.readFileSync(TRAFFIC, 'utf8'));
   const want = j.pages.filter(p => p.site === 'quotationmaker').map(p => counter.key(new URL(p.page).pathname)).sort();
-  assert.deepStrictEqual([...counter.SKIP_PATHS].sort(), want);
+  // the skip list, plus the pages that came off it by decision ("measured" in the same file)
+  const have = [...counter.SKIP_PATHS, ...require('../content/counter-skip.json').measured.map(counter.key)].sort();
+  assert.deepStrictEqual(have, want);
 });
 test('the pages that carry the search traffic have no trace of the counter', async () => {
   for (const p of counter.SKIP_PATHS) {
@@ -313,7 +317,7 @@ test('the pages that carry the search traffic have no trace of the counter', asy
     assert.ok(!TRACE.test(r.body), p + ' has no counter script or address');
     assert.ok(r.body.includes('<link rel="stylesheet" href="/site.css?v=20261009b">\n') || r.body.includes('<link rel="stylesheet" href="/site.css?v=20261009b">\r\n'), p + ' head is as it was');
   }
-  for (const p of ['/quote-template-painter/', '/QUOTE-TEMPLATE-PAINTER', '/?utm_source=chatgpt.com', '/blog/quote-acceptance-rate-tips?x=1']) assert.ok(!TRACE.test((await get(p)).body), p);
+  for (const p of ['/quote-template-painter/', '/QUOTE-TEMPLATE-PAINTER', '/?utm_source=chatgpt.com', '/quote-template-consultant?x=1']) assert.ok(!TRACE.test((await get(p)).body), p);
 });
 test('every other page loads the counter once, in the head, and the 404 page does not', async () => {
   const skipped = new Set(counter.SKIP_PATHS);

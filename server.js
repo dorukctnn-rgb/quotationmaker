@@ -12,6 +12,7 @@ const { CONFIRM_REVISE_PAGES } = require('./content/confirm-revise');
 const { SEO_PAGES, TRADE_FIELDS } = require('./content/seo-pages');
 const { PROFESSION_EXTRAS, SHORT_GUIDES } = require('./content/trades');
 const { PRESETS } = require('./content/presets');
+const { leadCta } = require('./content/lead-cta');
 const { COUNTRIES, COUNTRY_FACTS_CHECKED } = require('./content/countries');
 const { CURRENCIES } = require('./lib/currencies');
 const pdf = require('./lib/pdf');
@@ -19,6 +20,7 @@ const pro = require('./lib/pro');
 // The Paddle checkout switch (off: every page renders as before; see lib/paddle.js).
 const paddle = require('./lib/paddle');
 const counter = require('./lib/counter');
+const { isFrozen } = require('./lib/frozen');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -157,6 +159,12 @@ app.use(async (req, res, next) => {
   // countOn: whether this page loads the page and Get Pro click counter (lib/counter.js); the pages that carry the search traffic do not
   Object.assign(res.locals, { siteUrl: SITE_URL, gumroadLink: GUMROAD_LINK, assetVersion: ASSET_VERSION, countOn: counter.isCounted(req.path), countVersion: counter.COUNT_VERSION,
     paddleCheckout: paddle.enabled() });
+  // moreLinks: a page that is not left exactly as it was (lib/frozen.js) also lists the quote makers by country in its footer
+  // and, on a country page, every trade page
+  if (!isFrozen(req.path)) {
+    const here = counter.key(req.path);
+    Object.assign(res.locals, { moreLinks: true, footerCountries: COUNTRIES.filter(c => here !== '/free-quote-generator-' + c.slug) });
+  }
   if (res.locals.paddleCheckout) res.set('Content-Security-Policy', paddle.CSP);
   next();
 });
@@ -199,7 +207,7 @@ COUNTRIES.forEach(c => {
 });
 
 GUIDE_PAGES.forEach(page => {
-  app.get('/' + page.slug, (req, res) => res.render('guide', { page }));
+  app.get('/' + page.slug, (req, res) => res.render('guide', { page, leadCta: leadCta('/' + page.slug) }));
 });
 
 app.get('/blog', (req, res) => {
@@ -211,7 +219,7 @@ BLOG_POSTS.forEach(post => {
     const relatedPosts = post.related
       ? post.related.map(r => ({ href: r[0], tag: r[1], title: r[2] }))
       : BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 3).map(p => ({ href: '/blog/' + p.slug, tag: p.category, title: p.h1 }));
-    res.render('blog-post', { post, relatedPosts });
+    res.render('blog-post', { post, relatedPosts, leadCta: leadCta('/blog/' + post.slug) });
   });
 });
 
@@ -219,7 +227,7 @@ HOW_TO_PAGES.forEach(page => {
   // Page-only presets are merged here so the shared PRESETS (embedded on every tool page) stay unchanged.
   const extra = page.presets ? { presets: Object.assign({}, PRESETS, page.presets) } : {};
   app.get('/' + page.slug, (req, res) => {
-    res.render('how-to', { page, professions: PROFESSIONS, tool: page.preset ? toolConfig(res, Object.assign({
+    res.render('how-to', { page, professions: PROFESSIONS, leadCta: leadCta('/' + page.slug), tool: page.preset ? toolConfig(res, Object.assign({
       presetButtons: page.presetButtons || [{ key: page.preset, label: page.presetLabel || 'Load the example' }] }, extra)) : null });
   });
 });
