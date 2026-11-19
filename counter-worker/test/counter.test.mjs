@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
-import { CounterCore, cleanNote, MAX_ROWS_PER_DAY, KEEP_DAYS } from '../core.js';
+import { CounterCore, cleanNote, MAX_ROWS_PER_DAY, KEEP_DAYS, EVENTS } from '../core.js';
 import { handle } from '../handler.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -29,6 +29,18 @@ test('a note keeps only the five allowed fields, lowercased, and refuses what is
     '{"e":"click","t":"other-site"}', '{"e":"click","t":"../etc"}', JSON.stringify({ e: 'click', t: 'quotationmaker', pad: 'x'.repeat(700) })]) {
     assert.equal(cleanNote(bad), null, String(bad).slice(0, 60));
   }
+});
+test('the four notes of the quote tool are events like the first two: the same five fields, the word in the place', () => {
+  assert.deepEqual(EVENTS, ['view', 'click', 'pdf_download', 'logo_upload', 'paywall_shown', 'paywall_pro_click']);
+  for (const [e, w] of [['pdf_download', 'free'], ['pdf_download', 'pro'], ['logo_upload', 'free'], ['logo_upload', 'pro'], ['paywall_shown', 'dialog'], ['paywall_shown', 'after'], ['paywall_shown', 'bar'], ['paywall_shown', 'invoice'], ['paywall_pro_click', 'dialog'], ['paywall_pro_click', 'logo']]) {
+    assert.deepEqual(note({ e, w, p: '/free-quote-generator-uk' }), { e, t: 'quotationmaker', p: '/free-quote-generator-uk', w, s: 'google' }, e + ' ' + w);
+  }
+  assert.deepEqual(cleanNote(JSON.stringify({ e: 'PDF_Download', t: 'quotationmaker', p: '/x', w: 'Free', s: 'bing', email: 'a@b.c', quote: 'secret', logo: 'data:image/png;base64,AAAA' })), { e: 'pdf_download', t: 'quotationmaker', p: '/x', w: 'free', s: 'bing' }, 'only the five fields survive');
+  // names close to the real ones are still refused
+  for (const e of ['pdf-download', 'pdf_downloads', 'download', 'paywall', 'paywall_click', 'purchase', 'logo', '__proto__', 'constructor']) assert.equal(note({ e }), null, e);
+  // a place that is not one plain word is dropped, as for the first two events
+  assert.equal(note({ e: 'pdf_download', w: 'free; DROP TABLE counts' }).w, '');
+  assert.equal(note({ e: 'paywall_shown', w: 'x'.repeat(41) }).w, '');
 });
 test('an address with a query or #, a free-text place or an unknown kind of site is dropped, not stored', () => {
   assert.equal(note({ p: '/blog/x?email=a@b.c' }).p, '');
@@ -53,6 +65,14 @@ test('every note adds one to the day\'s total for its combination, and different
   assert.equal(core.rows({ days: 7 }).find(r => r.e === 'click' && r.p === '/quote-template-plumber' && r.s === 'google').n, 3);
   assert.deepEqual(core.rows({ days: 7, by: ['e'] }), [{ e: 'click', n: 5 }, { e: 'view', n: 1 }]);
   assert.deepEqual(core.rows({ days: 7, by: [] }), [{ n: 6 }]);
+});
+test('tool notes are counted in their own totals, apart from views and clicks and from each other', () => {
+  const { core } = makeCore();
+  const n = (e, w, p = '/') => note({ e, w, p });
+  for (const x of [n('view', ''), n('pdf_download', 'free'), n('pdf_download', 'free'), n('pdf_download', 'pro'), n('paywall_shown', 'dialog'), n('paywall_shown', 'bar'), n('paywall_pro_click', 'dialog'), n('logo_upload', 'free'), n('click', 'dialog')]) core.note(x);
+  assert.deepEqual(core.rows({ days: 7, by: ['e', 'w'] }), [
+    { e: 'click', w: 'dialog', n: 1 }, { e: 'logo_upload', w: 'free', n: 1 }, { e: 'paywall_pro_click', w: 'dialog', n: 1 }, { e: 'paywall_shown', w: 'bar', n: 1 }, { e: 'paywall_shown', w: 'dialog', n: 1 },
+    { e: 'pdf_download', w: 'free', n: 2 }, { e: 'pdf_download', w: 'pro', n: 1 }, { e: 'view', w: '', n: 1 }]);
 });
 test('totals are per UTC day; the last N days include today and nothing older', () => {
   const { core, clock } = makeCore();
@@ -110,6 +130,17 @@ test('POST /e from a QuotationMaker page counts the note, answers 204 with the o
   assert.deepEqual(core.rows({ days: 1, by: ['e', 't', 'w', 's'] }), [{ e: 'click', t: 'quotationmaker', w: 'nav', s: 'google', n: 1 }]);
   assert.equal((await post(env, { e: 'view', t: 'quotationmaker', p: '/privacy' }, { Origin: 'https://getquotationmaker.com' })).status, 204);
   assert.equal(total(core), 2);
+});
+test('POST /e counts the quote tool\'s notes with a 204, and refuses an event name it does not know with a 400', async () => {
+  const { env, core } = makeEnv();
+  for (const [e, w] of [['pdf_download', 'free'], ['pdf_download', 'pro'], ['logo_upload', 'free'], ['paywall_shown', 'dialog'], ['paywall_pro_click', 'dialog']]) {
+    const r = await post(env, { e, t: 'quotationmaker', p: '/', w, s: 'direct' });
+    assert.equal(r.status, 204, e);
+    assert.equal(r.headers.get('set-cookie'), null);
+  }
+  assert.deepEqual(core.rows({ days: 1, by: ['e', 'w'] }), [{ e: 'logo_upload', w: 'free', n: 1 }, { e: 'paywall_pro_click', w: 'dialog', n: 1 }, { e: 'paywall_shown', w: 'dialog', n: 1 }, { e: 'pdf_download', w: 'free', n: 1 }, { e: 'pdf_download', w: 'pro', n: 1 }]);
+  assert.equal((await post(env, { e: 'purchase', t: 'quotationmaker' })).status, 400);
+  assert.equal(total(core), 5);
 });
 test('POST /e from any other origin, with no origin, with a bad note or with a crawler\'s agent is not counted', async () => {
   const { env, core } = makeEnv();

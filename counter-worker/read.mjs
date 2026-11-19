@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // The page and Get Pro click report of getquotationmaker.com: for each page the views, the Get Pro clicks (with the part of the
-// page they were in), the click rate, the split by kind of site (organic, referral, direct, not known), and the QuotationMaker Pro
-// sales Gumroad shows for the same days. Last 7 and 30 UTC days. Read only: it writes nothing anywhere.
+// page they were in), the click rate, the split by kind of site (organic, referral, direct, not known), the quote tool's funnel
+// (views, PDF downloads, Pro offers shown, Get Pro pressed on an offer; also per page) and the QuotationMaker Pro sales Gumroad
+// shows for the same days. Last 7 and 30 UTC days. Read only: it writes nothing anywhere.
 //
 //   node counter-worker/read.mjs                    7 and 30 days
 //   node counter-worker/read.mjs --days 14          one window (or several: --days 7,14,30)
@@ -14,7 +15,9 @@
 // Keys (never printed): COUNTER_ADMIN_KEY or C:\Users\doruk\.claude\skills\store-deploy\secrets\qm-counter.json {"adminKey"};
 // GUMROAD_TOKEN or ...\secrets\bodyarcade\gumroad-token.txt. COUNTER_URL overrides the Worker's address.
 // What the numbers mean: a view is a page opening in a browser that ran the script (crawlers and ad blockers are not in it); a click
-// is a Get Pro link followed, not a sale. Pages left as they were (content/counter-skip.json) are not counted at all, so their
+// is a Get Pro link followed, not a sale; a download is a PDF the server made (free or pro), an offer is a Pro dialog, bar, panel or
+// invoice message that was on screen, and "pressed" is its Get Pro button. The tool's notes need the Worker that knows them (19 Nov
+// 2026 on); before that Worker is deployed the funnel rows read 0. Pages left as they were (content/counter-skip.json) are not counted at all, so their
 // views and Pro clicks never show here; a sale from one of them shows under Gumroad with no click. "unknown" kind of site means the
 // visit began on one of those pages. Sale and click days only line up roughly: nothing joins a click to a sale.
 import fs from 'node:fs';

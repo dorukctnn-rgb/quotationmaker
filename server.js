@@ -31,7 +31,7 @@ const ASSET_VERSION = '20261009b';
 const UPDATED = '2026-10-07';
 const PREVIOUS_UPDATE = '2026-09-24';
 const LEGAL_UPDATED = '2026-11-04';
-const PRIVACY_UPDATED = '2026-10-29';
+const PRIVACY_UPDATED = '2026-11-19';
 
 // -- Redirects (old URLs merged into stronger pages) ------------------------
 Object.entries(REDIRECTS).forEach(([from, to]) => app.get(from, (req, res) => res.redirect(301, to)));

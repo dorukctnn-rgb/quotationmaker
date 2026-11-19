@@ -8,6 +8,8 @@
 //   node counter-worker/read.mjs --selftest      one test note in (page "/selftest"), read back: expects 204 and +1
 //   node counter-worker/read.mjs                 the report
 // Deploy the Worker BEFORE publishing the site: the pages ignore a failed send, but the first days of counts would be lost.
+// This matters most for the quote tool's four notes (pdf_download, logo_upload, paywall_shown, paywall_pro_click, added 19 Nov 2026):
+// the Worker that is live now checks the event name against its own list and answers them with 400, so none of them is counted.
 // Rollback: npx wrangler delete qm-counter (the pages ignore a failed send; nothing on the site breaks).
 // The Workers Free plan is enough: one Worker, one SQLite Durable Object, no KV, no D1, no cron, no request logs.
 {

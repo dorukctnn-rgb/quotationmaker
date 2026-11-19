@@ -1,8 +1,11 @@
 /* The page and Get Pro click counter of GetQuotationMaker (the Worker "qm-counter", counter-worker/).
  *
- * Two things are counted, as daily totals, and nothing else: a page opening ("view") and a Get Pro link being followed ("click").
+ * Two things were counted from the start, as daily totals: a page opening ("view") and a Get Pro link being followed ("click").
+ * Four more notes come from the quote tool (public/tool.js, through QMCount.track below), each with the same five fields and
+ * still nothing about the visitor: "pdf_download" (where: free or pro), "logo_upload" (free or pro), "paywall_shown" and
+ * "paywall_pro_click" (where: dialog, after, bar, invoice or logo: which offer was on screen or pressed).
  * Each note is five short fields: the event, the site, the page's address path (never a ? or #), the part of the page the link
- * is in (a tag name and id such as "nav" or "section#pricing"; empty for a view) and one word for the kind of site that sent the
+ * is in (a tag name and id such as "nav" or "section#pricing"; empty for a view; for the tool's notes one word such as "free") and one word for the kind of site that sent the
  * visitor: google, bing, other-search, ai-assistant, pinterest, social, referral or direct; empty when it is not known. It is a
  * plain POST with no cookie and no identifier, and the Worker adds one to a daily total without keeping an IP address or a user
  * agent. Nothing is sent from a browser under automation (navigator.webdriver), from any host but getquotationmaker.com, from a
@@ -157,6 +160,16 @@
     } catch (e) {}
   }
 
+  // The notes the quote tool sends, and the only names track() accepts (the Worker's list in counter-worker/core.js is the same).
+  var TOOL_EVENTS = ['pdf_download', 'logo_upload', 'paywall_shown', 'paywall_pro_click'];
+  function track(event, where) {
+    try {
+      if (TOOL_EVENTS.indexOf(event) < 0) return;
+      var w = String(where || '').toLowerCase();
+      count(event, /^[a-z0-9][a-z0-9#._-]{0,39}$/.test(w) ? w : '');
+    } catch (e) {}
+  }
+
   var lastLink = null, lastAt = 0;
   // a Get Pro link followed: click, tap, keyboard or middle click (one count per link per two seconds)
   function followed(e) {
@@ -193,5 +206,5 @@
   }
   try { viewed(); } catch (e) {}
 
-  window.QMCount = { classify: classify, fromTags: fromTags, place: place, COUNT_URL: COUNT_URL };
+  window.QMCount = { classify: classify, fromTags: fromTags, place: place, track: track, COUNT_URL: COUNT_URL };
 })();
