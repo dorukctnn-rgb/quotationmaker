@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quote <%= q.number %> from <%= q.fromName || 'your supplier' %></title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/accept.css?v=20261119">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="top-t">
+      <h1>Quote <%= q.number %> from <%= q.fromName || 'your supplier' %></h1>
+      <p class="top-s">Total <strong><%= q.total %></strong><% if (q.validUntil) { %>, valid until <%= q.validUntil %><% } %></p>
+    </div>
+    <div class="top-a">
+      <a class="btn btn-ghost" href="/q/<%= id %>/pdf">Download the PDF</a>
+      <% if (!acc) { %><a class="btn" href="#accept">Accept this quote</a><% } %>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="doc" style="--accent:<%= q.color %>" aria-label="Quote <%= q.number %>">
+    <div class="doc-hd">
+      <div class="doc-l">
+        <% if (q.logo) { %><img class="doc-logo" src="<%= q.logo %>" alt="Logo of <%= q.fromName %>"><% } %>
+        <div class="doc-ttl">QUOTATION</div>
+        <div class="mut">#<%= q.number %></div>
+      </div>
+      <div class="doc-r">
+        <div class="doc-from"><%= q.fromName %></div>
+        <% if (q.fromEmail) { %><div class="mut"><%= q.fromEmail %></div><% } %>
+        <% if (q.fromAddress) { %><div class="mut pre"><%= q.fromAddress %></div><% } %>
+      </div>
+    </div>
+
+    <div class="doc-two">
+      <div>
+        <div class="lab">Prepared for</div>
+        <div class="doc-to"><%= q.toName %></div>
+        <% if (q.toEmail) { %><div class="mut"><%= q.toEmail %></div><% } %>
+        <% if (q.toAddress) { %><div class="mut pre"><%= q.toAddress %></div><% } %>
+      </div>
+      <div class="doc-dates">
+        <% if (q.quoteDate) { %><div class="lab">Quote date</div><div class="doc-d"><%= q.quoteDate %></div><% } %>
+        <% if (q.validUntil) { %><div class="lab">Valid until</div><div class="doc-d valid"><%= q.validUntil %></div><% } %>
+      </div>
+    </div>
+
+    <table class="items">
+      <thead><tr><th class="d">Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead>
+      <tbody>
+        <% q.rows.forEach(function (r) { %>
+        <tr><td class="d pre"><%= r.desc %></td><td class="n" data-l="Qty"><%= r.qty %></td><td class="n" data-l="Rate"><%= r.rate %></td><td class="n b" data-l="Amount"><%= r.amount %></td></tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <div class="tots">
+      <div class="tr"><span>Subtotal</span><span><%= q.sub %></span></div>
+      <% if (q.disc) { %><div class="tr red"><span><%= q.disc.label %></span><span><%= q.disc.amount %></span></div><% } %>
+      <% if (q.tax) { %><div class="tr"><span><%= q.tax.label %></span><span><%= q.tax.amount %></span></div><% } %>
+      <div class="tr grand"><span>Total</span><span><%= q.total %></span></div>
+    </div>
+
+    <% if (q.notes) { %><div class="notes"><div class="lab">Notes and terms</div><div class="pre"><%= q.notes %></div></div><% } %>
+  </article>
+
+  <aside class="side" id="accept">
+    <% if (acc) { %>
+    <section class="card is-ok" aria-labelledby="acc-h">
+      <h2 id="acc-h">Quote accepted</h2>
+      <p><strong><%= acc.name %></strong> accepted this quote on <%= acc.when %>.</p>
+      <% if (acc.note) { %><p class="small">Note left with the acceptance:</p><blockquote class="pre"><%= acc.note %></blockquote><% } %>
+      <p class="small"><%= q.fromName || 'The sender' %> can see this. Download the PDF if you want a copy of the quote for your records.</p>
+      <a class="btn btn-ghost btn-block" href="/q/<%= id %>/pdf">Download the PDF</a>
+    </section>
+    <% } else { %>
+    <section class="card" aria-labelledby="acc-h">
+      <h2 id="acc-h">Accept this quote</h2>
+      <p>Type your full name to accept this quote for <strong><%= q.total %></strong>. <%= q.fromName || 'The sender' %> will see your name, the time and any note you add.</p>
+      <% if (validPassed) { %><p class="warn" role="note">This quote was valid until <%= q.validUntil %>. You can still accept it, but check with <%= q.fromName || 'the sender' %> that the price still stands.</p><% } %>
+      <% if (error) { %><p class="err" role="alert"><%= error %></p><% } %>
+      <form method="post" action="/q/<%= id %>/accept">
+        <div class="fg"><label for="acc-name">Your full name</label><input id="acc-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100" value="<%= form.name || '' %>"></div>
+        <div class="fg"><label for="acc-note">Note for <%= q.fromName || 'the sender' %> (optional)</label><textarea id="acc-note" name="note" rows="3" maxlength="1000"><%= form.note || '' %></textarea></div>
+        <label class="chk"><input type="checkbox" name="confirm" value="on" required<%= form.confirm ? ' checked' : '' %>><span>I have read this quote and I accept it for a total of <strong><%= q.total %></strong>.</span></label>
+        <button class="btn btn-block" type="submit">Accept the quote for <%= q.total %></button>
+      </form>
+      <p class="small">Only what you type here is stored, with the time. No IP address is kept. This link stops working on <%= expires %>. <a href="/privacy#acceptance-links" target="_blank" rel="noopener noreferrer">How this page handles your details</a></p>
+    </section>
+    <% } %>
+  </aside>
+</main>
+</body>
+</html>

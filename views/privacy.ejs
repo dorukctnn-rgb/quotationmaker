@@ -8,7 +8,7 @@
 <header class="hero">
   <h1>Privacy policy</h1>
   <p class="lead">GetQuotationMaker has no accounts and no advertising. It counts page visits, Get Pro clicks and a few quote tool steps as daily totals, with no cookies and nothing that identifies you. This page lists the data the site handles, where it goes and why.</p>
-  <p class="meta">Last updated: 5 November 2026</p>
+  <p class="meta">Last updated: 19 November 2026</p>
 </header>
 
 <main class="article">
@@ -18,7 +18,19 @@
 
     <h2>When you make a quote</h2>
     <p>The form and the live preview run in your browser. When you press a download button, your browser sends the quote to our server, which builds the PDF. The request contains what you typed: your business name, email address and postal address, your client's name, email address and postal address, the quote number and dates, the line items, prices, tax and discount, your notes and terms, and your logo if you added one.</p>
-    <p>The server builds the PDF in memory, sends it back to your browser and does not keep a copy of the quote. If a PDF fails to build, the server writes a technical error message to our hosting logs.</p>
+    <p>The server builds the PDF in memory, sends it back to your browser and does not keep a copy of the quote, unless you send it for acceptance with Pro (see &ldquo;Quotes sent for acceptance&rdquo; below). If a PDF fails to build, the server writes a technical error message to our hosting logs.</p>
+
+    <h2 id="acceptance-links">Quotes sent for acceptance (Pro)</h2>
+    <p>With Pro you can press &ldquo;Send for acceptance&rdquo;. It is the one case in which we keep a quote, so here is what happens to it.</p>
+    <ul>
+      <li><strong>What is stored.</strong> A snapshot of the quote as it is in the form when you press the button: everything that goes into the PDF (your business name, email address and postal address, your client's name, email address and postal address, the line items, prices, tax, notes and terms) and your logo, made smaller if it is large. A snapshot is at most about 200 KB. We also store the times the link was made and first opened. When your client accepts, we store the name they type, the note if they add one, and the time in UTC. If you give an email address for the acceptance email, we keep it only until that email has been sent, then delete it.</li>
+      <li><strong>What is not stored.</strong> Your client's IP address, browser details and cookies. The client's page sets no cookie and runs no script. Your Pro key never reaches the storage: our server turns it into a one-way code that is used only to count how many links one purchase makes (at most 30 in 24 hours).</li>
+      <li><strong>Who can see it.</strong> Anyone who has the client link can read the quote, download the PDF and accept it, so send the link only to your client. Anyone who has your status link can see its status, including the name and the note. Each link is made of 128 random bits and cannot be guessed. The client's page asks search engines not to index it and sends no referrer. We do not read quotes. They sit in storage on Cloudflare that only our code opens. The hosting logs of Vercel record the address of each page that is opened, so the client link is in them for as long as Vercel keeps its logs.</li>
+      <li><strong>In your browser.</strong> The status links of the quotes you send are kept in this browser's local storage, with the quote number, your client's name and the total, so that the status page can list them. What your client typed is shown on the status page and is not saved there. Clear this site's data in your browser settings, or press &ldquo;Remove from this list&rdquo;, to delete the list.</li>
+      <li><strong>How long.</strong> 90 days from the day the link is made. Then the link stops working and the snapshot, the acceptance and everything the client typed are deleted from storage. We cannot bring a record back after that, so download the PDF or keep a copy of the status page if you need one. To have a link deleted sooner, email us the link or the status link.</li>
+      <li><strong>The email.</strong> If you gave an address, one plain email goes to it when the quote is accepted, sent through Forward Email. It holds the quote number and a link to your status page, and nothing your client typed.</li>
+    </ul>
+
 
     <h2>What is stored in your browser</h2>
     <ul>
@@ -58,15 +70,15 @@
         <tr><td>Paddle</td><td>Checkout, payments, sales tax and receipts (seller of record)</td><td><a href="https://www.paddle.com/legal/privacy" rel="noopener">paddle.com</a></td></tr>
         <tr><td>Gumroad</td><td>Purchases made before November 2026 and their licence checks</td><td><a href="https://gumroad.com/privacy" rel="noopener">gumroad.com</a></td></tr>
         <tr><td>Google</td><td>Web fonts, and the Gmail inbox for our email</td><td><a href="https://policies.google.com/privacy" rel="noopener">policies.google.com</a></td></tr>
-        <tr><td>Cloudflare</td><td>Running the counter of page visits and Get Pro clicks, and the Pro service that checks Paddle purchases</td><td><a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">cloudflare.com</a></td></tr>
-        <tr><td>Forward Email</td><td>Forwarding mail sent to our address, and sending the Pro link</td><td><a href="https://forwardemail.net/en/privacy" rel="noopener">forwardemail.net</a></td></tr>
+        <tr><td>Cloudflare</td><td>Running the counter of page visits and Get Pro clicks, the Pro service that checks Paddle purchases, and the storage of quotes sent for acceptance</td><td><a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">cloudflare.com</a></td></tr>
+        <tr><td>Forward Email</td><td>Forwarding mail sent to our address, sending the Pro link and sending the acceptance email</td><td><a href="https://forwardemail.net/en/privacy" rel="noopener">forwardemail.net</a></td></tr>
       </tbody>
     </table>
     <p>Vercel, Gumroad, Google and Cloudflare are based in the United States and Paddle in the United Kingdom, so your data may be processed there. We do not sell your data, and we do not share it with advertisers.</p>
 
     <h2>How long data is kept</h2>
     <ul>
-      <li>Quote details: only while the server builds your PDF.</li>
+      <li>Quote details: only while the server builds your PDF. A quote you send for acceptance: 90 days, then deleted with what your client typed.</li>
       <li>Details saved in your browser: until you clear them. The Pro cookie expires after one year.</li>
       <li>Licence check results: up to six hours in the server's memory.</li>
       <li>Visit and Get Pro click counts: daily totals with no personal data, kept for up to 400 days.</li>

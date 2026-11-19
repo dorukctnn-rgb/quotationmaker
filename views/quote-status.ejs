@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head', { meta: { title: 'Quote status | GetQuotationMaker', desc: 'See whether the quotes you sent for online acceptance have been opened or accepted.', path: '/quote-status', robots: 'noindex, nofollow' } }) %>
+<style>
+.qs{width:min(100% - 2 * clamp(16px,4vw,56px),2240px);margin:0 auto;padding:28px 0 56px}
+.qs [hidden]{display:none!important}
+.qs-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 20px}
+.qs-bar .btn{cursor:pointer}
+.qs-when{font-size:13.5px;color:var(--muted)}
+.qs-msg{margin:0 0 18px;padding:11px 14px;border-radius:10px;font-size:14.5px;line-height:1.5;background:#fef2f2;border:1px solid #fecaca;color:#b42318}
+.qs-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:18px;align-items:start}
+.qs-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(15,23,42,.06);min-width:0}
+.qs-item.is-accepted{border-color:#bbf7d0;background:#f6fdf8}
+.qs-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.qs-h h2{margin:0;font:800 18px/1.3 'Sora',sans-serif;color:var(--dark);overflow-wrap:anywhere}
+.qs-sub{margin:2px 0 0;font-size:14px;color:var(--muted);overflow-wrap:anywhere}
+.qs-badge{flex:none;font:700 12px/1 'Sora',sans-serif;padding:6px 10px;border-radius:999px;background:#eff6ff;color:#1e3a8a;border:1px solid #bfdbfe}
+.is-viewed .qs-badge{background:#fffbeb;color:#92400e;border-color:#fde68a}
+.is-accepted .qs-badge{background:#dcfce7;color:#166534;border-color:#86efac}
+.is-gone .qs-badge{background:#f1f5f9;color:#475569;border-color:#cbd5e1}
+.qs-st{margin:14px 0 0;font-size:15px;line-height:1.55;color:var(--text)}
+.qs-note{margin:10px 0 0;padding:9px 12px;background:#fff;border-left:3px solid #16a34a;border-radius:0 8px 8px 0;font-size:14.5px;white-space:pre-line;overflow-wrap:anywhere;color:var(--text)}
+.qs-late{margin:10px 0 0;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:8px;font-size:13.5px}
+.qs-dl{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13.5px;color:var(--muted)}
+.qs-dl dt{font-weight:700}
+.qs-dl dd{margin:0}
+.qs-act{margin:16px 0 0;display:flex;gap:8px;flex-wrap:wrap}
+.qs-act button,.qs-act a{font:600 13px/1.2 'Sora',sans-serif;padding:9px 13px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:var(--blue);cursor:pointer;text-decoration:none}
+.qs-act button:hover,.qs-act a:hover{border-color:var(--blue);background:var(--blue-pale)}
+.qs-empty{background:#fff;border:1px dashed #cbd5e1;border-radius:14px;padding:26px;max-width:640px;font-size:15.5px;line-height:1.65;color:var(--body)}
+.qs-empty p{margin:0 0 10px}
+.qs-fine{margin:26px 0 0;max-width:760px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+</style>
+</head>
+<body>
+<%- include('partials/nav') %>
+<header class="hero">
+  <h1>Quote status</h1>
+  <p class="lead">The quotes you sent for online acceptance from this browser: opened, accepted, by whom and when. The list lives in this browser, so open this page on the device you sent them from.</p>
+</header>
+<main class="qs">
+  <div class="qs-bar">
+    <button type="button" class="btn" id="qsCheck">Check status now</button>
+    <span class="qs-when" id="qsWhen" role="status"></span>
+  </div>
+  <p class="qs-msg" id="qsMsg" role="alert" hidden></p>
+  <div class="qs-list" id="qsList" aria-live="polite"></div>
+  <div class="qs-empty" id="qsEmpty" hidden>
+    <p><strong>No sent quotes in this browser yet.</strong></p>
+    <p>Fill in a quote in the quote maker and press Send for acceptance (Pro). The status link is kept here, and you can also open a status link you were emailed: it joins this list.</p>
+    <p><a class="btn" href="/#tool">Open the quote maker</a></p>
+  </div>
+  <p class="qs-fine">A link works for 90 days from the day it was made, then the quote and everything the client typed are deleted. Anyone who has a status link can see its status, so keep it to yourself. <a href="/privacy#acceptance-links">What is stored and for how long</a></p>
+</main>
+<%- include('partials/footer') %>
+<script src="/accept-status.js?v=20261119" defer></script>
+</body>
+</html>

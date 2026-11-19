@@ -3,7 +3,8 @@
    The Pro offers around the download are built here, not in the page: a choice dialog the first time a free visitor presses Download
    in a session, then a slim bar; a next-step panel after a free download; a Pro tag on an uploaded logo. Nothing blocks or delays the
    free PDF. The pages' HTML does not change with this file. The notes for the counter go through QMCount.track (public/count.js),
-   which is not loaded on the pages left out of the counter (content/counter-skip.json), so there they are silent. */
+   which is not loaded on the pages left out of the counter (content/counter-skip.json), so there they are silent.
+   The Send for acceptance button (Pro) is built here too: a private link the client opens to read the quote and accept it. */
 (function () {
   'use strict';
   var CFG = window.QT_CONFIG || {};
@@ -288,7 +289,7 @@
         '<section class="qm-opt qm-opt-pro" aria-labelledby="qmOptP">' +
           '<div class="qm-thumb">' + thumbFrame(d, 'pro') + '</div>' +
           '<div class="qm-opt-b"><div class="qm-opt-h"><h3 id="qmOptP">Pro PDF</h3><span>$9 once</span></div>' +
-          '<ul><li>' + (hasLogo ? 'Your logo at the top, as in the preview' : 'Your logo at the top (add it in the form)') + '</li><li>No &ldquo;Made with&rdquo; line</li><li>Invoice PDF from the same quote in one click</li></ul>' +
+          '<ul><li>' + (hasLogo ? 'Your logo at the top, as in the preview' : 'Your logo at the top (add it in the form)') + '</li><li>No &ldquo;Made with&rdquo; line</li><li>Invoice PDF from the same quote in one click</li><li>Send the quote as a private link your client accepts online</li></ul>' +
           proLink('qm-btn qm-btn-pro', 'dialog', 'Get Pro, $9 once') + '</div>' +
         '</section>' +
       '</div>' +
@@ -377,6 +378,212 @@
     box.hidden = false;
   }
 
+  // what the server makes a PDF, or an acceptance link, from
+  function payloadOf(d, docType) {
+    return {
+      docType: docType, fromName: d.fromName, fromEmail: d.fromEmail, fromAddress: d.fromAddress,
+      toName: d.toName, toEmail: d.toEmail, toAddress: d.toAddress, quoteNumber: d.quoteNumber,
+      quoteDate: d.quoteDate, validUntil: d.validUntil, notes: d.notes, items: d.items,
+      taxRate: d.t.tr, taxLabel: d.t.tl, discount: d.t.disc, discountType: d.t.discType,
+      color: d.color, currency: d.currency, symbol: d.symbol, logo: d.logo
+    };
+  }
+
+  // ---- send for acceptance (Pro): a private link the client opens to read the quote, download the PDF and accept it ----
+  // The quote is kept on our server for 90 days (accept-worker/, through /accept/create, which checks Pro). The status codes of the links
+  // made here are kept in this browser's local storage (qm-accept:v1) for the status page and the check below; they travel only in the
+  // body of a POST, never in an address. A free visitor gets the Pro offer instead (counted as paywall_shown and paywall_pro_click, place "accept").
+  var ACCEPT_KEY = 'qm-accept:v1', CODE = /^[a-z2-7]{26}$/, EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function accList() {
+    try {
+      var a = JSON.parse(localStorage.getItem(ACCEPT_KEY) || '[]');
+      return Array.isArray(a) ? a.filter(function (i) { return i && typeof i.s === 'string' && CODE.test(i.s); }) : [];
+    } catch (e) { return []; }
+  }
+  function accAdd(rec) {
+    try {
+      var list = accList().filter(function (i) { return i.s !== rec.s; });
+      list.unshift(rec);
+      localStorage.setItem(ACCEPT_KEY, JSON.stringify(list.slice(0, 30)));
+    } catch (e) {}
+    accNote();
+  }
+  // under the button: how many quotes were sent from this browser, with the way to the status page
+  function accNote() {
+    var box = $('qmAccNote');
+    if (!box) return;
+    var n = accList().length;
+    if (!n) { box.hidden = true; box.textContent = ''; return; }
+    box.innerHTML = n + (n === 1 ? ' quote' : ' quotes') + ' sent for acceptance from this browser. <a href="/quote-status">Check status</a>';
+    box.hidden = false;
+  }
+  function utc(ms) {
+    var d = new Date(Number(ms));
+    if (!isFinite(d.getTime())) return '';
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear() + ', ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) + ' UTC';
+  }
+  function hasLine() { return getItems().some(function (i) { return String(i.desc || '').trim() || i.rate; }); }
+
+  // The link keeps at most about 200 KB. A big logo is redrawn smaller for the link only (the PDF the visitor downloads keeps the original).
+  function shrinkLogo(src) {
+    return new Promise(function (resolve) {
+      if (!src || src.length <= 120000) return resolve(src || '');
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var k = Math.min(1, 600 / img.width, 200 / img.height);
+          var c = document.createElement('canvas');
+          c.width = Math.max(1, Math.round(img.width * k)); c.height = Math.max(1, Math.round(img.height * k));
+          var g = c.getContext('2d');
+          g.drawImage(img, 0, 0, c.width, c.height);
+          var out = c.toDataURL('image/png');
+          if (out.length > 120000) { g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height); out = c.toDataURL('image/jpeg', 0.85); }
+          resolve(out.length < src.length ? out : src);
+        } catch (e) { resolve(src); }
+      };
+      img.onerror = function () { resolve(src); };
+      img.src = src;
+    });
+  }
+
+  function onAccept() {
+    var msg = $('qtMsg');
+    msg.hidden = true;
+    hideOffers();
+    if (!IS_PRO) {
+      msg.innerHTML = 'Sending a quote for online acceptance is part of Pro ($9 one-time). Your client opens a private link, reads the quote, downloads the PDF and accepts it by typing their name, and you see when it was opened and accepted. ' +
+        proLink('', 'accept', 'Get Pro') + ' or <a href="/activate">activate your licence key</a>.';
+      msg.className = 'qt-msg qt-msg-info'; msg.hidden = false;
+      track('paywall_shown', 'accept');
+      return;
+    }
+    if (!hasLine()) { msg.textContent = 'Add at least one line item before you send the quote.'; msg.className = 'qt-msg qt-msg-err'; msg.hidden = false; return; }
+    if (!canDialog()) { msg.textContent = 'This browser cannot open the send window. Please use a current version of Chrome, Edge, Firefox or Safari.'; msg.className = 'qt-msg qt-msg-err'; msg.hidden = false; return; }
+    openAccept();
+  }
+
+  var accDlg = null;
+  function openAccept() {
+    if (accDlg) return;
+    var d = collect();
+    var mine = String(d.fromEmail || '').trim();
+    var el = document.createElement('dialog');
+    el.className = 'qm-dlg qm-acc';
+    el.setAttribute('aria-labelledby', 'qmAccT');
+    el.innerHTML = '<div class="qm-dlg-in">' +
+      '<h2 id="qmAccT">Send for acceptance</h2>' +
+      '<div id="qmAccForm">' +
+        '<p class="qm-dlg-sub">Your client gets a private link to quote ' + esc(d.quoteNumber || 'Q-001') + '. They read it, download the PDF and accept it by typing their name.</p>' +
+        '<ul class="qm-acc-facts">' +
+          '<li>The quote, with your logo, is kept on our server for 90 days and then deleted.</li>' +
+          '<li>Anyone who has the link can read the quote and accept it, so send it only to your client.</li>' +
+          '<li>When they accept, we record the name they type, a note if they add one, and the time. No IP address.</li>' +
+        '</ul>' +
+        '<div class="qm-fg"><label for="qmAccMail">Email me when it is accepted (optional)</label>' +
+          '<input type="email" id="qmAccMail" autocomplete="email" placeholder="you@example.com" value="' + esc(EMAIL.test(mine) ? mine : '') + '">' +
+          '<span class="qm-fg-h">Used for that one email, then deleted.</span></div>' +
+        '<div class="qt-msg qt-msg-err" id="qmAccErr" role="alert" hidden></div>' +
+        '<button type="button" class="qm-btn qm-btn-pro" id="qmAccGo">Create the private link</button>' +
+      '</div>' +
+      '<div id="qmAccDone" hidden></div>' +
+      '<button type="button" class="qm-dlg-x" data-qm="close" aria-label="Close">&times;</button>' +
+    '</div>';
+    document.body.appendChild(el);
+    el.addEventListener('click', function (e) {
+      if (e.target === el) { el.close(); return; }
+      var b = e.target.closest ? e.target.closest('button') : null;
+      if (!b) return;
+      if (b.getAttribute('data-qm') === 'close') el.close();
+      else if (b.id === 'qmAccGo') createLink(el);
+    });
+    el.addEventListener('close', function () { el.remove(); if (accDlg === el) accDlg = null; });
+    accDlg = el;
+    el.showModal();
+    var f = el.querySelector('#qmAccMail');
+    if (f) f.focus();
+  }
+
+  function createLink(el) {
+    var go = el.querySelector('#qmAccGo'), err = el.querySelector('#qmAccErr');
+    var notify = el.querySelector('#qmAccMail').value.trim();
+    var fail = function (text) { err.textContent = text; err.hidden = false; go.disabled = false; go.textContent = 'Create the private link'; };
+    if (notify && !EMAIL.test(notify)) { fail('That email address does not look right. Fix it, or leave it empty to skip the email.'); return; }
+    err.hidden = true; go.disabled = true; go.textContent = 'Creating the link...';
+    var d = collect();
+    shrinkLogo(d.logo).then(function (logo) {
+      d.logo = logo;
+      return fetch('/accept/create', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quote: payloadOf(d, 'quote'), notify: notify }) });
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { return { r: r, j: j }; });
+    }).then(function (x) {
+      if (x.r.ok && x.j && x.j.ok) return linkReady(el, d, x.j, notify);
+      if (x.r.status === 402) {
+        fail('Pro is not active in this browser any more. Activate your licence key on the Activate Pro page, then try again.');
+        return;
+      }
+      fail((x.j && x.j.error) || 'The link could not be created. Please try again.');
+    }, function () { fail('The server could not be reached. Check your connection and try again.'); });
+  }
+
+  function mailtoFor(d, j) {
+    var to = EMAIL.test(String(d.toEmail || '').trim()) ? encodeURIComponent(String(d.toEmail).trim()).replace(/%40/g, '@') : '';
+    var until = j.expires ? niceDate(new Date(Number(j.expires)).toISOString().slice(0, 10)) : '';
+    var body = 'Hello' + (d.toName ? ' ' + d.toName : '') + ',\n\nHere is quote ' + (d.quoteNumber || '') + ' for ' + fmt(d.t.tot) + '. You can read it, download the PDF and accept it online:\n' + j.clientUrl + '\n\n' +
+      (until ? 'The link works until ' + until + '. ' : '') + 'If you have any questions, just reply to this email.\n\n' + (d.fromName || '');
+    return 'mailto:' + to + '?subject=' + encodeURIComponent('Quote ' + (d.quoteNumber || '') + (d.fromName ? ' from ' + d.fromName : '')) + '&body=' + encodeURIComponent(body);
+  }
+
+  // the link exists: show it, with copy, email and a status check
+  function linkReady(el, d, j, notify) {
+    accAdd({ s: j.statusToken, l: j.clientUrl, q: d.quoteNumber, to: d.toName, tot: fmt(d.t.tot), t: Date.now(), x: j.expires });
+    el.querySelector('#qmAccForm').hidden = true;
+    var box = el.querySelector('#qmAccDone');
+    box.innerHTML =
+      '<p class="qm-dlg-sub">The link for quote ' + esc(d.quoteNumber || '') + ' is ready. Send it to your client. Anyone who has it can read the quote and accept it.</p>' +
+      '<div class="qm-fg"><label for="qmAccLink">Link for your client</label>' +
+        '<div class="qm-acc-link"><input type="text" id="qmAccLink" readonly value="' + esc(j.clientUrl) + '"><button type="button" class="qm-btn qm-btn-free" data-qm="copy">Copy link</button></div></div>' +
+      '<a class="qm-btn qm-btn-pro" id="qmAccMailto" href="' + esc(mailtoFor(d, j)) + '">Email the link to your client</a>' +
+      '<div class="qm-acc-state" id="qmAccState" role="status">Status: sent. Your client has not opened it yet.</div>' +
+      '<div class="qm-acc-row"><button type="button" class="qm-lnk" data-qm="check">Check status</button><a class="qm-lnk" href="/quote-status#' + esc(j.statusToken) + '" target="_blank" rel="noopener">Open the status page</a></div>' +
+      '<p class="qm-dlg-foot">' + (notify ? 'We will email ' + esc(notify) + ' once when the quote is accepted. ' : '') + 'The status link is saved in this browser. Anyone who has it can see who accepted, so keep it to yourself.</p>';
+    box.hidden = false;
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button[data-qm]') : null;
+      if (!b) return;
+      if (b.getAttribute('data-qm') === 'copy') copyText(j.clientUrl, b, el.querySelector('#qmAccLink'));
+      else if (b.getAttribute('data-qm') === 'check') checkOne(j.statusToken, b);
+    });
+    var c = box.querySelector('[data-qm="copy"]');
+    if (c) c.focus();
+  }
+
+  function copyText(text, btn, input) {
+    var old = btn.textContent;
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = old; }, 1600); };
+    var fallback = function () { try { input.focus(); input.select(); document.execCommand('copy'); done(); } catch (e) {} };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  }
+
+  // the manual check: asks the server for this one link's status and writes it under the buttons
+  function checkOne(code, btn) {
+    var out = $('qmAccState');
+    btn.disabled = true;
+    fetch('/accept/status', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ codes: [code] }) })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j && j.error); return j; }); })
+      .then(function (j) {
+        var s = (j.items || [])[0] || { state: 'gone' };
+        var text = s.state === 'accepted' ? 'Status: accepted by ' + s.accepted.name + ' on ' + utc(s.accepted.at) + '.' + (s.accepted.note ? ' Note: ' + s.accepted.note : '')
+          : s.state === 'viewed' ? 'Status: opened on ' + utc(s.firstView) + ', not accepted yet.'
+          : s.state === 'sent' ? 'Status: sent. Your client has not opened it yet.'
+          : 'Status: this link has expired or was removed.';
+        out.textContent = text;
+      })
+      .catch(function () { out.textContent = 'The status could not be checked just now. Please try again in a minute.'; })
+      .then(function () { btn.disabled = false; });
+  }
+
   async function download(docType, opts) {
     opts = opts || {};
     var btn = docType === 'invoice' ? $('qtInvBtn') : $('qtPdfBtn');
@@ -390,13 +597,7 @@
       return;
     }
     var d = collect();
-    var payload = {
-      docType: docType, fromName: d.fromName, fromEmail: d.fromEmail, fromAddress: d.fromAddress,
-      toName: d.toName, toEmail: d.toEmail, toAddress: d.toAddress, quoteNumber: d.quoteNumber,
-      quoteDate: d.quoteDate, validUntil: d.validUntil, notes: d.notes, items: d.items,
-      taxRate: d.t.tr, taxLabel: d.t.tl, discount: d.t.disc, discountType: d.t.discType,
-      color: d.color, currency: d.currency, symbol: d.symbol, logo: d.logo
-    };
+    var payload = payloadOf(d, docType);
     if (docType === 'invoice') {
       payload.invoiceNumber = $('qtInvNumber').value;
       payload.invoiceDate = $('qtInvDate').value;
@@ -456,6 +657,18 @@
       hint.insertAdjacentElement('afterend', note);
     }
 
+    var invBtn = $('qtInvBtn');
+    if (invBtn) {
+      var accBtn = document.createElement('button');
+      accBtn.type = 'button'; accBtn.id = 'qtAccBtn'; accBtn.className = 'qt-inv qt-acc';
+      accBtn.innerHTML = 'Send for acceptance<span class="qt-chip">PRO</span>';
+      invBtn.insertAdjacentElement('afterend', accBtn);
+      var accNoteBox = document.createElement('div');
+      accNoteBox.id = 'qmAccNote'; accNoteBox.className = 'qm-acc-note'; accNoteBox.hidden = true;
+      accBtn.insertAdjacentElement('afterend', accNoteBox);
+      accNote();
+    }
+
     var tool = $('qtTool');
     tool.addEventListener('input', function (e) {
       if (e.target.id === 'qtNumber' && $('qtInvNumber') && !$('qtInvNumber').dataset.touched) {
@@ -480,6 +693,7 @@
       }
       else if (t.id === 'qtPdfBtn') onPdfClick();
       else if (t.id === 'qtInvBtn') download('invoice');
+      else if (t.id === 'qtAccBtn') onAccept();
     });
     // A Get Pro link pressed anywhere on the page: count it when it is one of the offers above, and keep the quote for the reload
     // that follows a payment (the page turns Pro on by reloading).

@@ -237,6 +237,9 @@ app.get('/privacy', (req, res) => res.render('privacy'));
 app.get('/terms', (req, res) => res.render('terms'));
 app.get('/refund', (req, res) => res.render('refund'));
 
+// -- Quote acceptance links (Pro): the client's page /q/<code>, the sender's page /quote-status and their routes (lib/accept-routes.js) --
+require('./lib/accept-routes')(app, { siteUrl: SITE_URL });
+
 // -- PDF ----------------------------------------------------------------------------
 app.post('/generate-pdf', (req, res) => {
   try {
