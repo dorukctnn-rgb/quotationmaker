@@ -217,10 +217,6 @@ test('read.mjs --selftest writes one test note and reads it back; the report pri
     assert.match(rep.stdout, /\/quote-template-plumber\s+1\s+1\s+100\.0%\s+nav 1/);
     assert.ok(!rep.stdout.includes('/selftest'), 'the test note is not in the report');
     assert.match(rep.stdout, /views\/clicks by kind of site: organic 1\/1/);
-    assert.match(rep.stdout, /Quote tool funnel/);
-    assert.match(rep.stdout, /PDF downloads\s+1\s+100\.0%\s+free 1/);
-    assert.match(rep.stdout, /Pro offers shown\s+1\s+100\.0%\s+dialog 1/);
-    assert.match(rep.stdout, /\/quote-template-plumber\s+1\s+1\s+1\s+0$/m);
     assert.match(rep.stdout, /Not counted: 10 pages are left exactly as they were/);
     const one = await cli(['--no-gumroad', '--days', '7', '--page', '/privacy'], { COUNTER_URL: w.url, COUNTER_ADMIN_KEY: 'cli-key' });
     assert.match(one.stdout, /total\s+0\s+0/);
@@ -233,6 +229,10 @@ test('read.mjs --selftest writes one test note and reads it back; the report pri
     const none = await cli(['--no-gumroad'], { COUNTER_URL: w.url });
     assert.equal(none.code, 2);
     assert.match(none.stderr, /No counter key/);
+    assert.match(rep.stdout, /Quote tool funnel/);
+    assert.match(rep.stdout, /PDF downloads\s+1\s+100\.0%\s+free 1/);
+    assert.match(rep.stdout, /Pro offers shown\s+1\s+100\.0%\s+dialog 1/);
+    assert.match(rep.stdout, /\/quote-template-plumber\s+1\s+1\s+1\s+0$/m);
     assert.ok(!(rep.stdout + rep.stderr + bad.stdout + bad.stderr).includes('cli-key'), 'the key is never printed');
   } finally { w.server.close(); }
 });
