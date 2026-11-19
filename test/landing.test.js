@@ -118,12 +118,16 @@ test('a country page lists every trade page, the carpentry and handyman pages in
 });
 
 // ---------------------------------------------------------------- 3. the hub and the inbound links
+// Trade pages added after the 16 Nov 2026 freeze are not in the shared trade lists: those lists are drawn on the home page and on the frozen trade pages, which stay
+// exactly as they were. They are linked from the footer and from the country pages of every page that may change (section 4 below).
+const OFF_HUB = ['/quote-template-fence', '/quote-template-tiling'];
 test('the home page\'s template section links every trade page and every country page', async () => {
   const home = (await get('/')).body;
   const hub = home.slice(home.indexOf('id="templates"'), home.indexOf('class="invoice-cta"'));
   const links = new Set(hrefs(hub));
   const paths = await sitemapPaths();
-  for (const p of paths.filter(x => x.startsWith('/quote-template-') || x.startsWith('/free-quote-generator-'))) assert.ok(links.has(p), 'the hub links ' + p);
+  for (const p of paths.filter(x => (x.startsWith('/quote-template-') && !OFF_HUB.includes(x)) || x.startsWith('/free-quote-generator-'))) assert.ok(links.has(p), 'the hub links ' + p);
+  for (const p of OFF_HUB) assert.ok(!links.has(p), 'the frozen home page does not link ' + p);
   assert.ok(links.has('/quote-template-carpentry') && links.has('/quote-template-handyman'));
   assert.strictEqual([...links].filter(l => l.startsWith('/free-quote-generator-')).length, COUNTRIES.length);
 });
@@ -138,4 +142,49 @@ test('every country page and the carpentry page are linked from many pages, not 
   assert.ok(inbound.get('/quote-template-carpentry').size >= 20, 'carpentry is linked from ' + inbound.get('/quote-template-carpentry').size + ' pages');
   // and the five boxes lead to the UK quote maker: it is linked from each of them
   for (const [p, cta] of Object.entries(LEAD_CTA)) if (!cta.inPage) assert.ok(inbound.get('/free-quote-generator-uk').has(p), p + ' links the UK quote maker');
+});
+
+// ---------------------------------------------------------------- 4. trade pages outside the shared lists (fence, tiling; 19 Nov 2026)
+test('the fence and tiling pages are in the sitemap, can change, and are complete trade pages with the quote maker and their own examples', async () => {
+  const paths = await sitemapPaths();
+  for (const p of OFF_HUB) {
+    assert.ok(paths.includes(p), p + ' is in the sitemap');
+    assert.ok(!isFrozen(p), p + ' is a new page, not a frozen one');
+    const r = await get(p);
+    assert.strictEqual(r.status, 200, p);
+    assert.ok(r.body.includes('id="qtTool"'), p + ' has the quote maker');
+    assert.ok((r.body.match(/data-preset="/g) || []).length >= 3, p + ' has example buttons');
+    assert.match(r.body, /"@type":"FAQPage"/, p + ' has FAQ markup');
+    assert.match(r.body, /"@type":"Article"/, p + ' has Article markup');
+    assert.ok(r.body.includes('<link rel="canonical" href="' + SITE + p + '">'), p + ' canonical');
+    // every example button names a preset the page carries
+    const keys = new Set([...r.body.matchAll(/data-preset="([a-z0-9-]+)"/g)].map(m => m[1]));
+    for (const k of keys) assert.ok(r.body.includes('"' + k + '":'), p + ' carries the example ' + k);
+    // counted like any new page
+    assert.ok(counter.isCounted(p), p + ' loads the counter');
+  }
+});
+
+test('the fence and tiling pages are linked from the footer and the trade list of every page that may change, and from no frozen page', async () => {
+  const paths = await sitemapPaths();
+  let linkedFooters = 0, countryPages = 0;
+  for (const p of paths) {
+    const body = (await get(p)).body;
+    const links = new Set(hrefs(body));
+    const group = (body.match(/<nav class="flinks fcountries" aria-label="More quote templates">[\s\S]*?<\/nav>/) || [])[0];
+    if (isFrozen(p)) {
+      for (const t of OFF_HUB) assert.ok(!links.has(t), p + ' is frozen: no link to ' + t);
+      assert.ok(!body.includes('More quote templates'), p + ' is frozen: no footer group');
+      continue;
+    }
+    assert.ok(group, p + ' has the footer group');
+    assert.deepStrictEqual(hrefs(group).sort(), OFF_HUB.filter(t => t !== p).sort(), p + ': the group lists the other new pages');
+    linkedFooters++;
+    if (p.startsWith('/free-quote-generator-')) { countryPages++; for (const t of OFF_HUB) assert.ok(links.has(t), p + ' lists ' + t + ' among the trades'); }
+  }
+  assert.ok(linkedFooters >= 25, 'footers: ' + linkedFooters);
+  assert.ok(countryPages >= 10, 'country pages: ' + countryPages);
+  // the footer names the other page, never the page itself
+  const tiling = (await get('/quote-template-tiling')).body;
+  assert.ok(tiling.includes('>Fence quote template</a>') && !tiling.includes('>Tiling quote template</a>'));
 });
