@@ -363,7 +363,7 @@
         color = d.color;
         document.querySelectorAll('.qt-cdot').forEach(function (x) { var on = x.dataset.c === color; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
       }
-      if (typeof d.logo === 'string' && /^data:image\/(png|jpe?g);base64,/.test(d.logo)) logoData = d.logo;
+      if (typeof d.logo === 'string' && /^data:image\/(png|jpe?g);base64,[A-Za-z0-9+\/=]+$/.test(d.logo)) logoData = d.logo;
       return true;
     } catch (e) { return false; }
   }
