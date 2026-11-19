@@ -198,6 +198,14 @@ const PADDLE_STUB = `window.Paddle = { Environment: { set: function () {} }, Ini
     ok(local1.length === 1 && local1[0].s === st && local1[0].l === link && local1[0].q === 'Q-014', 'seller: the status code and the link are kept in local storage');
     ok(!evs(seller.seen).includes('paywall_shown:accept'), 'seller: a Pro seller is not shown the offer');
 
+    // the sender's status page while nothing has happened yet (a second tab; the send window stays open in the first)
+    const sp0 = await seller.ctx.newPage();
+    await sp0.goto(url('/quote-status'));
+    await sp0.locator('.qs-item.is-sent').waitFor();
+    ok(/Sent/.test(await sp0.locator('.qs-badge').innerText()) && /has not opened it yet/.test(await sp0.locator('.qs-st').innerText()), 'status page: before anything happens the quote is "Sent"');
+    await noScroll(sp0, 'status page (sent)');
+    await shot(sp0, `status-sent-${label}`);
+
     // the client opens the link
     const client = await context({ viewport });
     const cp = await client.ctx.newPage();
@@ -223,10 +231,18 @@ const PADDLE_STUB = `window.Paddle = { Environment: { set: function () {} }, Ini
     await page.click('[data-qm="check"]');
     await page.waitForFunction(() => /opened on/.test(document.querySelector('#qmAccState').textContent));
     ok(/Status: opened on \d{1,2} [A-Z][a-z]{2} \d{4}, \d{2}:\d{2} UTC, not accepted yet\./.test(await page.locator('#qmAccState').innerText()), 'seller: "Check status" now says opened, with the time in UTC');
+    await shot(page, `link-opened-${label}`);
+    await sp0.click('#qsCheck');
+    await sp0.locator('.qs-item.is-viewed').waitFor();
+    ok(/Opened/.test(await sp0.locator('.qs-badge').innerText()) && /opened the quote on \d{1,2} [A-Z][a-z]{2} \d{4}, \d{2}:\d{2} UTC/.test(await sp0.locator('.qs-st').innerText()), 'status page: after the client opened the link it says "Opened", with the time');
+    await shot(sp0, `status-opened-${label}`);
+    await sp0.close();
     await page.keyboard.press('Escape');
     await dlg.waitFor({ state: 'detached' });
     ok(await page.evaluate(() => document.activeElement && document.activeElement.id === 'qtAccBtn'), 'seller: closing the window gives focus back to the button');
     ok(/1 quote sent for acceptance from this browser\./.test(await page.locator('#qmAccNote').innerText()) && (await page.locator('#qmAccNote a').getAttribute('href')) === '/quote-status', 'seller: a line under the button says one quote was sent and links to the status page');
+    await page.locator('#qmAccNote').scrollIntoViewIfNeeded();
+    await shot(page, `tool-sent-note-${label}`);
 
     // the client accepts: first with nothing, then properly
     const submit = cp.locator('form button[type=submit]');
@@ -298,7 +314,7 @@ const PADDLE_STUB = `window.Paddle = { Environment: { set: function () {} }, Ini
     const made = await page.evaluate(async evil_ => {
       const q = { fromName: evil_, fromEmail: evil_, fromAddress: evil_, toName: evil_, toEmail: evil_, toAddress: evil_, quoteNumber: 'Q-<9>', notes: evil_, items: [{ desc: evil_, qty: 2, rate: 10 }], currency: 'USD', color: '#0f4c81' };
       const a = await (await fetch('/accept/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quote: q }) })).json();
-      const b = await (await fetch('/accept/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quote: { ...q, fromName: 'Harper Fencing Ltd', toName: 'Test Client', toEmail: '', toAddress: '', fromEmail: '', fromAddress: '', notes: 'Second quote', quoteNumber: 'Q-015' } }) })).json();
+      const b = await (await fetch('/accept/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quote: { ...q, fromName: 'Harper Fencing Ltd', toName: 'Test Client', toEmail: '', toAddress: '', fromEmail: '', fromAddress: '', notes: 'Second quote', quoteNumber: 'Q-015', items: [{ desc: 'Replace 12 m of garden fence', qty: 2, rate: 10 }] } }) })).json();
       return { a: a.clientUrl, b: b.clientUrl };
     }, evil);
     ok(!!made.a && !!made.b, 'seller: two more links are made');
