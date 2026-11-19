@@ -1,0 +1,26 @@
+<%
+  var copy = {
+    missing: ['This link is not valid', 'Check that the whole link was copied from the message. If it still does not open, ask the sender for a new one.'],
+    expired: ['This link has expired', 'Quote links stop working 90 days after they are made. Ask the sender for a new quote.'],
+    off: ['Not available right now', 'Online acceptance is not available at the moment. Please try again in a few minutes.'],
+    down: ['Not available right now', 'The quote could not be loaded just now. Please try again in a minute.']
+  }[kind] || ['This link is not valid', 'Ask the sender for a new one.'];
+%><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= copy[0] %></title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/accept.css?v=20261119">
+</head>
+<body class="gone-page">
+<main class="gone">
+  <h1><%= copy[0] %></h1>
+  <p><%= copy[1] %></p>
+</main>
+</body>
+</html>

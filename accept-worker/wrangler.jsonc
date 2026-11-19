@@ -1,0 +1,31 @@
+// The storage of the quote acceptance links of https://www.getquotationmaker.com: https://qm-accept.railer-iot.workers.dev
+// (Cloudflare account railer-iot, the account of the counter qm-counter and of peak-pay, which this does not touch).
+// NOT DEPLOYED. Deploy only after Doruk's approval sentence for the acceptance link pull request. Order: THIS Worker first, then the site.
+//   1. A secret that only the site and this Worker share (made once; never printed, never in the repository):
+//        node -e "const fs=require('fs'),c=require('crypto'),p=process.env.USERPROFILE+'/.claude/skills/store-deploy/secrets/qm-accept.json';if(!fs.existsSync(p))fs.writeFileSync(p,JSON.stringify({secret:c.randomBytes(32).toString('hex')}))"
+//   2. cd accept-worker
+//      npx wrangler deploy
+//      node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(process.env.USERPROFILE+'/.claude/skills/store-deploy/secrets/qm-accept.json','utf8')).secret)" | npx wrangler secret put ACCEPT_SITE_SECRET
+//   3. The acceptance e-mail uses the same sender account as the Pro link e-mail of peak-pay (Forward Email, an alias's credentials).
+//      Without these two secrets the links work and no e-mail is sent:
+//        node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(process.env.USERPROFILE+'/.claude/skills/store-deploy/secrets/paddle/peak-pay.secrets.json','utf8')).MAIL_TOKEN)" | npx wrangler secret put MAIL_TOKEN
+//        node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(process.env.USERPROFILE+'/.claude/skills/store-deploy/secrets/paddle/peak-pay.secrets.json','utf8')).MAIL_FROM)" | npx wrangler secret put MAIL_FROM
+//   4. The same secret goes to the site as the environment variable QM_ACCEPT_SECRET (Vercel, production), then the site is deployed:
+//        node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(process.env.USERPROFILE+'/.claude/skills/store-deploy/secrets/qm-accept.json','utf8')).secret)" | npx vercel env add QM_ACCEPT_SECRET production
+// Rollback: npx wrangler delete qm-accept (the site then answers "not available right now" for links; every other page is unaffected).
+// Taking the feature off without touching the Worker: remove QM_ACCEPT_SECRET from the site's environment.
+// The Workers Free plan is enough: one Worker, one SQLite Durable Object, no KV, no D1, no cron.
+{
+  "name": "qm-accept",
+  "main": "index.js",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "durable_objects": { "bindings": [{ "name": "ACCEPT", "class_name": "Accept" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Accept"] }],
+  // No request logs: a link, a name or a note must never sit in a log.
+  "observability": { "enabled": false },
+  "vars": {
+    "SITE_URL": "https://www.getquotationmaker.com"
+  }
+}
