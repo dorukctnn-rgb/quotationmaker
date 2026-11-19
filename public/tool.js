@@ -289,7 +289,7 @@
         '<section class="qm-opt qm-opt-pro" aria-labelledby="qmOptP">' +
           '<div class="qm-thumb">' + thumbFrame(d, 'pro') + '</div>' +
           '<div class="qm-opt-b"><div class="qm-opt-h"><h3 id="qmOptP">Pro PDF</h3><span>$9 once</span></div>' +
-          '<ul><li>' + (hasLogo ? 'Your logo at the top, as in the preview' : 'Your logo at the top (add it in the form)') + '</li><li>No &ldquo;Made with&rdquo; line</li><li>Invoice PDF from the same quote in one click</li></ul>' +
+          '<ul><li>' + (hasLogo ? 'Your logo at the top, as in the preview' : 'Your logo at the top (add it in the form)') + '</li><li>No &ldquo;Made with&rdquo; line</li><li>Invoice PDF from the same quote in one click</li><li>Send the quote as a private link your client accepts online</li></ul>' +
           proLink('qm-btn qm-btn-pro', 'dialog', 'Get Pro, $9 once') + '</div>' +
         '</section>' +
       '</div>' +
