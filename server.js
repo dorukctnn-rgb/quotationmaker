@@ -163,7 +163,8 @@ app.use(async (req, res, next) => {
   // and, on a country page, every trade page
   if (!isFrozen(req.path)) {
     const here = counter.key(req.path);
-    Object.assign(res.locals, { moreLinks: true, footerCountries: COUNTRIES.filter(c => here !== '/free-quote-generator-' + c.slug) });
+    // footerTrades: the trade pages that are not in the shared trade lists (they would change the frozen pages), linked from every page that may change
+    Object.assign(res.locals, { moreLinks: true, footerCountries: COUNTRIES.filter(c => here !== '/free-quote-generator-' + c.slug), footerTrades: EXTRA_TRADES.filter(t => here !== counter.key(t.path)) });
   }
   if (res.locals.paddleCheckout) res.set('Content-Security-Policy', paddle.CSP);
   next();
@@ -200,7 +201,8 @@ PROFESSIONS.concat(EXTRA_TRADES).forEach(p => {
 
 COUNTRIES.forEach(c => {
   app.get('/free-quote-generator-' + c.slug, (req, res) => {
-    res.render('country', { country: c, countries: COUNTRIES, professions: PROFESSIONS, factsChecked: COUNTRY_FACTS_CHECKED,
+    // a country page that may change also lists the trade pages that are not in the shared trade lists
+    res.render('country', { country: c, countries: COUNTRIES, professions: res.locals.moreLinks ? PROFESSIONS.concat(EXTRA_TRADES) : PROFESSIONS, factsChecked: COUNTRY_FACTS_CHECKED,
       tool: toolConfig(res, Object.assign({ currency: c.currency, taxRate: c.taxRate, taxLabel: c.tax },
         c.presets ? { presets: Object.assign({}, PRESETS, c.presets), presetButtons: c.presetButtons } : {})) });
   });

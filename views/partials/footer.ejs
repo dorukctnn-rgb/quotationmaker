@@ -18,6 +18,11 @@
     <span>Quote makers by country:</span>
     <% locals.footerCountries.forEach(function (c) { %><a href="/free-quote-generator-<%= c.slug %>"><%= c.fullName %></a>
     <% }) %>
+  </nav><% } %><% if (locals.moreLinks && locals.footerTrades && locals.footerTrades.length) { %>
+  <nav class="flinks fcountries" aria-label="More quote templates">
+    <span>More quote templates:</span>
+    <% locals.footerTrades.forEach(function (t) { %><a href="<%= t.path %>"><%= t.name %> quote template</a>
+    <% }) %>
   </nav><% } %>
   <p>&copy; 2026 GetQuotationMaker. Free online quotation maker: create a quote and download it as a PDF.</p>
   <p>Need to bill the job? Try our free sister tool, <a href="https://getinvoicemaker.com/">GetInvoiceMaker</a>.</p>
